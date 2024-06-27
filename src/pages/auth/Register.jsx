@@ -226,7 +226,11 @@ export default function RegisterPage() {
                     onBlur={handleBlur}
                     error={touched.lookingFor && Boolean(errors.lookingFor)}
                     helperText={touched.lookingFor && errors.lookingFor}
-                  />
+                  >
+                    <MenuItem value="">Select your Preference</MenuItem>
+                    <MenuItem value="Male">bride</MenuItem>
+                    <MenuItem value="Female">Groom</MenuItem>
+                  </TextField>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField

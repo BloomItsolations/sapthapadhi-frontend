@@ -3,7 +3,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { TextField, MenuItem, Button } from "@mui/material";
-
+import { country_list } from "../../_mock/country";
 const Header = () => {
   const [lookingFor, setLookingFor] = React.useState("");
   const [age, setAge] = React.useState("");
@@ -116,8 +116,9 @@ const Header = () => {
           onChange={handleChange}
           variant="outlined"
         >
-          <MenuItem value="Male">Male</MenuItem>
-          <MenuItem value="Female">Female</MenuItem>
+          <MenuItem value="">Select your Preference</MenuItem>
+          <MenuItem value="Male">bride</MenuItem>
+          <MenuItem value="Female">Groom</MenuItem>
         </TextField>
         <TextField
           fullWidth
@@ -140,10 +141,22 @@ const Header = () => {
           onChange={handleChange}
           variant="outlined"
         >
-          <MenuItem value="Christianity">Christianity</MenuItem>
-          <MenuItem value="Islam">Islam</MenuItem>
-          <MenuItem value="Hinduism">Hinduism</MenuItem>
-          <MenuItem value="Buddhism">Buddhism</MenuItem>
+          <MenuItem value="">{"Select Your Religion "}</MenuItem>
+          {[
+            "Hinduism",
+            "Sikhism",
+            "Christianity",
+            "Jainism",
+            "Islam",
+            "Judaism",
+            "Buddhism",
+            "Shinto",
+            "Confucianism",
+            "Zoroastrianism",
+            "Others",
+          ].map((item) => (
+            <MenuItem value={item}>{item}</MenuItem>
+          ))}
         </TextField>
         <TextField
           fullWidth
@@ -153,10 +166,10 @@ const Header = () => {
           onChange={handleChange}
           variant="outlined"
         >
-          <MenuItem value="New York">New York</MenuItem>
-          <MenuItem value="Los Angeles">Los Angeles</MenuItem>
-          <MenuItem value="Chicago">Chicago</MenuItem>
-          <MenuItem value="Houston">Houston</MenuItem>
+          <MenuItem value="">{"Select Your Country "}</MenuItem>
+          {country_list?.map((item) => (
+            <MenuItem value={item}>{item}</MenuItem>
+          ))}
         </TextField>
 
         <Button
