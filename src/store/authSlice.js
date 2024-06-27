@@ -14,11 +14,7 @@ export const userRegister = createAsyncThunk(
         },
       };
       // Make request to the backend
-      const { data } = await RestApi.post(
-        "/auth/user/create",
-        formData,
-        config
-      );
+      const { data } = await RestApi.post("auth/user/create", formData, config);
       return data;
     } catch (error) {
       // Return custom error message from the API if any

@@ -4,63 +4,50 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import LoadingButton from "@mui/lab/LoadingButton";
 import Logo from "../../components/logo";
 import { alpha, useTheme } from "@mui/material/styles";
 import Swal from "sweetalert2";
+import { country_list } from ".././../_mock/country";
 import {
   Box,
   Card,
   Stack,
+  Button,
   TextField,
   Typography,
-  IconButton,
-  CircularProgress,
   Grid,
-  FormControlLabel,
-  Checkbox,
-  Dialog,
-  DialogTitle,
-  DialogContent,
+  IconButton,
+  InputAdornment,
+  MenuItem,
 } from "@mui/material";
-import { useRouter } from "../../routes/hooks";
-import { useMediaQuery } from "@mui/material";
 
+import Iconify from "../../components/iconify";
 import { bgGradient } from "../../theme/css";
 
 import { clearError, userRegister } from "../../store/authSlice";
-import { Close } from "@mui/icons-material";
 
 export default function RegisterPage() {
   const theme = useTheme();
   const dispatch = useDispatch();
-  const router = useRouter();
-  const [agreedToTerms, setAgreedToTerms] = useState(false);
-  const [user, setUser] = useState(null);
-
-  // For Dialog
-  const [open, setOpen] = useState(false);
-  // Access the auth state from the Redux store
+  const [showPassword, setShowPassword] = useState(false);
   const { loading, error, success } = useSelector((state) => state.auth);
 
   const formik = useFormik({
     initialValues: {
-      referralKey: "",
-      proposerKey: "",
-      name: "",
+      firstName: "",
+      lastName: "",
       phone: "",
       email: "",
-      paymentDetails: {
-        phonepay: "",
-        googlePaly: "",
-        paytm: "",
-      },
+      lookingFor: "",
+      dateOfBirth: "",
+      religion: "",
+      country: "",
+      password: "",
     },
 
     validationSchema: Yup.object({
-      referralKey: Yup.string().required("SponsorId is required"),
-      proposerKey: Yup.string().required("proposerId is required"),
-      name: Yup.string().required("Name is required"),
+      firstName: Yup.string().required("Frist Name is required"),
+      lastName: Yup.string().required("Last Name is required"),
       email: Yup.string().email("Invalid email address"),
       phone: Yup.string()
         .required("Phone is required")
@@ -68,11 +55,11 @@ export default function RegisterPage() {
           /^[6-9]\d{9}$/,
           "Phone number must be exactly 10 digits and start with 6, 7, 8, or 9"
         ),
-      paymentDetails: Yup.object().shape({
-        phonepay: Yup.string().required(" Phone pe number is required"),
-        googlePaly: Yup.string().required("google pe number is required"),
-        paytm: Yup.string().required("paytm number is required"),
-      }),
+      lookingFor: Yup.string().required("Looking For  is required"),
+      dateOfBirth: Yup.string().required("Date Of Birth is required"),
+      religion: Yup.string().required("religion is required"),
+      country: Yup.string().required("Country is required"),
+      password: Yup.string().required("Password is required"),
     }),
 
     onSubmit: (values) => {
@@ -80,8 +67,6 @@ export default function RegisterPage() {
       dispatch(userRegister(values))
         .then((res) => {
           if (!res.error) {
-            setUser(res.payload.user);
-            openDialog();
             dispatch(clearError());
           } else {
             Swal.fire({
@@ -103,20 +88,6 @@ export default function RegisterPage() {
 
   const { values, handleChange, handleSubmit, handleBlur, touched, errors } =
     formik;
-
-  const handleTermsChange = () => {
-    setAgreedToTerms(agreedToTerms);
-  };
-
-  const isMobile = useMediaQuery("(max-width:768px)");
-
-  const openDialog = () => {
-    setOpen(true);
-  };
-  const closeDialog = () => {
-    setOpen(false);
-    router.push("/login");
-  };
 
   return (
     <>
@@ -145,7 +116,7 @@ export default function RegisterPage() {
             sx={{
               p: 4,
               width: 1,
-              maxWidth: 750,
+              maxWidth: 1024,
             }}
           >
             <Box sx={{ textAlign: "center", margin: 0, padding: 0 }}>
@@ -158,7 +129,7 @@ export default function RegisterPage() {
               textAlign={"center"}
               sx={{ color: (theme) => theme.palette.primary.main }}
             >
-              Register Yourself to sapthapadhi
+              Create a Matrimony Profile
             </Typography>
 
             <Box
@@ -183,61 +154,41 @@ export default function RegisterPage() {
                 <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
-                    size="small"
+                    size="medium"
                     InputLabelProps={{ shrink: true }}
-                    name="referralKey"
-                    label={isMobile ? "" : "Sponsor ID (First Upline User)"}
-                    placeholder={
-                      isMobile ? "Sponsor ID (First Upline User)" : ""
-                    }
-                    autoComplete="current-sponsor-id"
-                    value={values.referralKey}
+                    name="firstName"
+                    label="First Name"
+                    autoComplete="firstName"
+                    value={values.firstName}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    error={touched.referralKey && Boolean(errors.referralKey)}
-                    helperText={touched.referralKey && errors.referralKey}
+                    error={touched.firstName && Boolean(errors.firstName)}
+                    helperText={touched.firstName && errors.firstName}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
-                    size="small"
+                    size="medium"
                     InputLabelProps={{ shrink: true }}
-                    name="proposerKey"
-                    label={isMobile ? "" : "Proposer ID"}
-                    placeholder={isMobile ? "Proposer ID" : ""}
-                    autoComplete="current-proposer-id"
-                    value={values.proposerKey}
+                    name="lastName"
+                    label="Last Name"
+                    autoComplete="lastName"
+                    value={values.lastName}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    error={touched.proposerKey && Boolean(errors.proposerKey)}
-                    helperText={touched.proposerKey && errors.proposerKey}
+                    error={touched.lastName && Boolean(errors.lastName)}
+                    helperText={touched.lastName && errors.lastName}
                   />
                 </Grid>
-                <Grid item xs={12}>
+
+                <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
-                    size="small"
-                    InputLabelProps={{ shrink: true }}
-                    name="name"
-                    label={isMobile ? "" : "Your Name"}
-                    placeholder={isMobile ? "Your Name" : ""}
-                    autoComplete="current-name"
-                    value={values.name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={touched.name && Boolean(errors.name)}
-                    helperText={touched.name && errors.name}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    size="small"
+                    size="medium"
                     InputLabelProps={{ shrink: true }}
                     name="email"
-                    label={isMobile ? "" : "Email"}
-                    placeholder={isMobile ? "Email" : ""}
+                    label={"Email"}
                     autoComplete="current-email"
                     value={values.email}
                     onChange={handleChange}
@@ -246,14 +197,13 @@ export default function RegisterPage() {
                     helperText={touched.email && errors.email}
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
-                    size="small"
+                    size="medium"
                     InputLabelProps={{ shrink: true }}
                     name="phone"
-                    label={isMobile ? "" : "Mobile Number"}
-                    placeholder={isMobile ? "Mobile Number" : ""}
+                    label={"Phone Number"}
                     autoComplete="current-mobile-number"
                     value={values.phone}
                     onChange={handleChange}
@@ -263,127 +213,150 @@ export default function RegisterPage() {
                   />
                 </Grid>
 
-                {/* paymentDetails Fields */}
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    size="medium"
+                    InputLabelProps={{ shrink: true }}
+                    name="lookingFor"
+                    label="Looking For"
+                    autoComplete="lookingFor"
+                    value={values.lookingFor}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.lookingFor && Boolean(errors.lookingFor)}
+                    helperText={touched.lookingFor && errors.lookingFor}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    size="medium"
+                    InputLabelProps={{ shrink: true }}
+                    name="dateOfBirth"
+                    label={"Date Of Birth"}
+                    autoComplete="tel"
+                    value={values.dateOfBirth}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.dateOfBirth && Boolean(errors.dateOfBirth)}
+                    helperText={touched.dateOfBirth && errors.dateOfBirth}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    select
+                    size="medium"
+                    InputLabelProps={{ shrink: true }}
+                    name="religion"
+                    label={"Religion"}
+                    autoComplete="religion"
+                    value={values.religion}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    defaultValue={""}
+                    error={touched.religion && Boolean(errors.religion)}
+                    helperText={touched.religion && errors.religion}
+                  >
+                    <MenuItem value="">{"Select Your Religion "}</MenuItem>
+                    {[
+                      "Hinduism",
+                      "Sikhism",
+                      "Christianity",
+                      "Jainism",
+                      "Islam",
+                      "Judaism",
+                      "Buddhism",
+                      "Shinto",
+                      "Confucianism",
+                      "Zoroastrianism",
+                      "Others",
+                    ].map((item) => (
+                      <MenuItem value={item}>{item}</MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    size="medium"
+                    select
+                    InputLabelProps={{ shrink: true }}
+                    name="country"
+                    label={"Country"}
+                    autoComplete="country"
+                    value={values.country}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.country && Boolean(errors.country)}
+                    helperText={touched.country && errors.country}
+                  >
+                    <MenuItem value="">{"Select Your Country "}</MenuItem>
+                    {country_list?.map((item) => (
+                      <MenuItem value={item}>{item}</MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    size="small"
+                    size="medium"
                     InputLabelProps={{ shrink: true }}
-                    name="paymentDetails.phonepay"
-                    label={isMobile ? "" : "PhonePe Number"}
-                    placeholder={isMobile ? "PhonePe Number" : ""}
-                    autoComplete="tel"
-                    value={values.paymentDetails.phonepay}
+                    name="password"
+                    label={"Password"}
+                    placeholder="Password"
+                    value={values.password}
                     onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={
-                      touched.paymentDetails &&
-                      touched.paymentDetails.phonepay &&
-                      Boolean(errors.paymentDetails?.phonepay)
-                    }
-                    helperText={
-                      touched.paymentDetails &&
-                      touched.paymentDetails.phonepay &&
-                      errors.paymentDetails?.phonepay
-                    }
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    fullWidth
-                    size="small"
-                    InputLabelProps={{ shrink: true }}
-                    name="paymentDetails.googlePaly"
-                    label={isMobile ? "" : "GooglePe Number"}
-                    placeholder={isMobile ? "GooglePe Number" : ""}
-                    autoComplete="tel"
-                    value={values.paymentDetails.googlePaly}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={
-                      touched.paymentDetails &&
-                      touched.paymentDetails.googlePaly &&
-                      Boolean(errors.paymentDetails?.googlePaly)
-                    }
-                    helperText={
-                      touched.paymentDetails &&
-                      touched.paymentDetails.googlePaly &&
-                      errors.paymentDetails?.googlePaly
-                    }
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    fullWidth
-                    size="small"
-                    InputLabelProps={{ shrink: true }}
-                    name="paymentDetails.paytm"
-                    label={isMobile ? "" : "Paytm Number"}
-                    placeholder={isMobile ? "Paytm Number" : ""}
-                    autoComplete="tel"
-                    value={values.paymentDetails.paytm}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={
-                      touched.paymentDetails &&
-                      touched.paymentDetails.paytm &&
-                      Boolean(errors.paymentDetails?.paytm)
-                    }
-                    helperText={
-                      touched.paymentDetails &&
-                      touched.paymentDetails.paytm &&
-                      errors.paymentDetails?.paytm
-                    }
-                  />
-                </Grid>
-              </Grid>
-
-              {/* Checkbox and Submit Button */}
-              <Grid item xs={8}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      onChange={handleTermsChange}
-                      defaultChecked={agreedToTerms}
-                    />
-                  }
-                  label="I agree to the terms and conditions"
-                />
-              </Grid>
-
-              <Box marginTop={3}>
-                {loading ? (
-                  <LoadingButton
-                    fullWidth
-                    size="large"
-                    type="submit"
-                    variant="contained"
-                    color="inherit"
-                    loading={loading}
-                    loadingPosition="start"
-                    sx={{ backgroundColor: "#5e17eb" }}
-                    startIcon={<CircularProgress size={20} />}
-                  >
-                    Submitting...
-                  </LoadingButton>
-                ) : (
-                  <LoadingButton
-                    fullWidth
-                    size="large"
-                    type="submit"
-                    variant="contained"
-                    color="inherit"
                     sx={{
-                      backgroundColor: "#5e17eb",
-                      "&:hover": {
-                        backgroundColor: "#5e17eb", // specify the hover background color here
-                      },
+                      input: { color: theme.palette.text.primary },
+                      color: theme.palette.text.primary,
                     }}
-                  >
-                    Register
-                  </LoadingButton>
-                )}
-              </Box>
+                    onBlur={handleBlur}
+                    autoComplete="current-password"
+                    type={showPassword ? "Text" : "password"}
+                    error={touched.password && Boolean(errors.password)}
+                    helperText={touched.password && errors.password}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            onClick={() => setShowPassword(!showPassword)}
+                            edge="end"
+                          >
+                            <Iconify
+                              icon={
+                                showPassword
+                                  ? "eva:eye-fill"
+                                  : "eva:eye-off-fill"
+                              }
+                            />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </Grid>
+              </Grid>
+
+              <Typography>I agree to the terms and conditions</Typography>
+              <Button
+                sx={{
+                  color: theme.palette.common.white,
+                  backgroundColor: theme.palette.primary.main,
+                  "&:hover": {
+                    backgroundColor: theme.palette.primary.main,
+                  },
+                }}
+                fullWidth
+                size="large"
+                type="submit"
+                variant="contained"
+                color="inherit"
+                disabled={loading}
+              >
+                {loading ? "loading ..." : "Join Now"}
+              </Button>
             </Box>
 
             {error ? (
@@ -408,44 +381,6 @@ export default function RegisterPage() {
           </Card>
         </Stack>
       </Box>
-
-      {/* Model */}
-
-      <Dialog open={open} onClose={closeDialog}>
-        <DialogTitle>
-          <Box sx={{ py: 4, display: "flex", justifyContent: "space-between" }}>
-            {/* <Logo /> */}
-            <IconButton onClick={closeDialog}>
-              <Close sx={{ color: "red" }} />
-            </IconButton>
-          </Box>
-          Welcome to the sapthapadhi Family!
-        </DialogTitle>
-        <DialogContent sx={{ width: "600px", height: "200px" }}>
-          <Box>
-            <Typography variant="h6">
-              Your successful registration details:
-            </Typography>
-
-            <Typography>
-              Customer Registration Number: <strong>{values.phone}</strong>{" "}
-            </Typography>
-            <Typography>
-              Customer Registration Name: <strong>{values.name}</strong>{" "}
-            </Typography>
-            {user && (
-              <Box>
-                <Typography>
-                  Your UserId is: <strong>{user.phone}</strong>{" "}
-                </Typography>
-                <Typography>
-                  Your Password is: <strong>{user.password}</strong>{" "}
-                </Typography>
-              </Box>
-            )}
-          </Box>
-        </DialogContent>
-      </Dialog>
     </>
   );
 }
