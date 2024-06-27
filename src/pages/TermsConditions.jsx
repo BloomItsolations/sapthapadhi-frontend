@@ -52,17 +52,17 @@ const TermsConditions = () => {
 
       <Typography variant="p" fontSize={"18px"} lineHeight={"1.7"} paragraph>
         3. The Website and App and its original content, features, and
-        functionality are owned by My welth help solution and are protected by international
-        copyright, trademark, patent, trade secret, and other intellectual
-        property or proprietary rights laws.
+        functionality are owned by sapthapadhi and are protected by
+        international copyright, trademark, patent, trade secret, and other
+        intellectual property or proprietary rights laws.
       </Typography>
       <Typography variant="p" fontWeight={"500"} fontSize={"23px"}>
         Limitation of Liability
       </Typography>
 
       <Typography variant="p" fontSize={"18px"} lineHeight={"1.7"} paragraph>
-        4. In no event shall My welth help solution, nor its directors, employees, partners,
-        agents, suppliers, or affiliates, be liable for any indirect,
+        4. In no event shall sapthapadhi, nor its directors, employees,
+        partners, agents, suppliers, or affiliates, be liable for any indirect,
         incidental, special, consequential, or punitive damages, including
         without limitation, loss of profits, data, use, goodwill, or other
         intangible losses, resulting from (i) your access to or use of or
@@ -93,12 +93,16 @@ const TermsConditions = () => {
       </Typography>
       <Typography variant="p" fontSize={"18px"} lineHeight={"1.7"} paragraph>
         By email:{" "}
-        <Link href="mailto:support@mywelthhelpsolution.in" target={"_blank"}>support@My welth help solution.in</Link>
+        <Link href="mailto:support@mywelthhelpsolution.in" target={"_blank"}>
+          support@sapthapadhi.in
+        </Link>
       </Typography>
 
       <Typography variant="p" fontSize={"18px"} lineHeight={"1.7"} paragraph>
         By visiting our website:{" "}
-        <Link href="www.mywelthhelpsolution.in" target={"_blank"}>www.My welth help solution.in</Link>
+        <Link href="www.mywelthhelpsolution.in" target={"_blank"}>
+          www.sapthapadhi.in
+        </Link>
       </Typography>
 
       <Typography variant="p" fontWeight={"500"} fontSize={"23px"}>
@@ -106,7 +110,7 @@ const TermsConditions = () => {
       </Typography>
 
       <Typography variant="p" fontSize={"18px"} lineHeight={"1.7"} paragraph>
-        By using the My welth help solution Website and App, you acknowledge that you have
+        By using the sapthapadhi Website and App, you acknowledge that you have
         read and understood these Terms and agree to be bound by them.
       </Typography>
     </Box>

@@ -26,7 +26,7 @@ const MENU_OPTIONS = [
 
 export default function AccountPopover() {
   const router = useRouter();
-  const { userInfo } = useSelector((state) => state.auth);
+  const { authInfo } = useSelector((state) => state.auth);
   const [open, setOpen] = useState(null);
   const dispatch = useDispatch();
   const handleOpen = (event) => {
@@ -56,9 +56,9 @@ export default function AccountPopover() {
           }),
         }}
       >
-        {userInfo?.profileImage === null ? (
+        {authInfo?.profileImage === null ? (
           <Avatar
-            // alt={userInfo.name}
+            // alt={authInfo.name}
             sx={{
               width: 36,
               height: 36,
@@ -66,11 +66,11 @@ export default function AccountPopover() {
                 `solid 2px ${theme.palette.background.default}`,
             }}
           >
-            {userInfo.name.charAt(0).toUpperCase()}
+            {authInfo.name.charAt(0).toUpperCase()}
           </Avatar>
         ) : (
           <Avatar
-            // alt={userInfo.name}
+            // alt={authInfo.name}
             key={"alt"}
             sx={{
               width: 36,
@@ -78,7 +78,7 @@ export default function AccountPopover() {
               border: (theme) =>
                 `solid 2px ${theme.palette.background.default}`,
             }}
-            // src={`https://api.DonorsClub.in/${userInfo?.profileImage[0]?.path}`}
+            // src={`https://api.DonorsClub.in/${authInfo?.profileImage[0]?.path}`}
           ></Avatar>
         )}
       </IconButton>
@@ -100,10 +100,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2 }}>
           <Typography variant="subtitle2" noWrap>
-            {userInfo?.name}
+            {authInfo?.name}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
-            {userInfo?.phone}
+            {authInfo?.phone}
           </Typography>
         </Box>
 

@@ -120,7 +120,7 @@ const Header = () => {
                 borderRadius: 6,
               }}
             >
-              GET Started
+              Join Now
             </Button>
           </Link>
         </Box>
@@ -207,7 +207,7 @@ const Header = () => {
                     borderRadius: 6,
                   }}
                 >
-                  GET Started
+                  Join Now
                 </Button>
               </Link>
             </MenuItem>

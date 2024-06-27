@@ -48,8 +48,8 @@ const Footer = () => {
             <Logo />
 
             <Typography variant="body2">
-              My welth help solution excels in direct selling with top-notch
-              products, and online services.
+              sapthapadhi excels in direct selling with top-notch products, and
+              online services.
             </Typography>
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
@@ -193,7 +193,7 @@ const Footer = () => {
           }}
         >
           <Typography>
-            &copy; {cYear} My welth help solution. All rights reserved.
+            &copy; {cYear} sapthapadhi. All rights reserved.
           </Typography>
         </Box>
       </Container>

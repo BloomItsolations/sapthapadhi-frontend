@@ -4,13 +4,12 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useDispatch, useSelector } from "react-redux";
-import { useMediaQuery } from "@mui/material";
 import Logo from "../../components/logo";
 import { alpha, useTheme } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
 import {
   Box,
-  Card,
+  Grid,
   Stack,
   Button,
   TextField,
@@ -74,176 +73,202 @@ export default function LoginPage() {
 
   const { values, handleChange, handleSubmit, handleBlur, touched, errors } =
     formik;
-  const isMobile = useMediaQuery("(max-width:768px)");
 
   return (
     <>
       <Helmet>
-        <title> Login | My welth help solution </title>
+        <title> Login | sapthapadhi </title>
       </Helmet>
-      <Box
+      <Grid
+        container
         sx={{
-          ...bgGradient({
-            color: alpha(theme.palette.background.default, 0.9),
-            imgUrl: "/assets/background/overlay_4.jpg",
-          }),
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
           minHeight: "100vh",
-          padding: 1,
           margin: 0,
+          backgroundColor: theme.palette.background.paper,
         }}
       >
-        <Stack
-          alignItems="center"
-          justifyContent="center"
-          sx={{ height: 1, width: 1 }}
-        >
-          <Card
+        <Grid item xs={0} sm={6} md={7}>
+          <Box
             sx={{
-              p: 4,
+              ...bgGradient({
+                color: alpha(theme.palette.background.default, 0.1),
+                imgUrl: "/assets/background/image1.png",
+              }),
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100vh",
+              margin: 0,
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={5}>
+          <Stack
+            alignItems="center"
+            justifyContent="center"
+            sx={{
+              height: 1,
               width: 1,
-              maxWidth: 400,
-              textAlign: "center",
+              backgroundColor: theme.palette.background.paper,
             }}
           >
-            <Logo />
-            <Typography
-              variant="h4"
-              paddingY={1}
-              textAlign={"center"}
-              sx={{ color: (theme) => theme.palette.primary.main }}
-            >
-              Sign in to My welth help solution
-            </Typography>
-
             <Box
               sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: 1,
+                p: 4,
+                width: 1,
+                maxWidth: 400,
+                textAlign: "center",
               }}
             >
-              <Typography variant="body2" textAlign="center">
-                Don’t have an account?{" "}
+              <Logo />
+              <Typography
+                variant="h4"
+                paddingY={1}
+                textAlign={"center"}
+                sx={{ color: (theme) => theme.palette.primary.main }}
+              >
+                Sign in to sapthapadhi
               </Typography>
-              <Link to="/register" variant="subtitle2" className="text-red-600">
-                Get started.
-              </Link>
-            </Box>
 
-            <Box component="form" onSubmit={handleSubmit}>
-              <Stack spacing={3} marginY={4}>
-                <TextField
-                  InputLabelProps={{ shrink: true }}
-                  name="phone"
-                  sx={{
-                    input: { color: theme.palette.text.primary },
-                    color: theme.palette.text.primary,
-                  }}
-                  label={isMobile ? "" : "Mobile number"}
-                  placeholder="Mobile Number"
-                  autoComplete="tel"
-                  value={values.phone}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={touched.phone && Boolean(errors.phone)}
-                  helperText={touched.phone && errors.phone}
-                />
-
-                <TextField
-                  InputLabelProps={{ shrink: true }}
-                  name="password"
-                  label={isMobile ? "" : "Password"}
-                  placeholder="Password"
-                  value={values.password}
-                  onChange={handleChange}
-                  sx={{
-                    input: { color: theme.palette.text.primary },
-                    color: theme.palette.text.primary,
-                  }}
-                  onBlur={handleBlur}
-                  autoComplete="current-password"
-                  type={showPassword ? "Text" : "password"}
-                  error={touched.password && Boolean(errors.password)}
-                  helperText={touched.password && errors.password}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          onClick={() => setShowPassword(!showPassword)}
-                          edge="end"
-                        >
-                          <Iconify
-                            icon={
-                              showPassword ? "eva:eye-fill" : "eva:eye-off-fill"
-                            }
-                          />
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </Stack>
-
-              <Button
+              <Box
                 sx={{
-                  color: theme.palette.common.white,
-                  backgroundColor: theme.palette.primary.main,
-                  "&:hover": {
-                    backgroundColor: theme.palette.primary.main,
-                  },
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  gap: 1,
                 }}
-                fullWidth
-                size="large"
-                type="submit"
-                variant="contained"
-                color="inherit"
-                disabled={loading}
               >
-                {loading ? "loading ..." : "Login"}
-              </Button>
-
-              <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="flex-end"
-                sx={{ my: 2 }}
-              >
-                <Link
-                  to="/updatePassword"
-                  variant="subtitle2"
-                  underline="hover"
+                <Typography
+                  variant="body2"
+                  textAlign="center"
+                  sx={{ color: theme.palette.text.primary }}
                 >
-                  Forgot password?
+                  Don’t have an account?{" "}
+                </Typography>
+                <Link to="/register" variant="subtitle2">
+                  <Typography
+                    variant="body1"
+                    textAlign="center"
+                    sx={{ color: theme.palette.secondary.main }}
+                  >
+                    Join Now.
+                  </Typography>
                 </Link>
-              </Stack>
+              </Box>
+
+              <Box component="form" onSubmit={handleSubmit}>
+                <Stack spacing={3} marginY={4}>
+                  <TextField
+                    InputLabelProps={{ shrink: true }}
+                    name="phone"
+                    sx={{
+                      input: { color: theme.palette.text.primary },
+                      color: theme.palette.text.primary,
+                    }}
+                    label={"Mobile number"}
+                    placeholder="Mobile Number"
+                    autoComplete="tel"
+                    value={values.phone}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.phone && Boolean(errors.phone)}
+                    helperText={touched.phone && errors.phone}
+                  />
+
+                  <TextField
+                    InputLabelProps={{ shrink: true }}
+                    name="password"
+                    label={"Password"}
+                    placeholder="Password"
+                    value={values.password}
+                    onChange={handleChange}
+                    sx={{
+                      input: { color: theme.palette.text.primary },
+                      color: theme.palette.text.primary,
+                    }}
+                    onBlur={handleBlur}
+                    autoComplete="current-password"
+                    type={showPassword ? "Text" : "password"}
+                    error={touched.password && Boolean(errors.password)}
+                    helperText={touched.password && errors.password}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            onClick={() => setShowPassword(!showPassword)}
+                            edge="end"
+                          >
+                            <Iconify
+                              icon={
+                                showPassword
+                                  ? "eva:eye-fill"
+                                  : "eva:eye-off-fill"
+                              }
+                            />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </Stack>
+
+                <Button
+                  sx={{
+                    color: theme.palette.common.white,
+                    backgroundColor: theme.palette.primary.main,
+                    "&:hover": {
+                      backgroundColor: theme.palette.primary.main,
+                    },
+                  }}
+                  fullWidth
+                  size="large"
+                  type="submit"
+                  variant="contained"
+                  color="inherit"
+                  disabled={loading}
+                >
+                  {loading ? "loading ..." : "Login"}
+                </Button>
+
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="flex-end"
+                  sx={{ my: 2 }}
+                >
+                  <Link
+                    to="/updatePassword"
+                    variant="subtitle2"
+                    underline="hover"
+                  >
+                    Forgot password?
+                  </Link>
+                </Stack>
+              </Box>
+              {error ? (
+                <Typography
+                  variant="body1"
+                  color="error"
+                  sx={{ my: 2 }}
+                  textAlign="center"
+                >
+                  Error : {error}
+                </Typography>
+              ) : success ? (
+                <Typography
+                  variant="body1"
+                  color="primary"
+                  sx={{ my: 2 }}
+                  textAlign="center"
+                >
+                  {success}.
+                </Typography>
+              ) : null}
             </Box>
-            {error ? (
-              <Typography
-                variant="body1"
-                color="error"
-                sx={{ my: 2 }}
-                textAlign="center"
-              >
-                Error : {error}
-              </Typography>
-            ) : success ? (
-              <Typography
-                variant="body1"
-                color="primary"
-                sx={{ my: 2 }}
-                textAlign="center"
-              >
-                {success}.
-              </Typography>
-            ) : null}
-          </Card>
-        </Stack>
-      </Box>
+          </Stack>
+        </Grid>
+      </Grid>
     </>
   );
 }

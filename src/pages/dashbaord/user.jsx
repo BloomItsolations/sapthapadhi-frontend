@@ -9,7 +9,7 @@ export default function UserPage() {
   return (
     <>
       <Helmet>
-        <title> Teams | My welth help solution </title>
+        <title> Teams | sapthapadhi </title>
       </Helmet>
       <>
         <Box sx={{ height: "65vh", width: "100%" }}>

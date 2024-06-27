@@ -24,11 +24,11 @@ const PrivacyPolicy = () => {
       </Typography>
 
       <Typography variant="p" fontSize={"18px"} lineHeight={"1.7"} paragraph>
-        My welth help solution Online Service Pvt Ltd. ("My welth help solution," "we," "us," or "our")
-        operates the My welth help solution website (the "Website") and My welth help solution mobile
-        application available on the Play Store (the "App"). This Privacy Policy
-        outlines our practices regarding the collection, use, and disclosure of
-        personal information when you use our Website and App.
+        sapthapadhi Online Service Pvt Ltd. ("sapthapadhi," "we," "us," or
+        "our") operates the sapthapadhi website (the "Website") and sapthapadhi
+        mobile application available on the Play Store (the "App"). This Privacy
+        Policy outlines our practices regarding the collection, use, and
+        disclosure of personal information when you use our Website and App.
       </Typography>
 
       <Typography variant="p" fontSize={"18px"} lineHeight={"1.7"} paragraph>
@@ -119,7 +119,7 @@ const PrivacyPolicy = () => {
       <Typography variant="p" fontSize={"18px"} lineHeight={"1.7"} paragraph>
         <ul>
           <li>Comply with a legal obligation</li>
-          <li>Protect and defend the rights or property of My welth help solution</li>
+          <li>Protect and defend the rights or property of sapthapadhi</li>
           <li>
             Prevent or investigate possible wrongdoing in connection with our
             Website and App
@@ -169,11 +169,16 @@ const PrivacyPolicy = () => {
 
       <Typography>
         By email:
-        <Link href="mailto:support@mywelthhelpsolution.in" target={"_blank"}> support@My welth help solution.in </Link>
+        <Link href="mailto:support@mywelthhelpsolution.in" target={"_blank"}>
+          {" "}
+          support@sapthapadhi.in{" "}
+        </Link>
       </Typography>
       <Typography variant="p" fontSize={"18px"} lineHeight={"1.7"} paragraph>
         By visiting our website:{" "}
-        <Link href="https://www.mywelthhelpsolution.in" target={"_blank"}>www.Mywelthhelpsolution.in</Link>
+        <Link href="https://www.mywelthhelpsolution.in" target={"_blank"}>
+          www.Mywelthhelpsolution.in
+        </Link>
       </Typography>
 
       <Typography variant="p" fontWeight={"500"} fontSize={"23px"}>
@@ -181,7 +186,7 @@ const PrivacyPolicy = () => {
       </Typography>
 
       <Typography variant="p" fontSize={"18px"} lineHeight={"1.7"} paragraph>
-        By using the My welth help solution Website and App, you acknowledge that you have
+        By using the sapthapadhi Website and App, you acknowledge that you have
         read and understood these Terms and agree to be bound by them.
       </Typography>
     </Box>

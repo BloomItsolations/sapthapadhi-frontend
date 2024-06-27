@@ -41,12 +41,10 @@ export const userLogin = createAsyncThunk(
         },
       };
       // Make request to the backend
-      const { data } = await RestApi.post("/auth/user/login", formData, config);
+      const { data } = await RestApi.post("/auth/userLogin", formData, config);
 
       // Store user's token in local storage
-      sessionStorage.setItem("userInfo", JSON.stringify(data?.userDetails));
-
-      console.log(data);
+      sessionStorage.setItem("authInfo", JSON.stringify(data?.userDetails));
       return data?.userDetails;
     } catch (error) {
       // Return custom error message from the API if any
@@ -63,11 +61,11 @@ export const updateUserDetails = createAsyncThunk(
   "auth/updateUserDetails",
   async (formData, { getState, rejectWithValue }) => {
     try {
-      const { userInfo } = getState().auth;
+      const { authInfo } = getState().auth;
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${userInfo.token}`,
+          Authorization: `Bearer ${authInfo.token}`,
         },
       };
       // Make request to the backend
@@ -93,11 +91,11 @@ export const updateKycDetails = createAsyncThunk(
   async (formData, { getState, rejectWithValue }) => {
     console.log(formData);
     try {
-      const { userInfo } = getState().auth;
+      const { authInfo } = getState().auth;
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${userInfo.token}`,
+          Authorization: `Bearer ${authInfo.token}`,
         },
       };
       // Make request to the backend
@@ -121,17 +119,17 @@ export const userDetailsById = createAsyncThunk(
   "auth/userDetailsById",
   async (_, { getState, rejectWithValue }) => {
     try {
-      const { userInfo } = getState().auth;
+      const { authInfo } = getState().auth;
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${userInfo.token}`,
+          Authorization: `Bearer ${authInfo.token}`,
         },
       };
 
       // Make request to the backend
       const { data } = await RestApi.get("/app/userDetailsById", config);
-      sessionStorage.setItem("userInfo", JSON.stringify(data?.userDetails));
+      sessionStorage.setItem("authInfo", JSON.stringify(data?.userDetails));
       return data?.userDetails;
     } catch (error) {
       // Return custom error message from the API if any
@@ -188,8 +186,8 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     loading: false,
-    userInfo: sessionStorage.getItem("userInfo")
-      ? JSON.parse(sessionStorage.getItem("userInfo"))
+    authInfo: sessionStorage.getItem("authInfo")
+      ? JSON.parse(sessionStorage.getItem("authInfo"))
       : null,
     sponserDetali: null,
     error: null,
@@ -201,9 +199,9 @@ const authSlice = createSlice({
       state.error = null;
     },
     logout: (state) => {
-      sessionStorage.removeItem("userInfo"); // Deletes token from storage
+      sessionStorage.removeItem("authInfo"); // Deletes token from storage
       state.loading = false;
-      state.userInfo = null;
+      state.authInfo = null;
       state.error = null;
       state.success = null;
     },
@@ -217,7 +215,7 @@ const authSlice = createSlice({
       })
       .addCase(userLogin.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.userInfo = payload;
+        state.authInfo = payload;
         state.success = true;
       })
       .addCase(userLogin.rejected, (state, { payload }) => {
@@ -231,7 +229,7 @@ const authSlice = createSlice({
       })
       .addCase(userDetailsById.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.userInfo = payload;
+        state.authInfo = payload;
         state.success = true;
       })
       .addCase(userDetailsById.rejected, (state, { payload }) => {

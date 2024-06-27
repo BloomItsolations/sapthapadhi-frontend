@@ -30,7 +30,7 @@ const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
 
 export default function App() {
   useScrollToTop();
-  const { userInfo } = useSelector((state) => state.auth);
+  const { authInfo } = useSelector((state) => state.auth);
 
   return (
     <>
@@ -73,7 +73,7 @@ export default function App() {
             </ProtectedRoute>
           }
         >
-          {userInfo !== null
+          {authInfo !== null
             ? appRoutes?.map((route) => (
                 <Route
                   key={uuidv()}

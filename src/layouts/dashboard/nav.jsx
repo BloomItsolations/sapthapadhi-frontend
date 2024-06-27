@@ -16,7 +16,7 @@ import Scrollbar from "../../components/scrollbar";
 import { NAV } from "./config-layout";
 
 const Nav = ({ openNav, onCloseNav }) => {
-  const { userInfo } = useSelector((state) => state.auth);
+  const { authInfo } = useSelector((state) => state.auth);
   const pathname = usePathname();
   const sidebarData = appRoutes;
   const upLg = useResponsive("up", "lg");
@@ -44,11 +44,11 @@ const Nav = ({ openNav, onCloseNav }) => {
       }}
     >
       <Typography variant="h6" sx={{ textTransform: "capitalize" }}>
-        {userInfo.name}
+        {authInfo.name}
       </Typography>
-      <Typography variant="h6">{userInfo?.phone}</Typography>
+      <Typography variant="h6">{authInfo?.phone}</Typography>
       <Typography variant="body2" sx={{ color: "primary.main", py: 2 }}>
-        ₹&nbsp;{userInfo?.walletBalance}
+        ₹&nbsp;{authInfo?.walletBalance}
       </Typography>
     </Box>
   );

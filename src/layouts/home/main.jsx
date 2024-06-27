@@ -11,7 +11,7 @@ export default function Main({ children }) {
     <Box
       component="main"
       sx={{
-        py: `${HEADER.H_DESKTOP}px`,
+        paddingTop: `${HEADER.H_DESKTOP}px`,
       }}
     >
       {children}

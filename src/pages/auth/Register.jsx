@@ -92,11 +92,11 @@ export default function RegisterPage() {
           }
         })
         .catch((err) => {
-                      Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "error occured while registering user. Please try again later.",
-            });
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "error occured while registering user. Please try again later.",
+          });
         });
     },
   });
@@ -121,7 +121,7 @@ export default function RegisterPage() {
   return (
     <>
       <Helmet>
-        <title> Register | My welth help solution </title>
+        <title> Register | sapthapadhi </title>
       </Helmet>
       <Box
         sx={{
@@ -158,7 +158,7 @@ export default function RegisterPage() {
               textAlign={"center"}
               sx={{ color: (theme) => theme.palette.primary.main }}
             >
-              Register Yourself to My welth help solution
+              Register Yourself to sapthapadhi
             </Typography>
 
             <Box
@@ -419,7 +419,7 @@ export default function RegisterPage() {
               <Close sx={{ color: "red" }} />
             </IconButton>
           </Box>
-          Welcome to the My welth help solution Family!
+          Welcome to the sapthapadhi Family!
         </DialogTitle>
         <DialogContent sx={{ width: "600px", height: "200px" }}>
           <Box>

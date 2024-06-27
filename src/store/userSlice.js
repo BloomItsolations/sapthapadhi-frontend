@@ -6,11 +6,11 @@ export const ListupLineUsers = createAsyncThunk(
   "user/upLineUsers",
   async (_, { getState, rejectWithValue }) => {
     try {
-      const { userInfo } = getState().auth;
+      const { authInfo } = getState().auth;
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${userInfo.token}`,
+          Authorization: `Bearer ${authInfo.token}`,
         },
       };
       // Make request to the backend
@@ -31,11 +31,11 @@ export const fetchAllUsers = createAsyncThunk(
   "user/fetchAllUsers",
   async (_, { getState, rejectWithValue }) => {
     try {
-      const { userInfo } = getState().auth;
+      const { authInfo } = getState().auth;
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${userInfo.token}`,
+          Authorization: `Bearer ${authInfo.token}`,
         },
       };
       // Make request to the backend
@@ -56,11 +56,11 @@ export const ListDownLineUsers = createAsyncThunk(
   "user/ListDownLineUsers",
   async (_, { getState, rejectWithValue }) => {
     try {
-      const { userInfo } = getState().auth;
+      const { authInfo } = getState().auth;
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${userInfo.token}`,
+          Authorization: `Bearer ${authInfo.token}`,
         },
       };
       // Make request to the backend
@@ -80,11 +80,11 @@ export const withdrawFund = createAsyncThunk(
   "user/withdrawFund",
   async (formData, { getState, rejectWithValue }) => {
     try {
-      const { userInfo } = getState().auth;
+      const { authInfo } = getState().auth;
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${userInfo.token}`,
+          Authorization: `Bearer ${authInfo.token}`,
         },
       };
       // Make request to the backend

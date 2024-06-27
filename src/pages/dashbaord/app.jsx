@@ -8,7 +8,7 @@ export default function AppPage() {
   return (
     <>
       <Helmet>
-        <title> Dashboard | My welth help solution </title>
+        <title> Dashboard | sapthapadhi </title>
       </Helmet>
 
       <AppView />

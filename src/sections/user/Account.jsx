@@ -24,18 +24,18 @@ export const Account = () => {
     state: "",
     pinCode: "",
   });
-  const { userInfo, error } = useSelector((state) => state.auth);
+  const { authInfo, error } = useSelector((state) => state.auth);
 
-  const profileImage = userInfo.profileImage && userInfo?.profileImage[0]?.path;
+  const profileImage = authInfo.profileImage && authInfo?.profileImage[0]?.path;
 
   useEffect(() => {
-    if (userInfo) {
-      setName(userInfo.name);
-      setEmail(userInfo.email);
-      setPhone(userInfo.phone);
+    if (authInfo) {
+      setName(authInfo.name);
+      setEmail(authInfo.email);
+      setPhone(authInfo.phone);
       setImage(profileImage);
     }
-  }, [profileImage, userInfo]);
+  }, [profileImage, authInfo]);
 
   useEffect(() => {
     dispatch(userDetailsById());
