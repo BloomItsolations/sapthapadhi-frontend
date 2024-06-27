@@ -232,6 +232,7 @@ export default function RegisterPage() {
                   <TextField
                     fullWidth
                     size="medium"
+                    type="date"
                     InputLabelProps={{ shrink: true }}
                     name="dateOfBirth"
                     label={"Date Of Birth"}
