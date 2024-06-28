@@ -5,7 +5,7 @@ export const listAllPlans = createAsyncThunk(
   "plans/listAll",
   async (_, { getState, rejectWithValue }) => {
     try {
-      const response = await RestApi.get("/plans");
+      const response = await RestApi.get("/app/listplan");
       return response.data;
     } catch (error) {
       if (error.response && error.response.data.message) {

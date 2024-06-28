@@ -9,7 +9,7 @@ const store = configureStore({
     auth: authReducer,
     banner: bannerReducer,
     user: userReducer,
-    planSlice: planReducer,
+    plan: planReducer,
   },
 });
 export default store;

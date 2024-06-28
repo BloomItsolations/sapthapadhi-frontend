@@ -47,9 +47,6 @@ const Nav = ({ openNav, onCloseNav }) => {
         {authInfo.name}
       </Typography>
       <Typography variant="h6">{authInfo?.phone}</Typography>
-      <Typography variant="body2" sx={{ color: "primary.main", py: 2 }}>
-        ₹&nbsp;{authInfo?.walletBalance}
-      </Typography>
     </Box>
   );
 

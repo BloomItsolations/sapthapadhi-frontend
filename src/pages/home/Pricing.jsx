@@ -16,6 +16,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { listAllPlans } from "../../store/planSlice.js";
+import { CheckCircle, Cancel } from "@mui/icons-material";
 
 const Pricing = () => {
   const theme = useTheme();
@@ -27,8 +28,6 @@ const Pricing = () => {
   }, [dispatch]);
 
   const { planList } = useSelector((state) => state.plan);
-
-  console.log(planList !== null && planList);
 
   return (
     <Box sx={{ py: 8, bgcolor: "#f6f8fb" }}>
@@ -65,11 +64,10 @@ const Pricing = () => {
               <Grid item key={item.id} xs={12} sm={3}>
                 <Card>
                   <CardHeader
-                    title={item.planName}
+                    title={item.name}
                     color={theme.palette.primary.main}
                     titleTypographyProps={{ align: "center" }}
                   />
-                  {console.log(item)}
                   <Divider
                     sx={{
                       margin: "8px 0",
@@ -85,28 +83,58 @@ const Pricing = () => {
                       sx={{
                         display: "flex",
                         justifyContent: "center",
-                        alignItems: "center",
+                        alignItems: "baseline",
                         mb: 2,
                       }}
                     >
-                      <Typography variant="h6" color="text.primary">
-                        &#x20b9; {item.price / 100}
+                      <Typography variant="h2" color="text.primary">
+                        &#x20b9; {item.amount}&nbsp;
                       </Typography>
                       <Typography variant="h6" color="text.secondary">
-                        /mo
+                        /&nbsp;{item.planValidity}
                       </Typography>
                     </Box>
                     <ul>
                       {item.features
                         ? item.features.map((detail) => (
-                            <Typography
-                              component="li"
-                              variant="body2"
-                              align="left"
-                              key={detail}
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "start",
+                                alignItems: "start",
+                                gap: 1,
+                              }}
                             >
-                              {detail.desc}
-                            </Typography>
+                              <Typography>
+                                {detail.value ? (
+                                  <CheckCircle
+                                    sx={{
+                                      color: (theme) =>
+                                        theme.palette.success.main,
+                                    }}
+                                  />
+                                ) : (
+                                  <Cancel
+                                    sx={{
+                                      color: (theme) =>
+                                        theme.palette.error.main,
+                                    }}
+                                  />
+                                )}
+                              </Typography>
+                              <Typography
+                                component="li"
+                                variant="body1"
+                                align="left"
+                                key={detail}
+                                sx={{
+                                  color: theme.palette.text.secondary,
+                                  textTransform: "capitalize",
+                                }}
+                              >
+                                {detail.desc}
+                              </Typography>
+                            </Box>
                           ))
                         : ""}
                     </ul>

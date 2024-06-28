@@ -15,6 +15,7 @@ import Iconify from "../../components/iconify";
 
 import { NAV, HEADER } from "./config-layout";
 import AccountPopover from "./common/account-popover";
+import NotificationsPopover from "./common/notifications-popover";
 
 // -------------------------------------------------------
 
@@ -30,8 +31,10 @@ export default function Header({ onOpenNav }) {
           <Iconify icon="eva:menu-2-fill" />
         </IconButton>
       )}
+      {/* <Searchbar /> */}
       <Box sx={{ flexGrow: 1 }} />
       <Stack direction="row" alignItems="center" spacing={1}>
+        <NotificationsPopover />
         <AccountPopover />
       </Stack>
     </>
@@ -42,9 +45,9 @@ export default function Header({ onOpenNav }) {
       sx={{
         boxShadow: "none",
         height: HEADER.H_MOBILE,
-        zIndex: theme.zIndex.appBar + 1,
+        zIndex: theme.zIndex.appBar + 2,
         ...bgBlur({
-          color: theme.palette.background.default,
+          color: theme.palette.background.paper,
         }),
         transition: theme.transitions.create(["height"], {
           duration: theme.transitions.duration.shorter,
