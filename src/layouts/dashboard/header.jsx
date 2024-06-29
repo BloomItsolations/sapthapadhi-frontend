@@ -12,7 +12,7 @@ import { useResponsive } from "../../hooks/use-responsive";
 import { bgBlur } from "../../theme/css";
 
 import Iconify from "../../components/iconify";
-
+import { Chat } from "@mui/icons-material";
 import { NAV, HEADER } from "./config-layout";
 import AccountPopover from "./common/account-popover";
 import NotificationsPopover from "./common/notifications-popover";
@@ -34,6 +34,7 @@ export default function Header({ onOpenNav }) {
       {/* <Searchbar /> */}
       <Box sx={{ flexGrow: 1 }} />
       <Stack direction="row" alignItems="center" spacing={1}>
+        <Chat />
         <NotificationsPopover />
         <AccountPopover />
       </Stack>
