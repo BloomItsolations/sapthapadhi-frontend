@@ -1,16 +1,11 @@
 import React from "react";
 import Slider from "react-slick";
-
-export const Responsive = ({ Children }) => {
+const SliderContainer = ({ children }) => {
   var settings = {
-    className: "center",
-    centerMode: true,
-    infinite: true,
-    centerPadding: "60px",
-    slidesToShow: 3,
-    speed: 500,
     dots: true,
-    // infinite: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
     slidesToScroll: 4,
     initialSlide: 0,
     responsive: [
@@ -42,9 +37,9 @@ export const Responsive = ({ Children }) => {
   };
   return (
     <div className="slider-container">
-      <Slider {...settings}>{Children}</Slider>
+      <Slider {...settings}>{children}</Slider>
     </div>
   );
 };
 
-export default Responsive;
+export default SliderContainer;
