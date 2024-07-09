@@ -26,11 +26,10 @@ export default function AppWidgetSummary({
         px: 3,
         py: 5,
         my: 1,
-        marginRight:"3px",
-        marginLeft:"3px",
+        marginRight: "3px",
+        marginLeft: "3px",
         borderRadius: 2,
         ...sx,
-        // backgroundColor: "#c084fc",
       }}
       {...other}
     >

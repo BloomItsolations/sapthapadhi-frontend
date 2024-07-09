@@ -84,7 +84,6 @@ const Nav = ({ openNav, onCloseNav }) => {
       sx={{
         height: 1,
         "& .simplebar-content": {
-          height: 1,
           display: "flex",
           flexDirection: "column",
           backgroundColor: "#c084fc",
@@ -101,6 +100,7 @@ const Nav = ({ openNav, onCloseNav }) => {
       sx={{
         flexShrink: { lg: 0 },
         width: { lg: NAV.WIDTH },
+        // paddingTop: `calc(100% - ${HEADER.H_DESKTOP + 1}px)`,
       }}
     >
       {upLg ? (

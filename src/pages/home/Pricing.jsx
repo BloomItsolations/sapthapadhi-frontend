@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { textGradient } from "../../theme/css";
-import { Link } from "react-router-dom";
 import {
   Box,
   Grid,
@@ -88,9 +87,9 @@ const Pricing = () => {
                       }}
                     >
                       <Typography variant="h2" color="text.primary">
-                        &#x20b9; {item.amount}&nbsp;
+                        &#x20b9;{item.amount}
                       </Typography>
-                      <Typography variant="h6" color="text.secondary">
+                      <Typography variant="body1" color="text.secondary">
                         /&nbsp;{item.planValidity}
                       </Typography>
                     </Box>
@@ -124,7 +123,7 @@ const Pricing = () => {
                               </Typography>
                               <Typography
                                 component="li"
-                                variant="body1"
+                                variant="body2"
                                 align="left"
                                 key={detail}
                                 sx={{
@@ -139,23 +138,23 @@ const Pricing = () => {
                         : ""}
                     </ul>
                   </CardContent>
-                  <CardActions sx={{ p: 2 }}>
-                    <Link to="/app/accounts/Billing">
-                      <Button
-                        color="secondary"
-                        variant="contained"
-                        size="medium"
-                        fullWidth
-                        sx={{
-                          color: theme.palette.text.info,
-                          boxShadow: "none",
-                          textTransform: "uppercase",
-                          borderRadius: 6,
-                        }}
-                      >
-                        GET Started
-                      </Button>
-                    </Link>
+                  <CardActions sx={{ p: 2, placeSelf: "center" }}>
+                    <Button
+                      component="a"
+                      href={`/app/plans/${item?.name}`}
+                      color="secondary"
+                      variant="contained"
+                      size="medium"
+                      fullWidth
+                      sx={{
+                        color: theme.palette.text.info,
+                        boxShadow: "none",
+                        textTransform: "uppercase",
+                        borderRadius: 6,
+                      }}
+                    >
+                      GET Started
+                    </Button>
                   </CardActions>
                 </Card>
               </Grid>

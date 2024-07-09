@@ -4,13 +4,14 @@ import {
   Box,
   Card,
   Grid,
-  Button,
   Divider,
+  Container,
   Typography,
-  CardActions,
   useTheme,
   CardHeader,
+  Button,
   CardContent,
+  CardActions,
 } from "@mui/material";
 import { listAllPlans } from "../../store/planSlice";
 import RestApi from "../../api/RestApi";
@@ -40,20 +41,20 @@ const Plan = () => {
   }, [dispatch]);
 
   const { planList } = useSelector((state) => state.plan);
-  const { userInfo } = useSelector((state) => state.auth);
-  console.log(planList);
+  const { authInfo } = useSelector((state) => state.auth);
+  console.log(authInfo);
   //razorpay
-  const displayRazorpay = async (e, planId) => {
+  const displayRazorpay = async (e, item) => {
     e.preventDefault();
 
     try {
       const response = await RestApi.post(
-        `/buySubscription`,
-        { planId, total_count: 1 },
+        `/app/CreateOrder`,
+        { planId: item.id },
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${userInfo?.token}`,
+            Authorization: `Bearer ${authInfo?.token}`,
           },
         }
       );
@@ -72,29 +73,26 @@ const Plan = () => {
       return;
     }
     const options = {
-      key: "rzp_live_a0DI9dbvDLyCop",
+      key: "rzp_test_hMjp1Sqe2hmCbh",
       currency: "INR",
       handler: function (response) {
         try {
           RestApi.post(
-            `/app/place-order`,
+            `app/buyPlan`,
             {
-              userName: userInfo.name,
-              userEmail: userInfo.email,
-              userPhone: userInfo.phone,
-              shippingAddress: userInfo.address,
-              paymentResult: response,
-              razorpay: {
-                paymentId: response.razorpay_payment_id,
+              planId: item.id,
+              paidAmount: item?.amount,
+              paymentdetails: {
+                paymentId: response?.razorpay_payment_id,
                 orderId: response.razorpay_order_id,
                 signature: response.razorpay_signature,
+                paymentStatus: response.razorpay_payment_status || "Success",
               },
-              paymentStatus: response.razorpay_payment_status || "Success",
             },
             {
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${userInfo.token}`,
+                Authorization: `Bearer ${authInfo.token}`,
               },
             }
           ).then((res) => {
@@ -109,9 +107,9 @@ const Plan = () => {
         }
       },
       prefill: {
-        name: userInfo?.name,
-        email: userInfo?.email,
-        contact: userInfo?.phone,
+        name: authInfo?.name,
+        email: authInfo?.email,
+        contact: authInfo?.phone,
       },
     };
     const paymentObject = new window.Razorpay(options);
@@ -129,111 +127,110 @@ const Plan = () => {
         boxShadow: "2px",
       }}
     >
-      <Grid
-        container
-        spacing={{ xs: 2, md: 3 }}
-        columns={{ xs: 4, sm: 8, md: 12 }}
-      >
-        {planList !== null ??
-          planList?.map(({ item }) => (
-            <Grid item key={item.id} xs={12} sm={3}>
-              <Card>
-                <CardHeader
-                  title={item?.name}
-                  color={theme.palette.primary.main}
-                  titleTypographyProps={{ align: "center" }}
-                />
-                <Divider
-                  sx={{
-                    margin: "8px 0",
-                    color: "primary",
-                    border: "none",
-                    backgroundColor: theme.palette.text.disabled,
-                    height: "1px",
-                    width: "100%",
-                  }}
-                ></Divider>
-                {/* <CardContent>
-                  <Box
+      <Container disableGutters sx={{ pt: 8, pb: 6 }}>
+        <Grid container spacing={{ xs: 2, md: 3 }}>
+          {planList !== null &&
+            planList?.map((item) => (
+              <Grid item key={item.id} xs={12} sm={6} md={4}>
+                <Card>
+                  <CardHeader
+                    title={item.name}
+                    color={theme.palette.primary.main}
+                    titleTypographyProps={{ align: "center" }}
+                  />
+                  <Divider
                     sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "baseline",
-                      mb: 2,
+                      margin: "8px 0",
+                      color: "primary",
+                      border: "none",
+                      backgroundColor: theme.palette.text.disabled,
+                      height: "1px",
+                      width: "100%",
                     }}
-                  >
-                    <Typography variant="h2" color="text.primary">
-                      &#x20b9; {item?.amount}&nbsp;
-                    </Typography>
-                    <Typography variant="h6" color="text.secondary">
-                      /&nbsp;{item?.planValidity}
-                    </Typography>
-                  </Box>
-                  <ul>
-                    {item?.features
-                      ? item?.features.map((detail) => (
-                          <Box
-                            sx={{
-                              display: "flex",
-                              justifyContent: "start",
-                              alignItems: "start",
-                              gap: 1,
-                            }}
-                          >
-                            <Typography>
-                              {detail.value ? (
-                                <CheckCircle
-                                  sx={{
-                                    color: (theme) =>
-                                      theme.palette.success.main,
-                                  }}
-                                />
-                              ) : (
-                                <Cancel
-                                  sx={{
-                                    color: (theme) => theme.palette.error.main,
-                                  }}
-                                />
-                              )}
-                            </Typography>
-                            <Typography
-                              component="li"
-                              variant="body1"
-                              align="left"
-                              key={detail}
+                  />
+                  <CardContent>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "baseline",
+                        mb: 2,
+                      }}
+                    >
+                      <Typography variant="h2" color="text.primary">
+                        &#x20b9;{item.amount}
+                      </Typography>
+                      <Typography variant="body1" color="text.secondary">
+                        /&nbsp;{item.planValidity}
+                      </Typography>
+                    </Box>
+                    <ul>
+                      {item.features
+                        ? item.features.map((detail) => (
+                            <Box
                               sx={{
-                                color: theme.palette.text.secondary,
-                                textTransform: "capitalize",
+                                display: "flex",
+                                justifyContent: "start",
+                                alignItems: "start",
+                                gap: 1,
                               }}
                             >
-                              {detail.desc}
-                            </Typography>
-                          </Box>
-                        ))
-                      : ""}
-                  </ul>
-                </CardContent>
-                <CardActions sx={{ p: 2 }}>
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    size="medium"
-                    fullWidth
-                    onClick={(e) => displayRazorpay(e, item.id)}
-                    sx={{
-                      color: theme.palette.text.info,
-                      boxShadow: "none",
-                      textTransform: "uppercase",
-                      borderRadius: 6,
-                    }}
-                  >
-                    Subscribe
-                  </Button>
-                </CardActions> */}
-              </Card>
-            </Grid>
-          ))}
-      </Grid>
+                              <Typography>
+                                {detail.value ? (
+                                  <CheckCircle
+                                    sx={{
+                                      color: (theme) =>
+                                        theme.palette.success.main,
+                                    }}
+                                  />
+                                ) : (
+                                  <Cancel
+                                    sx={{
+                                      color: (theme) =>
+                                        theme.palette.error.main,
+                                    }}
+                                  />
+                                )}
+                              </Typography>
+                              <Typography
+                                component="li"
+                                variant="body2"
+                                align="left"
+                                key={detail}
+                                sx={{
+                                  color: theme.palette.text.secondary,
+                                  textTransform: "capitalize",
+                                }}
+                              >
+                                {detail.desc}
+                              </Typography>
+                            </Box>
+                          ))
+                        : ""}
+                    </ul>
+                  </CardContent>
+                  <CardActions sx={{ p: 2, placeSelf: "center" }}>
+                    <Button
+                      color="secondary"
+                      variant="contained"
+                      size="medium"
+                      fullWidth
+                      onClick={(e) => displayRazorpay(e, item)}
+                      sx={{
+                        color: theme.palette.text.info,
+                        boxShadow: "none",
+                        textTransform: "uppercase",
+                        borderRadius: 6,
+                      }}
+                    >
+                      GET Started
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
+        </Grid>
+      </Container>
     </Box>
   );
 };
