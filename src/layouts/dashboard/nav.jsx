@@ -18,9 +18,7 @@ import { NAV } from "./config-layout";
 const Nav = ({ openNav, onCloseNav }) => {
   const { authInfo } = useSelector((state) => state.auth);
   const pathname = usePathname();
-  const sidebarData = appRoutes;
   const upLg = useResponsive("up", "lg");
-  const uniqueGroups = [...new Set(appRoutes?.map((route) => route.group))];
   useEffect(() => {
     if (openNav) {
       onCloseNav();
@@ -46,36 +44,27 @@ const Nav = ({ openNav, onCloseNav }) => {
       <Typography variant="h6" sx={{ textTransform: "capitalize" }}>
         {authInfo.name}
       </Typography>
+      <Typography variant="h6" sx={{ textTransform: "capitalize" }}>
+        {authInfo.name}
+      </Typography>
+      <Typography variant="h6" sx={{ textTransform: "capitalize" }}>
+        {authInfo.name}
+      </Typography>
       <Typography variant="h6">{authInfo?.phone}</Typography>
     </Box>
   );
 
   const renderMenu = (
     <Stack component="nav" spacing={0.5} sx={{ px: 2 }}>
-      {uniqueGroups.map((group, index) => (
-        <div key={(index + 1).toString()}>
-          <Typography
-            variant="caption"
-            color="primary"
-            sx={{ textTransform: "uppercase" }}
-          >
-            {group}
-          </Typography>
-          {sidebarData
-            ?.filter((route) => route.group === group)
-            ?.map((item) => {
-              return (
-                <NavItem
-                  key={item.title}
-                  item={item}
-                  active={
-                    "/app/" + item.path === pathname || item.path === pathname
-                  }
-                />
-              );
-            })}
-        </div>
-      ))}
+      {appRoutes?.map((item) => {
+        return (
+          <NavItem
+            key={item.title}
+            item={item}
+            active={"/app/" + item.path === pathname || item.path === pathname}
+          />
+        );
+      })}
     </Stack>
   );
 
@@ -86,7 +75,6 @@ const Nav = ({ openNav, onCloseNav }) => {
         "& .simplebar-content": {
           display: "flex",
           flexDirection: "column",
-          backgroundColor: "#c084fc",
         },
       }}
     >
@@ -100,7 +88,6 @@ const Nav = ({ openNav, onCloseNav }) => {
       sx={{
         flexShrink: { lg: 0 },
         width: { lg: NAV.WIDTH },
-        // paddingTop: `calc(100% - ${HEADER.H_DESKTOP + 1}px)`,
       }}
     >
       {upLg ? (
@@ -109,8 +96,10 @@ const Nav = ({ openNav, onCloseNav }) => {
             height: 1,
             position: "fixed",
             width: NAV.WIDTH,
-            borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
-            backgroundColor: "#c084fc",
+            borderRight: (theme) =>
+              `dashed 1px ${theme.palette.secondary.main}`,
+            backgroundColor: (theme) => theme.palette.background.paper,
+            zIndex: 100,
           }}
         >
           {renderContent}
@@ -122,7 +111,6 @@ const Nav = ({ openNav, onCloseNav }) => {
           PaperProps={{
             sx: {
               width: NAV.WIDTH,
-              backgroundColor: "#c084fc",
             },
           }}
         >

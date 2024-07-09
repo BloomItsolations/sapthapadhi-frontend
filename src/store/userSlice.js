@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import RestApi from "../api/RestApi";
 
 // Async thunk for Upline users
-export const ListupLineUsers = createAsyncThunk(
-  "user/upLineUsers",
+export const matchesUser = createAsyncThunk(
+  "user/matchUser",
   async (_, { getState, rejectWithValue }) => {
     try {
       const { authInfo } = getState().auth;
@@ -14,7 +14,7 @@ export const ListupLineUsers = createAsyncThunk(
         },
       };
       // Make request to the backend
-      const { data } = await RestApi.get("/app/allUpLineUser", config);
+      const { data } = await RestApi.get("/app/matches", config);
       return data;
     } catch (error) {
       // Return custom error message from the API if any
@@ -27,8 +27,8 @@ export const ListupLineUsers = createAsyncThunk(
 );
 
 // Async thunk for fetch all users
-export const fetchAllUsers = createAsyncThunk(
-  "user/fetchAllUsers",
+export const recUsers = createAsyncThunk(
+  "user/recUsers",
   async (_, { getState, rejectWithValue }) => {
     try {
       const { authInfo } = getState().auth;
@@ -39,7 +39,7 @@ export const fetchAllUsers = createAsyncThunk(
         },
       };
       // Make request to the backend
-      const { data } = await RestApi.get("/admin/listusers", config);
+      const { data } = await RestApi.get("/app/recommendedProfiles", config);
       return data;
     } catch (error) {
       // Return custom error message from the API if any
@@ -109,13 +109,14 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     loading: false,
-    payouts: null,
-    upline: null,
+    matchUser: null,
+    recUsersList: null,
+    //this is for downline users
     uplinePayouts: null,
     downline: null,
     fundsList: null,
     incomeHistory: null,
-    allUsers: null,
+    payouts: null,
     allIncome: null,
     user: null,
     error: null,
@@ -129,30 +130,30 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(ListupLineUsers.pending, (state) => {
+      .addCase(matchesUser.pending, (state) => {
         state.loading = true;
         state.error = null;
         state.success = false;
       })
-      .addCase(ListupLineUsers.fulfilled, (state, { payload }) => {
+      .addCase(matchesUser.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.upline = payload;
+        state.matchUser = payload;
       })
-      .addCase(ListupLineUsers.rejected, (state, { payload }) => {
+      .addCase(matchesUser.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       })
       // fetch all users data
-      .addCase(fetchAllUsers.pending, (state) => {
+      .addCase(recUsers.pending, (state) => {
         state.loading = true;
         state.error = null;
         state.success = false;
       })
-      .addCase(fetchAllUsers.fulfilled, (state, { payload }) => {
+      .addCase(recUsers.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.allUsers = payload;
+        state.recUsersList = payload;
       })
-      .addCase(fetchAllUsers.rejected, (state, { payload }) => {
+      .addCase(recUsers.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       })

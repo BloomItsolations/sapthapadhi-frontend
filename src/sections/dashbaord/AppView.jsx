@@ -1,19 +1,21 @@
 import React, { useEffect } from "react";
 
-import AppWidgetSummary from "./app-widget-summary";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllUsers } from "../../store/userSlice";
+import { matchesUser, recUsers } from "../../store/userSlice";
 import { Container, Grid, Typography } from "@mui/material";
 // ------------------------------------------------------
 
 const AppView = () => {
   const dispatch = useDispatch();
 
-  const { upline, downline } = useSelector((state) => state.user);
   const { authInfo } = useSelector((state) => state.auth);
 
+  const { matchUser, recUsersList } = useSelector((state) => state.user);
+  console.log(matchUser);
+  console.log(recUsersList);
   useEffect(() => {
-    dispatch(fetchAllUsers());
+    dispatch(recUsers());
+    dispatch(matchesUser());
     return () => {};
   }, [dispatch]);
 

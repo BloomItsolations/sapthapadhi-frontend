@@ -8,7 +8,7 @@ const Account = lazy(() => import("../sections/user/Account"));
 export const appRoutes = [
   {
     group: "Dashboard",
-    title: "Home",
+    title: "Dashboard",
     path: "dashboard",
     element: <IndexPage />,
     icon: <Home />,

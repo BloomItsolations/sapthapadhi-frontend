@@ -2,7 +2,6 @@ import { v4 as uuidv } from "uuid";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import MenuIcon from "@mui/icons-material/Menu";
 import {
   Box,
   Menu,
@@ -13,14 +12,23 @@ import {
   useTheme,
   Typography,
   IconButton,
+  Avatar,
+  ListItemIcon,
 } from "@mui/material";
+import {
+  Menu as MenuIcon,
+  AccountCircle as AccountCircleIcon,
+  Logout as LogoutIcon,
+  Chat as ChatIcon,
+} from "@mui/icons-material";
 
 import { useResponsive } from "../../hooks/use-responsive";
 
 import Logo from "../../components/logo/logo";
 
 import { HEADER } from "../dashboard/config-layout";
-
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../store/authSlice";
 const pages = [
   { name: "About", to: "/about" },
   { name: "Services", to: "/services" },
@@ -28,12 +36,20 @@ const pages = [
   { name: "Gallary", to: "/gallery" },
   { name: "Contact", to: "/contact" },
 ];
+const userNavigation = [
+  { name: "My Profile", to: "/profile", icon: <AccountCircleIcon /> },
+  { name: "User Dashboard", to: "/app/dashboard", icon: <AccountCircleIcon /> },
+  { name: "Contact Us", to: "/", icon: <ChatIcon /> },
+];
 
 const Header = () => {
+  const dispatch = useDispatch();
+
   const lgUp = useResponsive("up", "lg");
   const theme = useTheme();
   const [anchorElNav, setAnchorElNav] = useState();
-
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const { authInfo } = useSelector((state) => state.auth);
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -42,6 +58,18 @@ const Header = () => {
     setAnchorElNav(null);
   };
 
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const logoutHandler = () => {
+    dispatch(logout());
+    handleCloseUserMenu();
+  };
   return (
     <AppBar
       component="nav"
@@ -94,35 +122,160 @@ const Header = () => {
               </Typography>
             </Link>
           ))}
-          <Link to="/login">
-            <Button
-              color="secondary"
-              variant="outlined"
-              size="medium"
-              sx={{
-                color: theme.palette.text.primary,
-                boxShadow: "none",
-                borderRadius: 6,
-              }}
-            >
-              Log in
-            </Button>
-          </Link>
-          <Link to="/register">
-            <Button
-              color="secondary"
-              variant="contained"
-              size="medium"
-              sx={{
-                color: theme.palette.text.primary,
-                boxShadow: "none",
-                textTransform: "uppercase",
-                borderRadius: 6,
-              }}
-            >
-              Join Now
-            </Button>
-          </Link>
+          {authInfo !== null ? (
+            <Box onClick={handleOpenUserMenu} color="inherit">
+              {authInfo?.name ? (
+                <Avatar
+                  sx={{
+                    color: "primary.main",
+                    backgroundColor: "common.white",
+                    width: 36,
+                    height: 36,
+                    border: (theme) =>
+                      `solid 2px ${theme.palette.background.default}`,
+                  }}
+                >
+                  {authInfo?.name?.charAt(0).toUpperCase()}
+                </Avatar>
+              ) : (
+                <AccountCircleIcon />
+              )}
+            </Box>
+          ) : (
+            <>
+              <Link to="/login">
+                <Button
+                  color="secondary"
+                  variant="outlined"
+                  size="medium"
+                  sx={{
+                    color: theme.palette.text.primary,
+                    boxShadow: "none",
+                    borderRadius: 6,
+                  }}
+                >
+                  Log in
+                </Button>
+              </Link>
+              <Link to="/register">
+                <Button
+                  color="secondary"
+                  variant="contained"
+                  size="medium"
+                  sx={{
+                    color: theme.palette.text.primary,
+                    boxShadow: "none",
+                    textTransform: "uppercase",
+                    borderRadius: 6,
+                  }}
+                >
+                  Join Now
+                </Button>
+              </Link>
+            </>
+          )}
+          <Menu
+            anchorEl={anchorElUser}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+            PaperProps={{
+              elevation: 1,
+              sx: {
+                overflow: "visible",
+                my: 1,
+                paddingY: 2,
+                paddingX: 1,
+                "&:before": {
+                  content: '""',
+                  display: "block",
+                  position: "absolute",
+                  top: 0,
+                  right: 14,
+                  width: 10,
+                  height: 10,
+                  bgcolor: "background.paper",
+                  transform: "translateY(-50%) rotate(45deg)",
+                },
+              },
+            }}
+            transformOrigin={{ horizontal: "right", vertical: "top" }}
+            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+          >
+            {authInfo !== null ? (
+              <>
+                {userNavigation?.map((item) => (
+                  <MenuItem
+                    key={uuidv()}
+                    component={Link}
+                    to={item.to}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "start",
+                      alignItems: "center",
+                      textWrap: "nowrap",
+                      color: "primary.main",
+                      borderColor: "#000",
+                      borderBottom: 1,
+                    }}
+                  >
+                    <ListItemIcon sx={{ color: "primary.main" }}>
+                      {item.icon}
+                    </ListItemIcon>
+                    {item.name}
+                  </MenuItem>
+                ))}
+                <MenuItem
+                  onClick={logoutHandler}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "start",
+                    alignItems: "center",
+                    color: "primary.main",
+                    borderColor: "black",
+                  }}
+                >
+                  <ListItemIcon>
+                    <LogoutIcon sx={{ color: "primary.main" }} />
+                  </ListItemIcon>
+                  Sign out
+                </MenuItem>
+              </>
+            ) : (
+              <>
+                <MenuItem onClick={handleCloseNavMenu} sx={{ borderBottom: 1 }}>
+                  <Box
+                    component="a"
+                    href="/register"
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "start",
+                      alignItems: "center",
+                      gap: 1,
+                    }}
+                  >
+                    <Typography variant="body2">New User?</Typography>
+                    <Typography variant="h6" sx={{ color: "primary.main" }}>
+                      Sign Up
+                    </Typography>
+                  </Box>
+                </MenuItem>
+                <MenuItem
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "start",
+                    alignItems: "center",
+                    color: "primary.main",
+                    borderBottom: 1,
+                    borderColor: "black",
+                  }}
+                >
+                  <Link to="/login">Member Logins</Link>
+                </MenuItem>
+              </>
+            )}
+          </Menu>
         </Box>
         <Box sx={{ display: { xs: "flex", md: "none" } }}>
           <IconButton
@@ -177,40 +330,84 @@ const Header = () => {
                 </Link>
               </MenuItem>
             ))}
-            <MenuItem>
-              <Link to="/login">
-                <Button
-                  color="secondary"
-                  variant="outlined"
-                  size="medium"
-                  fullWidth
+            {authInfo === null ? (
+              <>
+                <MenuItem>
+                  <Link to="/login">
+                    <Button
+                      color="secondary"
+                      variant="outlined"
+                      size="medium"
+                      fullWidth
+                      sx={{
+                        color: theme.palette.text.primary,
+                        boxShadow: "none",
+                        borderRadius: 6,
+                      }}
+                    >
+                      Log in
+                    </Button>
+                  </Link>
+                </MenuItem>
+                <MenuItem>
+                  <Link to="/register">
+                    <Button
+                      color="secondary"
+                      variant="contained"
+                      size="medium"
+                      sx={{
+                        color: theme.palette.text.primary,
+                        boxShadow: "none",
+                        textTransform: "uppercase",
+                        borderRadius: 6,
+                      }}
+                    >
+                      Join Now
+                    </Button>
+                  </Link>
+                </MenuItem>
+              </>
+            ) : (
+              <>
+                {userNavigation?.map((item) => (
+                  <MenuItem
+                    key={uuidv()}
+                    onClick={handleCloseNavMenu}
+                    component={Link}
+                    to={item.to}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "start",
+                      alignItems: "center",
+                      textWrap: "nowrap",
+                      color: "primary.main",
+                      borderColor: "black",
+                      borderBottom: 1,
+                    }}
+                  >
+                    <ListItemIcon sx={{ color: "primary.main" }}>
+                      {item.icon}
+                    </ListItemIcon>
+                    {item.name}
+                  </MenuItem>
+                ))}
+                <MenuItem
+                  onClick={logoutHandler}
                   sx={{
-                    color: theme.palette.text.primary,
-                    boxShadow: "none",
-                    borderRadius: 6,
+                    display: "flex",
+                    justifyContent: "start",
+                    alignItems: "center",
+                    color: "primary.main",
+                    borderColor: "black",
                   }}
                 >
-                  Log in
-                </Button>
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link to="/register">
-                <Button
-                  color="secondary"
-                  variant="contained"
-                  size="medium"
-                  sx={{
-                    color: theme.palette.text.primary,
-                    boxShadow: "none",
-                    textTransform: "uppercase",
-                    borderRadius: 6,
-                  }}
-                >
-                  Join Now
-                </Button>
-              </Link>
-            </MenuItem>
+                  <ListItemIcon>
+                    <LogoutIcon sx={{ color: "primary.main" }} />
+                  </ListItemIcon>
+                  Sign out
+                </MenuItem>
+              </>
+            )}
           </Menu>
         </Box>
       </Toolbar>
