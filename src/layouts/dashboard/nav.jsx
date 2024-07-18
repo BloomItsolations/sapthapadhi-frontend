@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { alpha } from '@mui/material/styles';
 import { Box, Stack, Drawer, Typography, ListItemButton } from '@mui/material';
-
+import Logo from '../../components/logo';
 import { appRoutes } from '../../routes/config';
 import { usePathname } from '../../routes/hooks';
 import { RouterLink } from '../../routes/components';
@@ -18,7 +18,7 @@ import { NAV } from './config-layout';
 const Nav = ({ openNav, onCloseNav }) => {
   const { authInfo } = useSelector(state => state.auth);
   const pathname = usePathname();
-  const upLg = useResponsive('up', 'lg');
+  const upLg = useResponsive('up', 'md');
   useEffect(() => {
     if (openNav) {
       onCloseNav();
@@ -78,45 +78,47 @@ const Nav = ({ openNav, onCloseNav }) => {
         },
       }}
     >
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: 56,
+          py: 2,
+          px: 2,
+        }}
+      >
+        <Logo width={100} />
+      </Box>
+
       {renderAccount}
       {renderMenu}
       <Box sx={{ flexGrow: 1 }} />
     </Scrollbar>
   );
   return (
-    <Box
-      sx={{
-        flexShrink: { lg: 0 },
-        width: { lg: NAV.WIDTH },
-      }}
-    >
-      {upLg ? (
+    <>
+      {!upLg && (
         <Box
           sx={{
-            height: 1,
-            position: 'fixed',
-            width: NAV.WIDTH,
-            borderRight: theme => `dashed 1px ${theme.palette.secondary.main}`,
-            backgroundColor: theme => theme.palette.background.paper,
-            zIndex: 100,
+            flexShrink: { lg: 0 },
+            width: { lg: NAV.WIDTH },
           }}
         >
-          {renderContent}
+          <Drawer
+            open={openNav}
+            onClose={onCloseNav}
+            PaperProps={{
+              sx: {
+                width: NAV.WIDTH,
+              },
+            }}
+          >
+            {renderContent}
+          </Drawer>
         </Box>
-      ) : (
-        <Drawer
-          open={openNav}
-          onClose={onCloseNav}
-          PaperProps={{
-            sx: {
-              width: NAV.WIDTH,
-            },
-          }}
-        >
-          {renderContent}
-        </Drawer>
       )}
-    </Box>
+    </>
   );
 };
 

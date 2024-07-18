@@ -1,6 +1,6 @@
-import { v4 as uuidv } from "uuid";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { v4 as uuidv } from 'uuid';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   Box,
@@ -14,43 +14,43 @@ import {
   IconButton,
   Avatar,
   ListItemIcon,
-} from "@mui/material";
+} from '@mui/material';
 import {
   Menu as MenuIcon,
   AccountCircle as AccountCircleIcon,
   Logout as LogoutIcon,
   Chat as ChatIcon,
-} from "@mui/icons-material";
+} from '@mui/icons-material';
 
-import { useResponsive } from "../../hooks/use-responsive";
+import { useResponsive } from '../../hooks/use-responsive';
 
-import Logo from "../../components/logo/logo";
+import Logo from '../../components/logo';
 
-import { HEADER } from "../dashboard/config-layout";
-import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../store/authSlice";
+import { HEADER } from '../dashboard/config-layout';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../store/authSlice';
 const pages = [
-  { name: "About", to: "/about" },
-  { name: "Services", to: "/services" },
-  { name: "Plans", to: "/pricing" },
-  { name: "Gallary", to: "/gallery" },
-  { name: "Contact", to: "/contact" },
+  { name: 'About', to: '/about' },
+  { name: 'Services', to: '/services' },
+  { name: 'Plans', to: '/pricing' },
+  { name: 'Gallary', to: '/gallery' },
+  { name: 'Contact', to: '/contact' },
 ];
 const userNavigation = [
-  { name: "My Profile", to: "/profile", icon: <AccountCircleIcon /> },
-  { name: "User Dashboard", to: "/app/dashboard", icon: <AccountCircleIcon /> },
-  { name: "Contact Us", to: "/", icon: <ChatIcon /> },
+  { name: 'My Profile', to: '/profile', icon: <AccountCircleIcon /> },
+  { name: 'User Dashboard', to: '/app/dashboard', icon: <AccountCircleIcon /> },
+  { name: 'Contact Us', to: '/', icon: <ChatIcon /> },
 ];
 
 const Header = () => {
   const dispatch = useDispatch();
 
-  const lgUp = useResponsive("up", "lg");
+  const lgUp = useResponsive('up', 'md');
   const theme = useTheme();
   const [anchorElNav, setAnchorElNav] = useState();
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const { authInfo } = useSelector((state) => state.auth);
-  const handleOpenNavMenu = (event) => {
+  const { authInfo } = useSelector(state => state.auth);
+  const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget);
   };
 
@@ -58,7 +58,7 @@ const Header = () => {
     setAnchorElNav(null);
   };
 
-  const handleOpenUserMenu = (event) => {
+  const handleOpenUserMenu = event => {
     setAnchorElUser(event.currentTarget);
   };
 
@@ -76,10 +76,10 @@ const Header = () => {
       sx={{
         bgcolor: theme.palette.background.default,
         color: theme.palette.text.primary,
-        backgroundImage: "none",
-        boxShadow: "none",
+        backgroundImage: 'none',
+        boxShadow: 'none',
         height: HEADER.H_MOBILE,
-        transition: theme.transitions.create(["height"], {
+        transition: theme.transitions.create(['height'], {
           duration: theme.transitions.duration.shorter,
         }),
         ...(lgUp && {
@@ -98,22 +98,22 @@ const Header = () => {
         </Box>
         <Box
           sx={{
-            display: { xs: "none", md: "flex" },
+            display: { xs: 'none', md: 'flex' },
             gap: 3,
-            justifyContent: "center",
-            alignItems: "center",
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
-          {pages.map((page) => (
+          {pages.map(page => (
             <Link key={uuidv()} to={page.to}>
               <Typography
                 variant="body1"
                 sx={{
-                  fontSize: "16px",
+                  fontSize: '16px',
                   fontWeight: 500,
                   mx: 2,
                   color: theme.palette.text.primary,
-                  "&:hover": {
+                  '&:hover': {
                     color: theme.palette.text.hover,
                   },
                 }}
@@ -127,11 +127,11 @@ const Header = () => {
               {authInfo?.name ? (
                 <Avatar
                   sx={{
-                    color: "primary.main",
-                    backgroundColor: "common.white",
+                    color: 'primary.main',
+                    backgroundColor: 'common.white',
                     width: 36,
                     height: 36,
-                    border: (theme) =>
+                    border: theme =>
                       `solid 2px ${theme.palette.background.default}`,
                   }}
                 >
@@ -150,7 +150,7 @@ const Header = () => {
                   size="medium"
                   sx={{
                     color: theme.palette.text.primary,
-                    boxShadow: "none",
+                    boxShadow: 'none',
                     borderRadius: 6,
                   }}
                 >
@@ -164,8 +164,8 @@ const Header = () => {
                   size="medium"
                   sx={{
                     color: theme.palette.text.primary,
-                    boxShadow: "none",
-                    textTransform: "uppercase",
+                    boxShadow: 'none',
+                    textTransform: 'uppercase',
                     borderRadius: 6,
                   }}
                 >
@@ -181,44 +181,44 @@ const Header = () => {
             PaperProps={{
               elevation: 1,
               sx: {
-                overflow: "visible",
+                overflow: 'visible',
                 my: 1,
                 paddingY: 2,
                 paddingX: 1,
-                "&:before": {
+                '&:before': {
                   content: '""',
-                  display: "block",
-                  position: "absolute",
+                  display: 'block',
+                  position: 'absolute',
                   top: 0,
                   right: 14,
                   width: 10,
                   height: 10,
-                  bgcolor: "background.paper",
-                  transform: "translateY(-50%) rotate(45deg)",
+                  bgcolor: 'background.paper',
+                  transform: 'translateY(-50%) rotate(45deg)',
                 },
               },
             }}
-            transformOrigin={{ horizontal: "right", vertical: "top" }}
-            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
           >
             {authInfo !== null ? (
               <>
-                {userNavigation?.map((item) => (
+                {userNavigation?.map(item => (
                   <MenuItem
                     key={uuidv()}
                     component={Link}
                     to={item.to}
                     sx={{
-                      display: "flex",
-                      justifyContent: "start",
-                      alignItems: "center",
-                      textWrap: "nowrap",
-                      color: "primary.main",
-                      borderColor: "#000",
+                      display: 'flex',
+                      justifyContent: 'start',
+                      alignItems: 'center',
+                      textWrap: 'nowrap',
+                      color: 'primary.main',
+                      borderColor: '#000',
                       borderBottom: 1,
                     }}
                   >
-                    <ListItemIcon sx={{ color: "primary.main" }}>
+                    <ListItemIcon sx={{ color: 'primary.main' }}>
                       {item.icon}
                     </ListItemIcon>
                     {item.name}
@@ -227,15 +227,15 @@ const Header = () => {
                 <MenuItem
                   onClick={logoutHandler}
                   sx={{
-                    display: "flex",
-                    justifyContent: "start",
-                    alignItems: "center",
-                    color: "primary.main",
-                    borderColor: "black",
+                    display: 'flex',
+                    justifyContent: 'start',
+                    alignItems: 'center',
+                    color: 'primary.main',
+                    borderColor: 'black',
                   }}
                 >
                   <ListItemIcon>
-                    <LogoutIcon sx={{ color: "primary.main" }} />
+                    <LogoutIcon sx={{ color: 'primary.main' }} />
                   </ListItemIcon>
                   Sign out
                 </MenuItem>
@@ -247,15 +247,15 @@ const Header = () => {
                     component="a"
                     href="/register"
                     sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "start",
-                      alignItems: "center",
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'start',
+                      alignItems: 'center',
                       gap: 1,
                     }}
                   >
                     <Typography variant="body2">New User?</Typography>
-                    <Typography variant="h6" sx={{ color: "primary.main" }}>
+                    <Typography variant="h6" sx={{ color: 'primary.main' }}>
                       Sign Up
                     </Typography>
                   </Box>
@@ -263,12 +263,12 @@ const Header = () => {
                 <MenuItem
                   onClick={handleCloseNavMenu}
                   sx={{
-                    display: "flex",
-                    justifyContent: "start",
-                    alignItems: "center",
-                    color: "primary.main",
+                    display: 'flex',
+                    justifyContent: 'start',
+                    alignItems: 'center',
+                    color: 'primary.main',
                     borderBottom: 1,
-                    borderColor: "black",
+                    borderColor: 'black',
                   }}
                 >
                   <Link to="/login">Member Logins</Link>
@@ -277,7 +277,7 @@ const Header = () => {
             )}
           </Menu>
         </Box>
-        <Box sx={{ display: { xs: "flex", md: "none" } }}>
+        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
           <IconButton
             sx={{ padding: 0 }}
             size="large"
@@ -296,31 +296,31 @@ const Header = () => {
             id="menu-appbar"
             anchorEl={anchorElNav}
             anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
+              vertical: 'bottom',
+              horizontal: 'left',
             }}
             keepMounted
             transformOrigin={{
-              vertical: "top",
-              horizontal: "left",
+              vertical: 'top',
+              horizontal: 'left',
             }}
             open={Boolean(anchorElNav)}
             onClose={handleCloseNavMenu}
             sx={{
-              width: "100%",
+              width: '100%',
             }}
           >
-            {pages.map((page) => (
+            {pages.map(page => (
               <MenuItem key={uuidv()}>
                 <Link to={page.to}>
                   <Typography
                     variant="body1"
                     sx={{
-                      fontSize: "16px",
+                      fontSize: '16px',
                       fontWeight: 500,
                       mx: 2,
                       color: theme.palette.text.primary,
-                      "&:hover": {
+                      '&:hover': {
                         color: theme.palette.text.hover,
                       },
                     }}
@@ -341,7 +341,7 @@ const Header = () => {
                       fullWidth
                       sx={{
                         color: theme.palette.text.primary,
-                        boxShadow: "none",
+                        boxShadow: 'none',
                         borderRadius: 6,
                       }}
                     >
@@ -357,8 +357,8 @@ const Header = () => {
                       size="medium"
                       sx={{
                         color: theme.palette.text.primary,
-                        boxShadow: "none",
-                        textTransform: "uppercase",
+                        boxShadow: 'none',
+                        textTransform: 'uppercase',
                         borderRadius: 6,
                       }}
                     >
@@ -369,23 +369,23 @@ const Header = () => {
               </>
             ) : (
               <>
-                {userNavigation?.map((item) => (
+                {userNavigation?.map(item => (
                   <MenuItem
                     key={uuidv()}
                     onClick={handleCloseNavMenu}
                     component={Link}
                     to={item.to}
                     sx={{
-                      display: "flex",
-                      justifyContent: "start",
-                      alignItems: "center",
-                      textWrap: "nowrap",
-                      color: "primary.main",
-                      borderColor: "black",
+                      display: 'flex',
+                      justifyContent: 'start',
+                      alignItems: 'center',
+                      textWrap: 'nowrap',
+                      color: 'primary.main',
+                      borderColor: 'black',
                       borderBottom: 1,
                     }}
                   >
-                    <ListItemIcon sx={{ color: "primary.main" }}>
+                    <ListItemIcon sx={{ color: 'primary.main' }}>
                       {item.icon}
                     </ListItemIcon>
                     {item.name}
@@ -394,15 +394,15 @@ const Header = () => {
                 <MenuItem
                   onClick={logoutHandler}
                   sx={{
-                    display: "flex",
-                    justifyContent: "start",
-                    alignItems: "center",
-                    color: "primary.main",
-                    borderColor: "black",
+                    display: 'flex',
+                    justifyContent: 'start',
+                    alignItems: 'center',
+                    color: 'primary.main',
+                    borderColor: 'black',
                   }}
                 >
                   <ListItemIcon>
-                    <LogoutIcon sx={{ color: "primary.main" }} />
+                    <LogoutIcon sx={{ color: 'primary.main' }} />
                   </ListItemIcon>
                   Sign out
                 </MenuItem>

@@ -1,8 +1,8 @@
-import React from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { FaInstagram } from "react-icons/fa";
-import { AiOutlineYoutube } from "react-icons/ai";
-import { CiFacebook } from "react-icons/ci";
+import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { FaInstagram } from 'react-icons/fa';
+import { AiOutlineYoutube } from 'react-icons/ai';
+import { CiFacebook } from 'react-icons/ci';
 import {
   Box,
   Container,
@@ -12,36 +12,36 @@ import {
   Divider,
   IconButton,
   Button,
-} from "@mui/material";
-import Logo from "../../components/logo";
-import { FaGooglePlay } from "react-icons/fa";
-import { AiFillAndroid } from "react-icons/ai";
+} from '@mui/material';
+import Logo from '../../components/logo';
+import { FaGooglePlay } from 'react-icons/fa';
+import { AiFillAndroid } from 'react-icons/ai';
 
 const Footer = () => {
   const cYear = new Date().getFullYear();
 
   const footerNavs = [
     {
-      label: "Company",
+      label: 'Company',
       items: [
         {
-          to: "/terms_and_conditions",
-          name: "Terms & Conditions",
+          to: '/terms_and_conditions',
+          name: 'Terms & Conditions',
         },
         {
-          to: "/privacy_and_policy",
-          name: "Privacy & Policy",
+          to: '/privacy_and_policy',
+          name: 'Privacy & Policy',
         },
         {
-          to: "/",
-          name: "Contact Us",
+          to: '/',
+          name: 'Contact Us',
         },
       ],
     },
   ];
 
   return (
-    <Box sx={{ backgroundColor: "#000", color: "#fff", py: 5, px: 4 }}>
+    <Box sx={{ backgroundColor: '#000', color: '#fff', py: 5, px: 4 }}>
       <Container maxWidth="xl">
         <Grid container spacing={2} justifyContent="">
           <Grid item xs={12} sm={6} md={3}>
@@ -56,19 +56,19 @@ const Footer = () => {
             {footerNavs.map((item, idx) => (
               <Box key={idx}>
                 <Typography variant="h5">{item.label}</Typography>
-                <ul style={{ listStyle: "none", padding: 0 }}>
+                <ul style={{ listStyle: 'none', padding: 0 }}>
                   {item.items.map((el, idx) => (
                     <li key={idx}>
                       <Link
                         component={RouterLink}
                         to={el.to}
                         sx={{
-                          color: "#fff",
+                          color: '#fff',
                           fontSize: 15,
-                          textDecoration: "none",
-                          "&:hover": {
-                            textDecoration: "underline",
-                            color: "#fff",
+                          textDecoration: 'none',
+                          '&:hover': {
+                            textDecoration: 'underline',
+                            color: '#fff',
                           },
                         }}
                       >
@@ -84,10 +84,10 @@ const Footer = () => {
           <Grid item xs={12} sm={6} md={3}>
             <Box
               sx={{
-                display: "flex",
-                justifyItems: "start",
-                alignItems: "start",
-                flexDirection: "column",
+                display: 'flex',
+                justifyItems: 'start',
+                alignItems: 'start',
+                flexDirection: 'column',
                 gap: 1,
               }}
             >
@@ -96,34 +96,34 @@ const Footer = () => {
               <Typography
                 component="a"
                 href="mailto:support@mywelthhelpsolution.in"
-                sx={{ cursor: "pointer" }}
+                sx={{ cursor: 'pointer' }}
               >
                 support@mywelthhelpsolution.in
               </Typography>
               <Typography
                 component="a"
                 href="https://api.whatsapp.com/send/?phone=917892222108&text&type=phone_number&app_absent=0"
-                sx={{ cursor: "pointer" }}
+                sx={{ cursor: 'pointer' }}
               >
                 +91 7892222108
               </Typography>
             </Box>
-            <Box sx={{ cursor: "pointer" }}>
+            <Box sx={{ cursor: 'pointer' }}>
               <IconButton
                 href="https://www.instagram.com"
-                sx={{ color: "black", mr: 1 }}
+                sx={{ color: 'black', mr: 1 }}
               >
                 <FaInstagram size={20} />
               </IconButton>
               <IconButton
                 href="https://www.facebook.com"
-                sx={{ color: "black", mr: 1 }}
+                sx={{ color: 'black', mr: 1 }}
               >
                 <CiFacebook size={22} />
               </IconButton>
               <IconButton
                 href="https://www.youtube.com"
-                sx={{ color: "black" }}
+                sx={{ color: 'black' }}
               >
                 <AiOutlineYoutube size={23} />
               </IconButton>
@@ -135,15 +135,15 @@ const Footer = () => {
               sx={{
                 maxWidth: 345,
                 paddingX: 4,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "start",
-                justifyContent: "Start",
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'start',
+                justifyContent: 'Start',
                 gap: 1,
               }}
             >
-              <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
-                <AiFillAndroid size="40" style={{ marginRight: "10px" }} />
+              <Box sx={{ display: 'flex', alignItems: 'center', my: 2 }}>
+                <AiFillAndroid size="40" style={{ marginRight: '10px' }} />
                 <Typography gutterBottom variant="h5" component="div">
                   Get Our App
                 </Typography>
@@ -152,9 +152,9 @@ const Footer = () => {
                 size="large"
                 fullWidth
                 sx={{
-                  backgroundColor: "#fff",
-                  "&:hover, &:focus": {
-                    backgroundColor: "#fff",
+                  backgroundColor: '#fff',
+                  '&:hover, &:focus': {
+                    backgroundColor: '#fff',
                   },
                 }}
                 startIcon={<FaGooglePlay />}
@@ -167,9 +167,9 @@ const Footer = () => {
                 startIcon={<AiFillAndroid />}
                 fullWidth
                 sx={{
-                  backgroundColor: "#fff",
-                  "&:hover, &:focus": {
-                    backgroundColor: "#fff",
+                  backgroundColor: '#fff',
+                  '&:hover, &:focus': {
+                    backgroundColor: '#fff',
                   },
                 }}
                 href="/assets/apk/mywelthhelpsolution.apk"
@@ -181,14 +181,14 @@ const Footer = () => {
           </Grid>
         </Grid>
 
-        <Divider sx={{ my: 4, borderColor: "#fff" }} />
+        <Divider sx={{ my: 4, borderColor: '#fff' }} />
 
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: { xs: "column", md: "row" },
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: { xs: 'column', md: 'row' },
             gap: 1,
           }}
         >

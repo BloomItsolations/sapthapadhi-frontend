@@ -1,17 +1,17 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
-import Box from "@mui/material/Box";
+import Box from '@mui/material/Box';
 
-import { useResponsive } from "../../hooks/use-responsive";
+import { useResponsive } from '../../hooks/use-responsive';
 
-import { NAV, HEADER } from "./config-layout";
+import { HEADER } from './config-layout';
 
 // ----------------------------------------------------------------------
 
 const SPACING = 8;
 
 export default function Main({ children, sx, ...other }) {
-  const lgUp = useResponsive("up", "lg");
+  const lgUp = useResponsive('up', 'md');
 
   return (
     <Box
@@ -19,14 +19,14 @@ export default function Main({ children, sx, ...other }) {
       sx={{
         flexGrow: 1,
         minHeight: 1,
-        display: "flex",
-        flexDirection: "column",
+        display: 'flex',
+        flexDirection: 'column',
         py: `${HEADER.H_MOBILE + SPACING}px`,
         px: 2,
         ...(lgUp && {
           px: 4,
           py: `${HEADER.H_DESKTOP + SPACING}px`,
-          width: `calc(100% - ${NAV.WIDTH}px)`,
+          width: `100%`,
         }),
         ...sx,
       }}

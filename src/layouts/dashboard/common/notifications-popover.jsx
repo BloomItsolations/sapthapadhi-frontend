@@ -1,25 +1,25 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import Badge from "@mui/material/Badge";
-import Button from "@mui/material/Button";
-import Avatar from "@mui/material/Avatar";
-import Divider from "@mui/material/Divider";
-import Tooltip from "@mui/material/Tooltip";
-import Popover from "@mui/material/Popover";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import ListItemText from "@mui/material/ListItemText";
-import ListSubheader from "@mui/material/ListSubheader";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemButton from "@mui/material/ListItemButton";
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import Badge from '@mui/material/Badge';
+import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
+import Tooltip from '@mui/material/Tooltip';
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemButton from '@mui/material/ListItemButton';
 
-import { fToNow } from "../../../utils/format-time";
+import { fToNow } from '../../../utils/format-time';
 
-import Iconify from "../../../components/iconify";
-import Scrollbar from "../../../components/scrollbar";
+import Iconify from '../../../components/iconify';
+import Scrollbar from '../../../components/scrollbar';
 
 // ----------------------------------------------------------------------
 
@@ -28,10 +28,10 @@ export default function NotificationsPopover() {
   const [open, setOpen] = useState(null);
 
   const totalUnRead = notifications.filter(
-    (item) => item.isUnRead === true
+    item => item.isUnRead === true,
   ).length;
 
-  const handleOpen = (event) => {
+  const handleOpen = event => {
     setOpen(event.currentTarget);
   };
   const gifts = [];
@@ -42,16 +42,16 @@ export default function NotificationsPopover() {
   const handleMarkAllAsRead = () => {
     setNotifications(
       gifts &&
-        gifts.map((notification) => ({
+        gifts.map(notification => ({
           ...notification,
           isUnRead: false,
-        }))
+        })),
     );
   };
 
   return (
     <>
-      <IconButton color={open ? "primary" : "default"} onClick={handleOpen}>
+      <IconButton color={open ? 'primary' : 'default'} onClick={handleOpen}>
         <Badge badgeContent={totalUnRead} color="error">
           <Iconify width={24} icon="solar:bell-bing-bold-duotone" />
         </Badge>
@@ -61,8 +61,8 @@ export default function NotificationsPopover() {
         open={!!open}
         anchorEl={open}
         onClose={handleClose}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         PaperProps={{
           sx: {
             mt: 1.5,
@@ -71,10 +71,10 @@ export default function NotificationsPopover() {
           },
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", py: 2, px: 2.5 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', py: 2, px: 2.5 }}>
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="subtitle1">Notifications</Typography>
-            <Typography variant="body2" sx={{ color: "text.secondary" }}>
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               You have {totalUnRead} unread messages
             </Typography>
           </Box>
@@ -88,21 +88,21 @@ export default function NotificationsPopover() {
           )}
         </Box>
 
-        <Divider sx={{ borderStyle: "dashed" }} />
+        <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <Scrollbar sx={{ height: { xs: 340, sm: "auto" } }}>
+        <Scrollbar sx={{ height: { xs: 340, sm: 'auto' } }}>
           <List
             disablePadding
             subheader={
               <ListSubheader
                 disableSticky
-                sx={{ py: 1, px: 2.5, typography: "overline" }}
+                sx={{ py: 1, px: 2.5, typography: 'overline' }}
               >
                 New
               </ListSubheader>
             }
           >
-            {notifications.slice(0, 2).map((notification) => (
+            {notifications.slice(0, 2).map(notification => (
               <NotificationItem
                 key={notification.id}
                 notification={notification}
@@ -115,13 +115,13 @@ export default function NotificationsPopover() {
             subheader={
               <ListSubheader
                 disableSticky
-                sx={{ py: 1, px: 2.5, typography: "overline" }}
+                sx={{ py: 1, px: 2.5, typography: 'overline' }}
               >
                 Before that
               </ListSubheader>
             }
           >
-            {notifications.slice(2, 5).map((notification) => (
+            {notifications.slice(2, 5).map(notification => (
               <NotificationItem
                 key={notification.id}
                 notification={notification}
@@ -130,7 +130,7 @@ export default function NotificationsPopover() {
           </List>
         </Scrollbar>
 
-        <Divider sx={{ borderStyle: "dashed" }} />
+        <Divider sx={{ borderStyle: 'dashed' }} />
 
         <Box sx={{ p: 1 }}>
           <Button fullWidth disableRipple>
@@ -164,14 +164,14 @@ function NotificationItem({ notification }) {
       sx={{
         py: 1.5,
         px: 2.5,
-        mt: "1px",
+        mt: '1px',
         ...(notification.isUnRead && {
-          bgcolor: "action.selected",
+          bgcolor: 'action.selected',
         }),
       }}
     >
       <ListItemAvatar>
-        <Avatar sx={{ bgcolor: "background.neutral" }}>{avatar}</Avatar>
+        <Avatar sx={{ bgcolor: 'background.neutral' }}>{avatar}</Avatar>
       </ListItemAvatar>
       <ListItemText
         primary={title}
@@ -180,9 +180,9 @@ function NotificationItem({ notification }) {
             variant="caption"
             sx={{
               mt: 0.5,
-              display: "flex",
-              alignItems: "center",
-              color: "text.disabled",
+              display: 'flex',
+              alignItems: 'center',
+              color: 'text.disabled',
             }}
           >
             <Iconify
@@ -206,14 +206,14 @@ function renderContent(notification) {
       <Typography
         component="span"
         variant="body2"
-        sx={{ color: "text.secondary" }}
+        sx={{ color: 'text.secondary' }}
       >
         &nbsp; {notification.description}
       </Typography>
     </Typography>
   );
 
-  if (notification.type === "order_placed") {
+  if (notification.type === 'order_placed') {
     return {
       avatar: (
         <img
@@ -224,7 +224,7 @@ function renderContent(notification) {
       title,
     };
   }
-  if (notification.type === "order_shipped") {
+  if (notification.type === 'order_shipped') {
     return {
       avatar: (
         <img
@@ -235,7 +235,7 @@ function renderContent(notification) {
       title,
     };
   }
-  if (notification.type === "mail") {
+  if (notification.type === 'mail') {
     return {
       avatar: (
         <img
@@ -246,7 +246,7 @@ function renderContent(notification) {
       title,
     };
   }
-  if (notification.type === "chat_message") {
+  if (notification.type === 'chat_message') {
     return {
       avatar: (
         <img
