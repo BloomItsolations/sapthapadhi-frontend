@@ -1,24 +1,24 @@
-import PropTypes from "prop-types";
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
-import { alpha } from "@mui/material/styles";
-import { Box, Stack, Drawer, Typography, ListItemButton } from "@mui/material";
+import { alpha } from '@mui/material/styles';
+import { Box, Stack, Drawer, Typography, ListItemButton } from '@mui/material';
 
-import { appRoutes } from "../../routes/config";
-import { usePathname } from "../../routes/hooks";
-import { RouterLink } from "../../routes/components";
+import { appRoutes } from '../../routes/config';
+import { usePathname } from '../../routes/hooks';
+import { RouterLink } from '../../routes/components';
 
-import { useResponsive } from "../../hooks/use-responsive";
+import { useResponsive } from '../../hooks/use-responsive';
 
-import Scrollbar from "../../components/scrollbar";
+import Scrollbar from '../../components/scrollbar';
 
-import { NAV } from "./config-layout";
+import { NAV } from './config-layout';
 
 const Nav = ({ openNav, onCloseNav }) => {
-  const { authInfo } = useSelector((state) => state.auth);
+  const { authInfo } = useSelector(state => state.auth);
   const pathname = usePathname();
-  const upLg = useResponsive("up", "lg");
+  const upLg = useResponsive('up', 'lg');
   useEffect(() => {
     if (openNav) {
       onCloseNav();
@@ -33,35 +33,35 @@ const Nav = ({ openNav, onCloseNav }) => {
         mx: 2.5,
         py: 2,
         px: 2.5,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "start",
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'start',
         borderRadius: 1.5,
-        alignItems: "start",
-        bgcolor: (theme) => alpha(theme.palette.grey[50], 1),
+        alignItems: 'start',
+        bgcolor: theme => alpha(theme.palette.grey[50], 1),
       }}
     >
-      <Typography variant="h6" sx={{ textTransform: "capitalize" }}>
+      <Typography
+        variant="h6"
+        sx={{ textTransform: 'capitalize', color: 'primary.main' }}
+      >
         {authInfo.name}
       </Typography>
-      <Typography variant="h6" sx={{ textTransform: "capitalize" }}>
-        {authInfo.name}
+
+      <Typography variant="body1" sx={{ color: 'primary.main' }}>
+        {authInfo?.phone}
       </Typography>
-      <Typography variant="h6" sx={{ textTransform: "capitalize" }}>
-        {authInfo.name}
-      </Typography>
-      <Typography variant="h6">{authInfo?.phone}</Typography>
     </Box>
   );
 
   const renderMenu = (
     <Stack component="nav" spacing={0.5} sx={{ px: 2 }}>
-      {appRoutes?.map((item) => {
+      {appRoutes?.map(item => {
         return (
           <NavItem
             key={item.title}
             item={item}
-            active={"/app/" + item.path === pathname || item.path === pathname}
+            active={'/app/' + item.path === pathname || item.path === pathname}
           />
         );
       })}
@@ -72,9 +72,9 @@ const Nav = ({ openNav, onCloseNav }) => {
     <Scrollbar
       sx={{
         height: 1,
-        "& .simplebar-content": {
-          display: "flex",
-          flexDirection: "column",
+        '& .simplebar-content': {
+          display: 'flex',
+          flexDirection: 'column',
         },
       }}
     >
@@ -94,11 +94,10 @@ const Nav = ({ openNav, onCloseNav }) => {
         <Box
           sx={{
             height: 1,
-            position: "fixed",
+            position: 'fixed',
             width: NAV.WIDTH,
-            borderRight: (theme) =>
-              `dashed 1px ${theme.palette.secondary.main}`,
-            backgroundColor: (theme) => theme.palette.background.paper,
+            borderRight: theme => `dashed 1px ${theme.palette.secondary.main}`,
+            backgroundColor: theme => theme.palette.background.paper,
             zIndex: 100,
           }}
         >
@@ -132,14 +131,15 @@ const NavItem = ({ item, active }) => (
     href={item.path}
     sx={{
       minHeight: 44,
+      paddingY: 1,
       borderRadius: 0.75,
-      typography: "body2",
-      textTransform: "capitalize",
-      fontWeight: active ? "fontWeightSemiBold" : "fontWeightMedium",
-      color: active ? "#ffffff" : "text.secondary",
-      backgroundColor: active ? "#5e17eb" : "transparent",
-      "&:hover": {
-        backgroundColor: active ? "#5e17eb" : "transparent",
+      typography: 'body2',
+      textTransform: 'capitalize',
+      fontWeight: active ? 'fontWeightSemiBold' : 'fontWeightMedium',
+      color: active ? 'text.primary' : 'text.secondary',
+      backgroundColor: active ? 'primary.main' : 'transparent',
+      '&:hover': {
+        backgroundColor: active ? 'primary.main' : 'transparent',
       },
     }}
   >
@@ -149,12 +149,19 @@ const NavItem = ({ item, active }) => (
         width: 24,
         height: 24,
         mr: 2,
-        color: active ? "#ffffff" : "#ffffff",
+        color: active ? '#ffffff' : '#000000',
       }}
     >
       {item.icon}
     </Box>
-    <Box component="span">{item.title}</Box>
+    <Box
+      component="span"
+      sx={{
+        color: active ? '#ffffff' : '#000000',
+      }}
+    >
+      {item.title}
+    </Box>
   </ListItemButton>
 );
 

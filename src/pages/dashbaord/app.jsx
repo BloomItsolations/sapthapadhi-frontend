@@ -1,8 +1,8 @@
-import { Helmet } from "react-helmet-async";
-import React, { useEffect } from "react";
+import { Helmet } from 'react-helmet-async';
+import React, { useEffect } from 'react';
 
-import { useDispatch, useSelector } from "react-redux";
-import { matchesUser, recUsers } from "../../store/userSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import { matchesUser, recUsers } from '../../store/userSlice';
 import {
   Card,
   Container,
@@ -10,20 +10,15 @@ import {
   Typography,
   CardMedia,
   CardContent,
-  CardActions,
-  Button,
-} from "@mui/material";
-import SliderContainer from "../../components/Slider";
-// ----------------------------------------------------------------------
+} from '@mui/material';
+import SliderContainer from '../../components/Slider';
+// ---------------------------------------------------
 
 export default function AppPage() {
   const dispatch = useDispatch();
+  const { authInfo } = useSelector(state => state.auth);
+  const { matchUser, recUsersList } = useSelector(state => state.user);
 
-  const { authInfo } = useSelector((state) => state.auth);
-
-  const { matchUser, recUsersList } = useSelector((state) => state.user);
-  console.log(matchUser);
-  console.log(recUsersList);
   useEffect(() => {
     dispatch(recUsers());
     dispatch(matchesUser());
@@ -36,7 +31,10 @@ export default function AppPage() {
       </Helmet>
 
       <Container>
-        <Typography variant="h4" sx={{ mb: 5, textTransform: "capitalize" }}>
+        <Typography
+          variant="h4"
+          sx={{ mb: 5, textTransform: 'capitalize', color: 'secondary.main' }}
+        >
           Hi, Welcome back {authInfo.name}👋
         </Typography>
         <Grid container spacing={1} marginY={4}>
@@ -46,11 +44,15 @@ export default function AppPage() {
             </Typography>
             <SliderContainer>
               {matchUser !== null ? (
-                matchUser?.map((user) => (
-                  <Card sx={{ maxWidth: 345 }} key={user.id}>
+                matchUser?.map(user => (
+                  <Card sx={{ width: 320, height: 320 }} key={user.id}>
                     <CardMedia
-                      sx={{ height: 140 }}
-                      image={user.profilePic}
+                      sx={{ height: 200 }}
+                      image={
+                        typeof user.profilePhoto === 'string'
+                          ? user.profilePhoto
+                          : `https://sapthapadhi.bloomitsolutions.co.in/${user.profilePhoto[0]?.path}`
+                      }
                       alt={user.name}
                       title={user.name}
                     />
@@ -59,17 +61,13 @@ export default function AppPage() {
                         {user.name}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        {user.age}
+                        {user.age}Yrs,&nbsp;{user.height}
                       </Typography>
                     </CardContent>
-                    <CardActions>
-                      <Button size="small">Share</Button>
-                      <Button size="small">Learn More</Button>
-                    </CardActions>
                   </Card>
                 ))
               ) : (
-                <div>No Recommended Users</div>
+                <div>No Matches Users</div>
               )}
             </SliderContainer>
           </Grid>
@@ -79,11 +77,15 @@ export default function AppPage() {
             </Typography>
             <SliderContainer>
               {recUsersList !== null ? (
-                recUsersList?.map((user) => (
-                  <Card sx={{ maxWidth: 345 }} key={user.id}>
+                recUsersList?.map(user => (
+                  <Card sx={{ width: 320, height: 320 }} key={user.id}>
                     <CardMedia
-                      sx={{ height: 140 }}
-                      image={user.profilePic}
+                      sx={{ height: 200 }}
+                      image={
+                        typeof user.profilePhoto === 'string'
+                          ? user.profilePhoto
+                          : `https://sapthapadhi.bloomitsolutions.co.in/${user.profilePhoto[0]?.path}`
+                      }
                       alt={user.name}
                       title={user.name}
                     />
@@ -92,13 +94,9 @@ export default function AppPage() {
                         {user.name}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        {user.age}
+                        {user.age}Yrs,&nbsp;{user.height}
                       </Typography>
                     </CardContent>
-                    <CardActions>
-                      <Button size="small">Share</Button>
-                      <Button size="small">Learn More</Button>
-                    </CardActions>
                   </Card>
                 ))
               ) : (

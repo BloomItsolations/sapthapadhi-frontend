@@ -1,13 +1,37 @@
-import React from "react";
-import Slider from "react-slick";
+import React from 'react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import './style.css';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+function NextArrow(props) {
+  const { style, onClick } = props;
+  return (
+    <div style={{ ...style, display: 'block' }} onClick={onClick}>
+      <FaChevronRight className="slick-arrow-icon-right" />
+    </div>
+  );
+}
+
+function PrevArrow(props) {
+  const { style, onClick } = props;
+  return (
+    <div style={{ ...style, display: 'block' }} onClick={onClick}>
+      <FaChevronLeft className="slick-arrow-icon-left" />
+    </div>
+  );
+}
+
 const SliderContainer = ({ children }) => {
   var settings = {
-    dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToShow: 3.5,
+    slidesToScroll: 3,
     initialSlide: 0,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+
     responsive: [
       {
         breakpoint: 1024,

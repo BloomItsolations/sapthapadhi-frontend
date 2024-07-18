@@ -1,24 +1,24 @@
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useRouter } from "../../../routes/hooks";
-import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
-import Divider from "@mui/material/Divider";
-import Popover from "@mui/material/Popover";
-import { alpha } from "@mui/material/styles";
-import MenuItem from "@mui/material/MenuItem";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useRouter } from '../../../routes/hooks';
+import Box from '@mui/material/Box';
+import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
+import Popover from '@mui/material/Popover';
+import { alpha } from '@mui/material/styles';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
 
-import { logout } from "../../../store/authSlice";
-import { Link } from "react-router-dom";
+import { logout } from '../../../store/authSlice';
+import { Link } from 'react-router-dom';
 // ---------------------------------------------
 
 const MENU_OPTIONS = [
   {
-    label: "Home",
-    icon: "eva:home-fill",
-    path: "/",
+    label: 'Home',
+    icon: 'eva:home-fill',
+    path: '/',
   },
 ];
 
@@ -26,10 +26,10 @@ const MENU_OPTIONS = [
 
 export default function AccountPopover() {
   const router = useRouter();
-  const { authInfo } = useSelector((state) => state.auth);
+  const { authInfo } = useSelector(state => state.auth);
   const [open, setOpen] = useState(null);
   const dispatch = useDispatch();
-  const handleOpen = (event) => {
+  const handleOpen = event => {
     setOpen(event.currentTarget);
   };
 
@@ -38,7 +38,7 @@ export default function AccountPopover() {
   };
   const handleLogout = () => {
     dispatch(logout());
-    router.push("/");
+    router.push('/');
     handleClose();
   };
 
@@ -49,36 +49,31 @@ export default function AccountPopover() {
         sx={{
           width: 40,
           height: 40,
-          background: (theme) => alpha(theme.palette.primary.main, 0.08),
+          background: theme => alpha(theme.palette.primary.main, 0.08),
           ...(open && {
-            background: (theme) =>
+            background: theme =>
               `linear-gradient(135deg, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`,
           }),
         }}
       >
         {authInfo?.profileImage === null ? (
           <Avatar
-            // alt={authInfo.name}
             sx={{
               width: 36,
               height: 36,
-              border: (theme) =>
-                `solid 2px ${theme.palette.background.default}`,
+              border: theme => `solid 2px ${theme.palette.background.default}`,
             }}
           >
             {authInfo.name.charAt(0).toUpperCase()}
           </Avatar>
         ) : (
           <Avatar
-            // alt={authInfo.name}
-            key={"alt"}
+            key={'alt'}
             sx={{
               width: 36,
               height: 36,
-              border: (theme) =>
-                `solid 2px ${theme.palette.background.default}`,
+              border: theme => `solid 2px ${theme.palette.background.default}`,
             }}
-            // src={`https://api.DonorsClub.in/${authInfo?.profileImage[0]?.path}`}
           ></Avatar>
         )}
       </IconButton>
@@ -87,8 +82,8 @@ export default function AccountPopover() {
         open={!!open}
         anchorEl={open}
         onClose={handleClose}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         PaperProps={{
           sx: {
             p: 0,
@@ -102,28 +97,26 @@ export default function AccountPopover() {
           <Typography variant="subtitle2" noWrap>
             {authInfo?.name}
           </Typography>
-          <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
             {authInfo?.phone}
           </Typography>
         </Box>
 
-        <Divider sx={{ borderStyle: "dashed" }} />
+        <Divider sx={{ borderStyle: 'dashed' }} />
 
         {MENU_OPTIONS.map((option, index) => (
-          <Link to={option.path}>
-            <MenuItem key={index + 1} onClick={handleClose}>
-              {option.label}
-            </MenuItem>
+          <Link to={option.path} key={index + 1}>
+            <MenuItem onClick={handleClose}>{option.label}</MenuItem>
           </Link>
         ))}
 
-        <Divider sx={{ borderStyle: "dashed", m: 0 }} />
+        <Divider sx={{ borderStyle: 'dashed', m: 0 }} />
 
         <MenuItem
           disableRipple
           disableTouchRipple
           onClick={handleLogout}
-          sx={{ typography: "body2", color: "error.main", py: 1.5 }}
+          sx={{ typography: 'body2', color: 'error.main', py: 1.5 }}
         >
           Logout
         </MenuItem>
