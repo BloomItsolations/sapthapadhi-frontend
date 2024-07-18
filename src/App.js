@@ -1,36 +1,38 @@
-import { lazy } from "react";
-import { v4 as uuidv } from "uuid";
-import { useSelector } from "react-redux";
-import { Route, Routes } from "react-router-dom";
+import { lazy } from 'react';
+import { useSelector } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
 
-import { appRoutes } from "./routes/config";
-
-import { useScrollToTop } from "./hooks/use-scroll-to-top";
+import { useScrollToTop } from './hooks/use-scroll-to-top';
 //app layout
-import HomeLayout from "./layouts/home/index";
-import DashboardLayout from "./layouts/dashboard";
-import ProtectedRoute from "./routes/ProtectedRoute";
-import UnProtectedRoute from "./routes/UnProtectedRoute";
-import About from "./pages/home/About";
-import Pricing from "./pages/home/Pricing";
-import Contact from "./pages/home/Contact";
-import Gallery from "./pages/home/Gallery";
-import Services from "./pages/home/Services";
+import HomeLayout from './layouts/home/index';
+import DashboardLayout from './layouts/dashboard';
+import ProtectedRoute from './routes/ProtectedRoute';
+import UnProtectedRoute from './routes/UnProtectedRoute';
+import About from './pages/home/About';
+import Pricing from './pages/home/Pricing';
+import Contact from './pages/home/Contact';
+import Gallery from './pages/home/Gallery';
+import Services from './pages/home/Services';
 
-const RegisterPage = lazy(() => import("./pages/auth/Register"));
-const LoginPage = lazy(() => import("./pages/auth/login"));
-const Page404 = lazy(() => import("./pages/page-not-found"));
+const RegisterPage = lazy(() => import('./pages/auth/Register'));
+const LoginPage = lazy(() => import('./pages/auth/login'));
+const Page404 = lazy(() => import('./pages/page-not-found'));
 // home
-const Home = lazy(() => import("./pages/home"));
-const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
-const TermsConditions = lazy(() => import("./pages/TermsConditions"));
-const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
-
+const Home = lazy(() => import('./pages/home'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const TermsConditions = lazy(() => import('./pages/TermsConditions'));
+const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword'));
+// dashboad
+const Matches = lazy(() => import('./pages/dashbaord/Matches'));
+const IndexPage = lazy(() => import('./pages/dashbaord/app'));
+const Plan = lazy(() => import('./pages/dashbaord/plan'));
+const Chats = lazy(() => import('./pages/dashbaord/Chats'));
 // --------------------------------------------------------
-
+const Preferences = lazy(() => import('./pages/dashbaord/Preferences'));
+const Setting = lazy(() => import('./pages/dashbaord/Setting'));
 export default function App() {
   useScrollToTop();
-  const { authInfo } = useSelector((state) => state.auth);
+  const { authInfo } = useSelector(state => state.auth);
 
   return (
     <>
@@ -53,35 +55,30 @@ export default function App() {
               </UnProtectedRoute>
             }
           />
-          <Route
-            path="register/:referralKey"
-            element={
-              <UnProtectedRoute>
-                <RegisterPage />
-              </UnProtectedRoute>
-            }
-          />
+
           <Route path="updatePassword" element={<ForgotPassword />} />
           <Route path="terms_and_conditions" element={<TermsConditions />} />
           <Route path="privacy_and_policy" element={<PrivacyPolicy />} />
         </Route>
         <Route
-          path="/app"
+          path="/app/"
           element={
             <ProtectedRoute>
               <DashboardLayout />
             </ProtectedRoute>
           }
         >
-          {authInfo !== null
-            ? appRoutes?.map((route) => (
-                <Route
-                  key={uuidv()}
-                  path={route.path}
-                  element={route.element}
-                />
-              ))
-            : null}
+          {authInfo !== null ? (
+            <>
+              <Route path={'dashboard/'} element={<IndexPage />}>
+                <Route path="preferences" element={<Preferences />} />
+                <Route path="Setting" element={<Setting />} />
+              </Route>
+              <Route path={'matches'} element={<Matches />} />
+              <Route path={'plans'} element={<Plan />} />
+              <Route path={'chat'} element={<Chats />} />
+            </>
+          ) : null}
         </Route>
         <Route path="*" element={<Page404 />} />
       </Routes>

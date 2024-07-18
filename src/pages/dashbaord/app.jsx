@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import React, { useEffect } from 'react';
-
+import { Outlet, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { matchesUser, recUsers } from '../../store/userSlice';
 import {
@@ -9,6 +9,7 @@ import {
   Grid,
   Typography,
   CardMedia,
+  Box,
   CardContent,
 } from '@mui/material';
 import SliderContainer from '../../components/Slider';
@@ -37,6 +38,93 @@ export default function AppPage() {
         >
           Hi, Welcome back {authInfo.name}👋
         </Typography>
+        <Box>
+          <Box>
+            {' '}
+            <Box
+              component={Link}
+              to={'preferences'}
+              sx={{
+                color: 'primary.main',
+                backgroundColor: 'transparent',
+              }}
+            >
+              <Box
+                component="span"
+                sx={{
+                  color: '#000000',
+                }}
+              >
+                Preferences
+              </Box>
+            </Box>
+            <Box
+              component={Link}
+              to={'Setting'}
+              sx={{
+                color: 'primary.main',
+                backgroundColor: 'transparent',
+              }}
+            >
+              <Box
+                component="span"
+                sx={{
+                  color: '#000000',
+                }}
+              >
+                Setting
+              </Box>
+            </Box>
+            <Box
+              component={Link}
+              to={'preferences'}
+              sx={{
+                color: 'primary.main',
+                backgroundColor: 'transparent',
+              }}
+            >
+              <Box
+                component="span"
+                sx={{
+                  color: '#000000',
+                }}
+              >
+                Preferences
+              </Box>
+            </Box>
+            <Box
+              component={Link}
+              to={'preferences'}
+              sx={{
+                color: 'primary.main',
+                backgroundColor: 'transparent',
+              }}
+            >
+              <Box
+                component="span"
+                sx={{
+                  color: '#000000',
+                }}
+              >
+                Preferences
+              </Box>
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: 1,
+              flexGrow: 1,
+              width: '100%',
+              overflow: 'auto',
+            }}
+          >
+            <Outlet />
+          </Box>
+        </Box>
         <Grid container spacing={1} marginY={4}>
           <Grid item xs={12}>
             <Typography variant="h6" sx={{ mb: 2 }}>
