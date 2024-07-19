@@ -1,30 +1,23 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { updateUserDetails, userDetailsById } from "../../store/authSlice";
-import Swal from "sweetalert2";
-import {
-  Avatar,
-  Button,
-  Grid,
-  TextField,
-  Typography,
-  Box,
-} from "@mui/material";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserDetails, userDetailsById } from '../../store/authSlice';
+import Swal from 'sweetalert2';
+import { Avatar, Button, Grid, TextField, Box } from '@mui/material';
 
-export const Account = () => {
+export const Profile = () => {
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [image, setImage] = useState(null);
   const [newProfilePic, setNewProfilePic] = useState(null);
   const [address, setAddress] = useState({
-    deliverAddress: "",
-    city: "",
-    state: "",
-    pinCode: "",
+    deliverAddress: '',
+    city: '',
+    state: '',
+    pinCode: '',
   });
-  const { authInfo, error } = useSelector((state) => state.auth);
+  const { authInfo, error } = useSelector(state => state.auth);
 
   const profileImage = authInfo.profileImage && authInfo?.profileImage[0]?.path;
 
@@ -42,15 +35,15 @@ export const Account = () => {
     return () => {};
   }, [dispatch]);
 
-  const handleNameChange = (event) => {
+  const handleNameChange = event => {
     setName(event.target.value);
   };
 
-  const handleEmailChange = (event) => {
+  const handleEmailChange = event => {
     setEmail(event.target.value);
   };
 
-  const handleProfilePicChange = (event) => {
+  const handleProfilePicChange = event => {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -60,19 +53,19 @@ export const Account = () => {
     reader.readAsDataURL(file);
   };
 
-  const handleAddressChange = (event) => {
+  const handleAddressChange = event => {
     const { name, value } = event.target;
     setAddress({ ...address, [name]: value });
   };
 
-  const handleUpdateProfile = (e) => {
+  const handleUpdateProfile = e => {
     e.preventDefault();
 
     // Check if all required fields are filled
     if (!name || !email || !address || !image) {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
+        icon: 'error',
+        title: 'Oops...',
         text: error,
       });
       return;
@@ -83,8 +76,8 @@ export const Account = () => {
       dispatch(userDetailsById());
     } catch (error) {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
+        icon: 'error',
+        title: 'Oops...',
         text: error,
       });
     }
@@ -92,19 +85,9 @@ export const Account = () => {
 
   return (
     <Box>
-      <Typography
-        variant="h4"
-        component="h1"
-        gutterBottom
-        textAlign={"center"}
-        sx={{ marginY: 2, color: "primary.main", textAlign: "center" }}
-      >
-        Profile
-      </Typography>
       <Box
         sx={{
-          backgroundColor: (theme) => `${theme.palette.common.white}`,
-          marginY: 3,
+          backgroundColor: theme => `${theme.palette.common.white}`,
           padding: 2,
           borderRadius: 1,
           boxShadow: 1,
@@ -114,12 +97,12 @@ export const Account = () => {
           <Grid item xs={12}>
             <Box
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
-              <label htmlFor="profile-pic-input" style={{ cursor: "pointer" }}>
+              <label htmlFor="profile-pic-input" style={{ cursor: 'pointer' }}>
                 <Avatar
                   alt="Profile Picture"
                   src={
@@ -128,7 +111,7 @@ export const Account = () => {
                   sx={{
                     width: 120,
                     height: 120,
-                    borderRadius: "full",
+                    borderRadius: 'full',
                     boxShadow: 1,
                   }}
                 />
@@ -138,7 +121,7 @@ export const Account = () => {
                 type="file"
                 accept="image/*"
                 onChange={handleProfilePicChange}
-                style={{ display: "none" }}
+                style={{ display: 'none' }}
               />
             </Box>
           </Grid>
@@ -212,7 +195,7 @@ export const Account = () => {
             />
           </Grid>
         </Grid>
-        <Box sx={{ display: "flex", justifyContent: "end", marginY: 2 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'end', marginY: 2 }}>
           <Button
             onClick={handleUpdateProfile}
             variant="contained"
@@ -226,4 +209,4 @@ export const Account = () => {
     </Box>
   );
 };
-export default Account;
+export default Profile;

@@ -1,21 +1,15 @@
-import React from "react";
-import { Helmet } from "react-helmet-async";
+import React from 'react';
 
-import { Box } from "@mui/material";
+import { Box } from '@mui/material';
 
-import Account from "../../sections/user/Account";
+import Account from './Profile';
 
 export default function UserPage() {
   return (
     <>
-      <Helmet>
-        <title> Teams | sapthapadhi </title>
-      </Helmet>
-      <>
-        <Box sx={{ height: "65vh", width: "100%" }}>
-          <Account />
-        </Box>
-      </>
+      <Box sx={{ height: '65vh', width: '100%' }}>
+        <Account />
+      </Box>
     </>
   );
 }

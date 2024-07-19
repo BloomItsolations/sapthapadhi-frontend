@@ -23,13 +23,15 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsConditions = lazy(() => import('./pages/TermsConditions'));
 const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword'));
 // dashboad
-const Matches = lazy(() => import('./pages/dashbaord/Matches'));
-const IndexPage = lazy(() => import('./pages/dashbaord/app'));
-const Plan = lazy(() => import('./pages/dashbaord/plan'));
-const Chats = lazy(() => import('./pages/dashbaord/Chats'));
-// --------------------------------------------------------
+const Matches = lazy(() => import('./pages/Matches'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Plan = lazy(() => import('./pages/plan'));
+const Chats = lazy(() => import('./pages/Chats'));
+// dadhboard Inners ------------------------------------------------
 const Preferences = lazy(() => import('./pages/dashbaord/Preferences'));
 const Setting = lazy(() => import('./pages/dashbaord/Setting'));
+const HomePage = lazy(() => import('./pages/dashbaord'));
+const Profile = lazy(() => import('./pages/dashbaord/Profile'));
 export default function App() {
   useScrollToTop();
   const { authInfo } = useSelector(state => state.auth);
@@ -70,9 +72,11 @@ export default function App() {
         >
           {authInfo !== null ? (
             <>
-              <Route path={'dashboard/'} element={<IndexPage />}>
+              <Route path={'dashboard/'} element={<Dashboard />}>
+                <Route index element={<HomePage />} />
                 <Route path="preferences" element={<Preferences />} />
-                <Route path="Setting" element={<Setting />} />
+                <Route path="settings" element={<Setting />} />
+                <Route path="profile" element={<Profile />} />
               </Route>
               <Route path={'matches'} element={<Matches />} />
               <Route path={'plans'} element={<Plan />} />

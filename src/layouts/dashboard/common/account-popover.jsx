@@ -20,6 +20,18 @@ const MENU_OPTIONS = [
     icon: 'eva:home-fill',
     path: '/',
   },
+  {
+    label: 'Edit Profile',
+    path: 'dashboard/profile',
+  },
+  {
+    label: 'Edit preferences',
+    path: 'dashboard/preferences',
+  },
+  {
+    label: 'settings',
+    path: 'dashboard/settings',
+  },
 ];
 
 // -------------------------------------

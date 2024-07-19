@@ -1,14 +1,14 @@
 import { Home, Chat, People } from '@mui/icons-material';
 import { lazy } from 'react';
-const Matches = lazy(() => import('../pages/dashbaord/Matches'));
-const IndexPage = lazy(() => import('../pages/dashbaord/app'));
-const Plan = lazy(() => import('../pages/dashbaord/plan'));
-const Chats = lazy(() => import('../pages/dashbaord/Chats'));
+const Matches = lazy(() => import('../pages/Matches'));
+const Dashboard = lazy(() => import('../pages/Dashboard'));
+const Plan = lazy(() => import('../pages/plan'));
+const Chats = lazy(() => import('../pages/Chats'));
 export const appRoutes = [
   {
     title: 'Home',
     path: 'dashboard',
-    element: <IndexPage />,
+    element: <Dashboard />,
     icon: <Home />,
   },
   {

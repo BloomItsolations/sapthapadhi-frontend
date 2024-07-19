@@ -24,7 +24,6 @@ export default function Main({ children, sx, ...other }) {
         py: `${HEADER.H_MOBILE + SPACING}px`,
         px: 2,
         ...(lgUp && {
-          px: 4,
           py: `${HEADER.H_DESKTOP + SPACING}px`,
           width: `100%`,
         }),

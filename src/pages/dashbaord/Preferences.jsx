@@ -44,7 +44,14 @@ const Preferences = () => {
       noValidate
       autoComplete="off"
       onSubmit={handleSubmit}
-      sx={{ flexGrow: 1, p: 3 }}
+      sx={{
+        flexGrow: 1,
+        p: 3,
+        backgroundColor: theme => `${theme.palette.common.white}`,
+        padding: 2,
+        borderRadius: 1,
+        boxShadow: 1,
+      }}
     >
       <Typography variant="h4" gutterBottom>
         Preferences Form
