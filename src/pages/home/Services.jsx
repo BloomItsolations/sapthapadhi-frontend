@@ -1,67 +1,67 @@
-import React from "react";
-import { Grid, Card, CardContent, Typography } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import React from 'react';
+import { Grid, Card, CardContent, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 const services = [
   {
     id: 1,
-    title: "WEDDING SERVICES",
+    title: 'WEDDING SERVICES',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    imageUrl: "/images/Rectangle 280.jpg",
+    imageUrl: '/images/Rectangle 280.jpg',
   },
   {
     id: 2,
-    title: "THE CEREMONY",
+    title: 'THE CEREMONY',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    imageUrl: "/images/Rectangle 281.jpg",
+    imageUrl: '/images/Rectangle 281.jpg',
   },
   {
     id: 3,
-    title: "PHOTOGRAPHY & VIDEO",
+    title: 'PHOTOGRAPHY & VIDEO',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    imageUrl: "/images/Rectangle 282.jpg",
+    imageUrl: '/images/Rectangle 282.jpg',
   },
   {
     id: 4,
-    title: "FOOD CATERING",
+    title: 'FOOD CATERING',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    imageUrl: "/images/Rectangle 283.jpg",
+    imageUrl: '/images/Rectangle 283.jpg',
   },
   {
     id: 5,
-    title: "DECORATIONS",
+    title: 'DECORATIONS',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    imageUrl: "/images/Rectangle 284.jpg",
+    imageUrl: '/images/Rectangle 284.jpg',
   },
   {
     id: 6,
-    title: "WEDDING HALLS",
+    title: 'WEDDING HALLS',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    imageUrl: "/images/Rectangle 285.jpg",
+    imageUrl: '/images/Rectangle 285.jpg',
   },
   {
     id: 7,
-    title: "WEDDING REGISTRY",
+    title: 'WEDDING REGISTRY',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    imageUrl: "/images/Rectangle 286.jpg",
+    imageUrl: '/images/Rectangle 286.jpg',
   },
   {
     id: 8,
-    title: "THE PERFECT CAKE",
+    title: 'THE PERFECT CAKE',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    imageUrl: "/images/Rectangle 287.jpg",
+    imageUrl: '/images/Rectangle 287.jpg',
   },
 ];
 
-const PREFIX = "OurService";
+const PREFIX = 'OurService';
 const classes = {
   root: `${PREFIX}-root`,
   card: `${PREFIX}-card`,
@@ -73,66 +73,66 @@ const classes = {
   description: `${PREFIX}-description`,
 };
 
-const Root = styled("div")(({ theme }) => ({
+const Root = styled('div')(({ theme }) => ({
   [`&.${classes.root}`]: {
     flexGrow: 1,
     padding: theme.spacing(3),
   },
   [`& .${classes.card}`]: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    position: "relative",
-    overflow: "hidden",
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    position: 'relative',
+    overflow: 'hidden',
     borderRadius: theme.shape.borderRadius,
     boxShadow: theme.shadows[3],
-    "&:hover": {
+    '&:hover': {
       boxShadow: theme.shadows[6],
     },
   },
   [`& .${classes.mediaContainer}`]: {
-    position: "relative",
-    overflow: "hidden",
-    "&:before": {
+    position: 'relative',
+    overflow: 'hidden',
+    '&:before': {
       content: '""',
-      position: "absolute",
+      position: 'absolute',
       top: 0,
       left: 0,
-      width: "100%",
-      height: "100%",
-      backgroundColor: "rgba(0, 0, 0, 0.5)",
+      width: '100%',
+      height: '100%',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
       zIndex: 1,
     },
   },
   [`& .${classes.media}`]: {
-    width: "100%",
-    height: "auto",
-    objectFit: "cover",
+    width: '100%',
+    height: 'auto',
+    objectFit: 'cover',
     zIndex: 0,
   },
   [`& .${classes.overlay}`]: {
-    position: "absolute",
+    position: 'absolute',
     zIndex: 2,
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    textAlign: "center",
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    textAlign: 'center',
     color: theme.palette.common.white,
-    width: "100%",
+    width: '100%',
     padding: theme.spacing(2),
   },
   [`& .${classes.content}`]: {
-    position: "relative",
+    position: 'relative',
     zIndex: 3,
     padding: theme.spacing(0),
   },
   [`& .${classes.title}`]: {
-    fontSize: "1.5rem",
-    fontWeight: "bold",
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
     marginBottom: theme.spacing(2),
   },
   [`& .${classes.description}`]: {
-    fontSize: "1rem",
+    fontSize: '1rem',
   },
 }));
 
@@ -141,16 +141,18 @@ const Services = () => {
     <Root className={classes.root}>
       <Typography
         sx={{
-          borderRadius: "0px 10px 0 10px",
-          display: "flex",
-          marginTop: "30px",
-          marginBottom: "30px",
-          justifyContent: "center",
-          marginLeft: { xs: "0px", md: "64px" },
-          border: "1px solid black",
-          width: { xs: "auto", sm: "300px", md: "526px" },
-          fontSize: { xs: "25px", md: "40px" },
-          backgroundColor: "#f9f9f9",
+          borderRadius: '0px 10px 0 10px',
+          display: 'flex',
+          marginTop: '30px',
+          marginBottom: '30px',
+          justifyContent: 'center',
+          marginLeft: { xs: '0px', md: '64px' },
+          border: '1px solid black',
+          width: { xs: 'auto', sm: '300px', md: '526px' },
+          fontSize: { xs: '25px', md: '40px' },
+          backgroundColor: '#f9f9f9',
+          color: 'primary.main',
+          textAlign: 'center',
         }}
         variant="h4"
         component="div"
@@ -159,7 +161,7 @@ const Services = () => {
       </Typography>
 
       <Grid container spacing={3}>
-        {services.map((service) => (
+        {services.map(service => (
           <Grid item xs={12} sm={6} md={4} key={service.id}>
             <Card className={classes.card}>
               <div className={classes.mediaContainer}>

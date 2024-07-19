@@ -1,59 +1,54 @@
-import React from "react";
-import { Box, Typography, Grid } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import React from 'react';
+import { Box, Typography, Grid } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
-const useStyles = styled((theme) => ({
+const useStyles = styled(theme => ({
   container: {
     padding: theme.spacing(4),
+    color: '#000',
   },
   heading: {
-    fontFamily: "serif",
+    fontFamily: 'serif',
     fontWeight: 400,
-    lineHeight: "110.88px",
-    textAlign: "center",
+    lineHeight: '110.88px',
+    textAlign: 'center',
+    color: '#000',
   },
   subheading: {
-    fontFamily: "Inter",
-    fontSize: "36px",
+    fontFamily: 'Inter',
+    fontSize: '36px',
     fontWeight: 500,
-    lineHeight: "43.57px",
-    textAlign: "center",
+    lineHeight: '43.57px',
+    textAlign: 'center',
     marginTop: theme.spacing(2),
+    color: '#000',
   },
   section: {
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
     marginTop: theme.spacing(4),
+    color: '#000',
   },
 
   sectionContent: {
     marginLeft: theme.spacing(4),
+    color: '#000',
   },
   sectionHeading: {
-    fontFamily: "New Rocker",
-    fontSize: "36px",
+    fontSize: '36px',
     fontWeight: 400,
-    lineHeight: "44.24px",
-    textAlign: "left",
+    lineHeight: '44.24px',
+    textAlign: 'left',
+    color: '#000',
   },
   sectionParagraph: {
-    fontFamily: "Inter",
-    fontSize: "24px",
+    fontFamily: 'Inter',
+    fontSize: '24px',
     fontWeight: 400,
-    lineHeight: "46.12px",
-    textAlign: "left",
+    lineHeight: '46.12px',
+    textAlign: 'left',
     marginTop: theme.spacing(2),
-  },
-  imageContainer: {
-    border: "2px dashed #000",
-    padding: theme.spacing(2),
-    borderRadius: "8px",
-    overflow: "hidden",
-  },
-  image: {
-    width: "100%",
-    height: "auto",
-    display: "block",
+    color: '#000',
   },
 }));
 
@@ -67,18 +62,19 @@ const About = () => {
           variant="h1"
           className={classes.heading}
           sx={{
-            display: "flex",
-            fontFamily: "serif",
+            display: 'flex',
+            fontFamily: 'serif',
+            color: '#000',
             fontSize: {
-              xs: "32px",
-              sm: "48px",
-              md: "64px",
-              lg: "80px",
-              xl: "96px",
+              xs: '32px',
+              sm: '48px',
+              md: '64px',
+              lg: '80px',
+              xl: '96px',
             },
             fontWeight: 400,
-            justifyContent: "center",
-            marginTop: "20px",
+            justifyContent: 'center',
+            marginTop: '20px',
           }}
         >
           ABOUT US
@@ -87,17 +83,17 @@ const About = () => {
           variant="h6"
           className={classes.subheading}
           sx={{
-            display: "flex",
-            justifyContent: "center",
-            fontFamily: "sans-serif",
+            display: 'flex',
+            justifyContent: 'center',
+            color: '#000',
             fontSize: {
-              xs: "18px",
-              sm: "23px",
-              md: "30px",
-              lg: "32px",
-              xl: "32px",
+              xs: '18px',
+              sm: '23px',
+              md: '30px',
+              lg: '32px',
+              xl: '32px',
             },
-            marginTop: "5px",
+            marginTop: '5px',
           }}
         >
           Most trusted & genuine service in internet
@@ -107,23 +103,23 @@ const About = () => {
           className={classes.section}
           sx={{
             paddingInline: {
-              xs: "15px",
-              sm: "25px",
-              md: "35px",
-              lg: "60px",
-              xl: "80px",
+              xs: '15px',
+              sm: '25px',
+              md: '35px',
+              lg: '60px',
+              xl: '80px',
             },
-            marginTop: "50px",
-            display: "flex",
-            alignItems: "center",
+            color: '#000',
+            marginTop: '50px',
+            display: 'flex',
+            alignItems: 'center',
           }}
         >
           <Grid item xs={12} md={6}>
             <img
               src="images/aboutusimage.jpg"
               alt="About Us"
-              className={classes.image}
-              sx={{ width: "514px", height: "600px" }}
+              sx={{ width: '50%', height: '400px', borderRadius: '8px' }}
             />
           </Grid>
           <Grid item xs={12} md={6} className={classes.sectionContent}>
@@ -131,19 +127,18 @@ const About = () => {
               variant="h4"
               className={classes.sectionHeading}
               sx={{
-                fontFamily: "New Rocker",
-                color: "#E5026B",
-                fontSize: { xs: "24px", sm: "24px", lg: "32px", xl: "42px" },
+                color: 'secondary.main',
+                fontSize: { xs: '24px', sm: '24px', lg: '32px', xl: '42px' },
               }}
             >
               WELCOME TO SAPTHAPADHI.IN
             </Typography>
             <Typography
               variant="body1"
-              className={classes.sectionParagraph}
               sx={{
-                marginTop: "20px",
-                fontSize: { xs: "12px", md: "20px", lg: "30px" },
+                color: '#000',
+                marginTop: '20px',
+                fontSize: { xs: '12px', md: '20px' },
               }}
             >
               Best wedding matrimony It is a long established fact that a reader
@@ -172,15 +167,16 @@ const About = () => {
       <div className="flex justify-center items-center mt-8 md:mt-16 lg:mt-20 ">
         <Typography
           sx={{
-            borderRadius: "0px 10px 0 10px",
-            display: "flex",
-            justifyContent: "center",
-            marginLeft: { xs: "0px", md: "64px" },
-            border: "1px solid black",
-            paddingInline: { xs: "20px", md: "0px", lg: "0px" },
-            width: { xs: "auto", sm: "300px", md: "526px" },
-            fontSize: { xs: "25px", md: "40px" },
-            backgroundColor: "#f9f9f9",
+            borderRadius: '0px 10px 0 10px',
+            display: 'flex',
+            justifyContent: 'center',
+            marginLeft: { xs: '0px', md: '64px' },
+            border: '1px solid black',
+            paddingInline: { xs: '20px', md: '0px', lg: '0px' },
+            width: { xs: 'auto', sm: '300px', md: '526px' },
+            fontSize: { xs: '25px', md: '40px' },
+            backgroundColor: '#f9f9f9',
+            color: '#000',
           }}
           variant="h4"
           component="div"
@@ -189,17 +185,17 @@ const About = () => {
         </Typography>
       </div>
       <div className="flex flex-wrap gap-7 justify-around px-6 mt-7 md:mt-16 lg:mt-16 pb-16">
-        {[3223, 2, 12].map((vlaue) => (
+        {[3223, 2, 12].map(vlaue => (
           <div className="w-[368px] shadow-2xl p-4 rounded-[10px] ">
             <img
               src="images/ourprofession.jpg"
               className="w-[368px] h-[400px] rounded-[5px] "
               alt="Our Profession Images"
             />
-            <div className="border-[1px] border-black mx-auto mt-2 rounded-[15px] text-[24px] w-[227px] h-[39px] flex justify-center items-center ">
+            <div className="border-[1px] border-black mx-auto mt-2 text-black rounded-[15px] text-[24px] w-[227px] h-[39px] flex justify-center items-center ">
               Jack danial
             </div>
-            <p className="text-[16px] px-1 mx-auto mt-4 text-center">
+            <p className="text-[16px] text-black px-1 mx-auto mt-4 text-center">
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry.
             </p>

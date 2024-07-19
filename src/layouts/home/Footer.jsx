@@ -46,10 +46,10 @@ const Footer = () => {
         <Grid container spacing={2} justifyContent="">
           <Grid item xs={12} sm={6} md={3}>
             <Logo />
-
             <Typography variant="body2">
-              sapthapadhi excels in direct selling with top-notch products, and
-              online services.
+              Best wedding matrimony It is a long established fact that a reader
+              will be distracted by the readable content of a page when looking
+              at its layout.
             </Typography>
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
@@ -95,10 +95,10 @@ const Footer = () => {
 
               <Typography
                 component="a"
-                href="mailto:support@mywelthhelpsolution.in"
+                href="mailto:support@sapthapadhi.in"
                 sx={{ cursor: 'pointer' }}
               >
-                support@mywelthhelpsolution.in
+                support@sapthapadhi.in
               </Typography>
               <Typography
                 component="a"
@@ -158,7 +158,7 @@ const Footer = () => {
                   },
                 }}
                 startIcon={<FaGooglePlay />}
-                href="https://play.google.com/store/apps/details?id=com.mywelthhelpsolution.mywelthhelpsolution"
+                href="https://play.google.com/store/apps/details?id=com.sapthapadhi.sapthapadhi"
               >
                 Play Store
               </Button>
@@ -172,7 +172,7 @@ const Footer = () => {
                     backgroundColor: '#fff',
                   },
                 }}
-                href="/assets/apk/mywelthhelpsolution.apk"
+                href="/assets/apk/sapthapadhi.apk"
                 download
               >
                 APK Download
