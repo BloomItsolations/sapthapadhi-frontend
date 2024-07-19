@@ -74,7 +74,7 @@ const Header = () => {
     <AppBar
       component="nav"
       sx={{
-        bgcolor: theme.palette.background.default,
+        bgcolor: theme.palette.background.paper,
         color: theme.palette.text.primary,
         backgroundImage: 'none',
         boxShadow: 'none',

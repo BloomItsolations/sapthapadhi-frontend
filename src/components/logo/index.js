@@ -12,7 +12,7 @@ const Logo = forwardRef(({ disabledLink = false, sx, ...other }, ref) => {
       ref={ref}
       component="div"
       sx={{
-        width: 50,
+        width: 160,
         height: 'auto',
         display: 'inline-flex',
         objectFit: 'contain',
@@ -20,7 +20,7 @@ const Logo = forwardRef(({ disabledLink = false, sx, ...other }, ref) => {
       }}
       {...other}
     >
-      <img src="/logo.png" alt="logo" />
+      <img src="/logo.gif" alt="logo" />
     </Box>
   );
 
