@@ -27,6 +27,7 @@ const Matches = lazy(() => import('./pages/Matches'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Plan = lazy(() => import('./pages/plan'));
 const Chats = lazy(() => import('./pages/Chats'));
+const ChatRoom = lazy(() => import('./sections/chats/ChatRoom'));
 // dadhboard Inners ------------------------------------------------
 const Preferences = lazy(() => import('./pages/dashbaord/Preferences'));
 const Setting = lazy(() => import('./pages/dashbaord/Setting'));
@@ -80,7 +81,9 @@ export default function App() {
               </Route>
               <Route path={'matches'} element={<Matches />} />
               <Route path={'plans'} element={<Plan />} />
-              <Route path={'chat'} element={<Chats />} />
+              <Route path={'chat/'} element={<Chats />}>
+                <Route path=":userId" element={<ChatRoom />} />
+              </Route>
             </>
           ) : null}
         </Route>

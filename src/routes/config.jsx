@@ -25,7 +25,7 @@ export const appRoutes = [
   },
   {
     title: 'Chat',
-    path: 'Chat',
+    path: 'chat',
     element: <Chats />,
     icon: <Chat />,
   },

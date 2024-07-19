@@ -14,22 +14,16 @@ import {
   Divider,
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import io from 'socket.io-client';
-
+import { useSelector } from 'react-redux';
 const socket = io(process.env.REACT_APP_BaseURL);
 
 const ChatRoom = () => {
   const navigate = useNavigate();
-
-  const getUserIdFromUrl = () => {
-    const path = window.location.pathname;
-    const parts = path.split('/');
-    const userId = parseInt(parts[parts.length - 1]);
-    return userId;
-  };
-
+  const { userId } = useParams();
+  console.log(userId);
   const [user] = useState({
     name: 'ANGELINA',
     avatar: '/images/chatuser.png',
@@ -39,9 +33,9 @@ const ChatRoom = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const messagesEndRef = useRef(null);
-
-  const senderId = JSON.parse(localStorage.getItem('userdata')).userId;
-  const recipientId = getUserIdFromUrl();
+  const { authInfo } = useSelector(state => state.auth);
+  const senderId = authInfo.userId;
+  const recipientId = userId;
 
   useEffect(() => {
     socket.emit('fetchMessages', recipientId);
@@ -88,7 +82,7 @@ const ChatRoom = () => {
   };
 
   const handleBack = () => {
-    navigate('/chatlist');
+    navigate('/app/chat');
   };
 
   return (

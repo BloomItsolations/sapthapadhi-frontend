@@ -10,7 +10,7 @@ const ChatList = () => {
       captions: 'Hi, How are you',
       unreadCount: 3,
       avatar: '/images/chatusertwo.png',
-      link: 'chatlist/1',
+      link: '1',
     },
 
     {
@@ -19,7 +19,7 @@ const ChatList = () => {
       captions: 'Hi, How are you',
       unreadCount: 3,
       avatar: '/images/chatusertwo.png',
-      link: 'chatlist/1',
+      link: '1',
     },
 
     {
@@ -28,7 +28,7 @@ const ChatList = () => {
       captions: 'Hi, How are you',
       unreadCount: 3,
       avatar: '/images/chatusertwo.png',
-      link: 'chatlist/1',
+      link: '1',
     },
     {
       id: 2,
@@ -36,7 +36,7 @@ const ChatList = () => {
       captions: "Let's catch up tomorrow!",
       unreadCount: 1,
       avatar: '/images/chatusertwo.png',
-      link: 'chatlist/2',
+      link: '2',
     },
     {
       id: 3,
@@ -44,7 +44,7 @@ const ChatList = () => {
       captions: "What's the update on the project?",
       unreadCount: 0,
       avatar: '/images/chatusertwo.png',
-      link: 'chatlist/3',
+      link: '3',
     },
     {
       id: 1,
@@ -52,7 +52,7 @@ const ChatList = () => {
       captions: 'Hi, How are you',
       unreadCount: 3,
       avatar: '/images/chatusertwo.png',
-      link: 'chatlist/1',
+      link: '1',
     },
     {
       id: 1,
@@ -60,7 +60,7 @@ const ChatList = () => {
       captions: 'Hi, How are you',
       unreadCount: 3,
       avatar: '/images/chatusertwo.png',
-      link: 'chatlist/1',
+      link: '1',
     },
     {
       id: 1,
@@ -68,7 +68,7 @@ const ChatList = () => {
       captions: 'Hi, How are you',
       unreadCount: 3,
       avatar: '/images/chatusertwo.png',
-      link: 'chatlist/1',
+      link: '1',
     },
     {
       id: 1,
@@ -76,7 +76,7 @@ const ChatList = () => {
       captions: 'Hi, How are you',
       unreadCount: 3,
       avatar: '/images/chatusertwo.png',
-      link: 'chatlist/1',
+      link: '1',
     },
     {
       id: 1,
@@ -84,7 +84,7 @@ const ChatList = () => {
       captions: 'Hi, How are you',
       unreadCount: 3,
       avatar: '/images/chatusertwo.png',
-      link: 'chatlist/1',
+      link: '1',
     },
   ];
 

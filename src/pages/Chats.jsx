@@ -19,25 +19,23 @@ export default function Dashboard() {
       <Container maxWidth="xl">
         <Grid container spacing={4}>
           {lgUp && (
-            <Grid item xs={4}>
+            <Grid item xs={12} lg={4} md={3}>
               <Box
                 sx={{
                   display: 'flex',
                   flex: 1,
+                  padding: 2,
                   width: '100%',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  backgroundColor: 'background.paper',
                   color: 'primary.contrastText',
                   borderRadius: 1,
-                  boxShadow: 1,
                 }}
               >
                 <ChatList />
               </Box>
             </Grid>
           )}
-
           <Grid item lg={8} xs={12}>
             <Box
               sx={{
