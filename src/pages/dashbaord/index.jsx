@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { matchesUser, recUsers } from '../../store/userSlice';
-import { Grid, Typography, Box } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import SliderContainer from '../../components/Slider';
 import UserCard from './UserCard';
 import { SwiperSlide } from 'swiper/react';
