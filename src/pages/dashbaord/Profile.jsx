@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateUserDetails, userDetailsById } from '../../store/authSlice';
 import Swal from 'sweetalert2';
 import { Avatar, Button, Grid, TextField, Box } from '@mui/material';
-
+import UserDetails from './UserDetails';
 export const Profile = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
@@ -206,6 +206,7 @@ export const Profile = () => {
           </Button>
         </Box>
       </Box>
+      <UserDetails />
     </Box>
   );
 };

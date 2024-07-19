@@ -1,13 +1,13 @@
-import * as Yup from "yup";
-import { useFormik } from "formik";
-import React, { useState } from "react";
-import { Helmet } from "react-helmet-async";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import Logo from "../../components/logo";
-import { alpha, useTheme } from "@mui/material/styles";
-import Swal from "sweetalert2";
-import { country_list } from ".././../_mock/country";
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
+import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import Logo from '../../components/logo';
+import { alpha, useTheme } from '@mui/material/styles';
+import Swal from 'sweetalert2';
+import { country_list } from '.././../_mock/country';
 import {
   Box,
   Card,
@@ -19,68 +19,68 @@ import {
   IconButton,
   InputAdornment,
   MenuItem,
-} from "@mui/material";
+} from '@mui/material';
 
-import Iconify from "../../components/iconify";
-import { bgGradient } from "../../theme/css";
+import Iconify from '../../components/iconify';
+import { bgGradient } from '../../theme/css';
 
-import { clearError, userRegister } from "../../store/authSlice";
+import { clearError, userRegister } from '../../store/authSlice';
 
 export default function RegisterPage() {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
-  const { loading, error, success } = useSelector((state) => state.auth);
+  const { loading, error, success } = useSelector(state => state.auth);
 
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
-      phone: "",
-      email: "",
-      lookingFor: "",
-      dateOfBirth: "",
-      religion: "",
-      country: "",
-      password: "",
+      firstName: '',
+      lastName: '',
+      phone: '',
+      email: '',
+      lookingFor: '',
+      dateOfBirth: '',
+      religion: '',
+      country: '',
+      password: '',
     },
 
     validationSchema: Yup.object({
-      firstName: Yup.string().required("Frist Name is required"),
-      lastName: Yup.string().required("Last Name is required"),
-      email: Yup.string().email("Invalid email address"),
+      firstName: Yup.string().required('Frist Name is required'),
+      lastName: Yup.string().required('Last Name is required'),
+      email: Yup.string().email('Invalid email address'),
       phone: Yup.string()
-        .required("Phone is required")
+        .required('Phone is required')
         .matches(
           /^[6-9]\d{9}$/,
-          "Phone number must be exactly 10 digits and start with 6, 7, 8, or 9"
+          'Phone number must be exactly 10 digits and start with 6, 7, 8, or 9',
         ),
-      lookingFor: Yup.string().required("Looking For  is required"),
-      dateOfBirth: Yup.string().required("Date Of Birth is required"),
-      religion: Yup.string().required("religion is required"),
-      country: Yup.string().required("Country is required"),
-      password: Yup.string().required("Password is required"),
+      lookingFor: Yup.string().required('Looking For  is required'),
+      dateOfBirth: Yup.string().required('Date Of Birth is required'),
+      religion: Yup.string().required('religion is required'),
+      country: Yup.string().required('Country is required'),
+      password: Yup.string().required('Password is required'),
     }),
 
-    onSubmit: (values) => {
+    onSubmit: values => {
       dispatch(clearError());
       dispatch(userRegister(values))
-        .then((res) => {
+        .then(res => {
           if (!res.error) {
             dispatch(clearError());
           } else {
             Swal.fire({
-              icon: "error",
-              title: "Oops...",
+              icon: 'error',
+              title: 'Oops...',
               text: res.payload,
             });
           }
         })
-        .catch((err) => {
+        .catch(err => {
           Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "error occured while registering user. Please try again later.",
+            icon: 'error',
+            title: 'Oops...',
+            text: 'error occured while registering user. Please try again later.',
           });
         });
     },
@@ -98,12 +98,12 @@ export default function RegisterPage() {
         sx={{
           ...bgGradient({
             color: alpha(theme.palette.background.default, 0.9),
-            imgUrl: "/assets/background/overlay_4.jpg",
+            imgUrl: '/assets/background/overlay_4.jpg',
           }),
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "100vh",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          minHeight: '100vh',
           paddingY: 16,
         }}
       >
@@ -119,31 +119,31 @@ export default function RegisterPage() {
               maxWidth: 1024,
             }}
           >
-            <Box sx={{ textAlign: "center", margin: 0, padding: 0 }}>
+            <Box sx={{ textAlign: 'center', margin: 0, padding: 0 }}>
               <Logo />
             </Box>
 
             <Typography
               variant="h4"
               paddingY={1}
-              textAlign={"center"}
-              sx={{ color: (theme) => theme.palette.primary.main }}
+              textAlign={'center'}
+              sx={{ color: theme => theme.palette.primary.main }}
             >
               Create a Matrimony Profile
             </Typography>
 
             <Box
               sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
                 gap: 1,
                 py: 1,
               }}
             >
               <Typography variant="body2" textAlign="center">
-                Already have an Account?{" "}
+                Already have an Account?{' '}
               </Typography>
               <Link to="/login" variant="subtitle2" className="text-red-600">
                 Login here.
@@ -188,7 +188,7 @@ export default function RegisterPage() {
                     size="medium"
                     InputLabelProps={{ shrink: true }}
                     name="email"
-                    label={"Email"}
+                    label={'Email'}
                     autoComplete="current-email"
                     value={values.email}
                     onChange={handleChange}
@@ -203,7 +203,7 @@ export default function RegisterPage() {
                     size="medium"
                     InputLabelProps={{ shrink: true }}
                     name="phone"
-                    label={"Phone Number"}
+                    label={'Phone Number'}
                     autoComplete="current-mobile-number"
                     value={values.phone}
                     onChange={handleChange}
@@ -239,7 +239,7 @@ export default function RegisterPage() {
                     type="date"
                     InputLabelProps={{ shrink: true }}
                     name="dateOfBirth"
-                    label={"Date Of Birth"}
+                    label={'Date Of Birth'}
                     autoComplete="tel"
                     value={values.dateOfBirth}
                     onChange={handleChange}
@@ -255,29 +255,29 @@ export default function RegisterPage() {
                     size="medium"
                     InputLabelProps={{ shrink: true }}
                     name="religion"
-                    label={"Religion"}
+                    label={'Religion'}
                     autoComplete="religion"
                     value={values.religion}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    defaultValue={""}
+                    defaultValue={''}
                     error={touched.religion && Boolean(errors.religion)}
                     helperText={touched.religion && errors.religion}
                   >
-                    <MenuItem value="">{"Select Your Religion "}</MenuItem>
+                    <MenuItem value="">{'Select Your Religion '}</MenuItem>
                     {[
-                      "Hinduism",
-                      "Sikhism",
-                      "Christianity",
-                      "Jainism",
-                      "Islam",
-                      "Judaism",
-                      "Buddhism",
-                      "Shinto",
-                      "Confucianism",
-                      "Zoroastrianism",
-                      "Others",
-                    ].map((item) => (
+                      'Hinduism',
+                      'Sikhism',
+                      'Christianity',
+                      'Jainism',
+                      'Islam',
+                      'Judaism',
+                      'Buddhism',
+                      'Shinto',
+                      'Confucianism',
+                      'Zoroastrianism',
+                      'Others',
+                    ].map(item => (
                       <MenuItem value={item}>{item}</MenuItem>
                     ))}
                   </TextField>
@@ -289,7 +289,7 @@ export default function RegisterPage() {
                     select
                     InputLabelProps={{ shrink: true }}
                     name="country"
-                    label={"Country"}
+                    label={'Country'}
                     autoComplete="country"
                     value={values.country}
                     onChange={handleChange}
@@ -297,8 +297,8 @@ export default function RegisterPage() {
                     error={touched.country && Boolean(errors.country)}
                     helperText={touched.country && errors.country}
                   >
-                    <MenuItem value="">{"Select Your Country "}</MenuItem>
-                    {country_list?.map((item) => (
+                    <MenuItem value="">{'Select Your Country '}</MenuItem>
+                    {country_list?.map(item => (
                       <MenuItem value={item}>{item}</MenuItem>
                     ))}
                   </TextField>
@@ -309,7 +309,7 @@ export default function RegisterPage() {
                     size="medium"
                     InputLabelProps={{ shrink: true }}
                     name="password"
-                    label={"Password"}
+                    label={'Password'}
                     placeholder="Password"
                     value={values.password}
                     onChange={handleChange}
@@ -319,7 +319,7 @@ export default function RegisterPage() {
                     }}
                     onBlur={handleBlur}
                     autoComplete="current-password"
-                    type={showPassword ? "Text" : "password"}
+                    type={showPassword ? 'Text' : 'password'}
                     error={touched.password && Boolean(errors.password)}
                     helperText={touched.password && errors.password}
                     InputProps={{
@@ -332,8 +332,8 @@ export default function RegisterPage() {
                             <Iconify
                               icon={
                                 showPassword
-                                  ? "eva:eye-fill"
-                                  : "eva:eye-off-fill"
+                                  ? 'eva:eye-fill'
+                                  : 'eva:eye-off-fill'
                               }
                             />
                           </IconButton>
@@ -349,7 +349,7 @@ export default function RegisterPage() {
                 sx={{
                   color: theme.palette.common.white,
                   backgroundColor: theme.palette.primary.main,
-                  "&:hover": {
+                  '&:hover': {
                     backgroundColor: theme.palette.primary.main,
                   },
                 }}
@@ -360,7 +360,7 @@ export default function RegisterPage() {
                 color="inherit"
                 disabled={loading}
               >
-                {loading ? "loading ..." : "Join Now"}
+                {loading ? 'loading ...' : 'Join Now'}
               </Button>
             </Box>
 

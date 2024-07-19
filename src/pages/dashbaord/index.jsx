@@ -20,30 +20,29 @@ const HomePage = () => {
     return () => {};
   }, [dispatch]);
   return (
-    <Box
-      sx={{
-        px: 4,
-      }}
-    >
+    <Box>
       <Grid container spacing={1} marginY={4}>
-        <Grid item xs={12}>
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            Your Matches
-          </Typography>
-          <SliderContainer>
-            {matchUser !== null ? (
-              matchUser?.map(user => (
+        {!matchUser ? (
+          <Grid item xs={12}>
+            <Typography variant="h6" sx={{ mb: 2 }}>
+              Your Matches
+            </Typography>
+            <SliderContainer>
+              {matchUser?.map(user => (
                 <Card sx={{ width: 320, height: 320 }} key={user.id}>
-                  <CardMedia
-                    sx={{ height: 200 }}
-                    image={
-                      typeof user.profilePhoto === 'string'
-                        ? user.profilePhoto
-                        : `https://sapthapadhi.bloomitsolutions.co.in/${user.profilePhoto[0]?.path}`
-                    }
-                    alt={user.name}
-                    title={user.name}
-                  />
+                  {user?.profilePhoto !== null && (
+                    <CardMedia
+                      sx={{ height: 200 }}
+                      image={
+                        user.profilePhoto !== null &&
+                        typeof user.profilePhoto === 'string'
+                          ? user.profilePhoto
+                          : `https://sapthapadhi.bloomitsolutions.co.in/${user?.profilePhoto[0]?.path}`
+                      }
+                      alt={user.name}
+                      title={user.name}
+                    />
+                  )}
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                       {user.name}
@@ -53,30 +52,31 @@ const HomePage = () => {
                     </Typography>
                   </CardContent>
                 </Card>
-              ))
-            ) : (
-              <div>No Matches Users</div>
-            )}
-          </SliderContainer>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            Recommended Users
-          </Typography>
-          <SliderContainer>
-            {recUsersList !== null ? (
-              recUsersList?.map(user => (
+              ))}
+            </SliderContainer>
+          </Grid>
+        ) : null}
+        {!recUsersList !== null ? (
+          <Grid item xs={12}>
+            <Typography variant="h6" sx={{ mb: 2 }}>
+              Recommended Users
+            </Typography>
+            <SliderContainer>
+              {recUsersList?.map(user => (
                 <Card sx={{ width: 320, height: 320 }} key={user.id}>
-                  <CardMedia
-                    sx={{ height: 200 }}
-                    image={
-                      typeof user.profilePhoto === 'string'
-                        ? user.profilePhoto
-                        : `https://sapthapadhi.bloomitsolutions.co.in/${user.profilePhoto[0]?.path}`
-                    }
-                    alt={user.name}
-                    title={user.name}
-                  />
+                  {user?.profilePhoto !== null && (
+                    <CardMedia
+                      sx={{ height: 200 }}
+                      image={
+                        typeof user.profilePhoto === 'string'
+                          ? user.profilePhoto
+                          : `https://sapthapadhi.bloomitsolutions.co.in/${user?.profilePhoto[0]?.path}`
+                      }
+                      alt={user.name}
+                      title={user.name}
+                    />
+                  )}
+
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                       {user.name}
@@ -86,12 +86,10 @@ const HomePage = () => {
                     </Typography>
                   </CardContent>
                 </Card>
-              ))
-            ) : (
-              <div>No Recommended Users</div>
-            )}
-          </SliderContainer>
-        </Grid>
+              ))}
+            </SliderContainer>
+          </Grid>
+        ) : null}
       </Grid>
     </Box>
   );
