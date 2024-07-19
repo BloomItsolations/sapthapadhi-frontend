@@ -146,7 +146,7 @@ export default function Dashboard() {
                 minHeight: 1,
                 display: 'flex',
                 flexDirection: 'column',
-                px: 4,
+                px: { lg: 4 },
               }}
             >
               <Outlet />

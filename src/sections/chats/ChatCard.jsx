@@ -17,6 +17,9 @@ export default function ChatCard({ to, name, image, unreadCount, captions }) {
       />
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CardContent sx={{ flex: '1 0 auto' }}>
+          <Typography variant="subtitle2" color="primary.light">
+            {unreadCount} unread
+          </Typography>
           <Typography component="div" variant="h5">
             {name}
           </Typography>
