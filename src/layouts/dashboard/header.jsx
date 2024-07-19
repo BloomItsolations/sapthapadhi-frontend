@@ -44,7 +44,7 @@ export default function Header({ onOpenNav }) {
     <>
       {!lgUp && (
         <IconButton onClick={onOpenNav} sx={{ mr: 1 }}>
-          <Iconify icon="eva:menu-2-fill" />
+          <Iconify icon="eva:menu-2-fill" color="primary.main" />
         </IconButton>
       )}
       <Box>
@@ -80,6 +80,7 @@ export default function Header({ onOpenNav }) {
         sx={{
           height: 1,
           px: { lg: 5 },
+          justifyContent: 'space-between',
         }}
       >
         {renderContent}
