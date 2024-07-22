@@ -1,12 +1,12 @@
-import * as Yup from "yup";
-import { useFormik } from "formik";
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
-import { useDispatch, useSelector } from "react-redux";
-import Logo from "../../components/logo";
-import { alpha, useTheme } from "@mui/material/styles";
-import InputAdornment from "@mui/material/InputAdornment";
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { useDispatch, useSelector } from 'react-redux';
+import Logo from '../../components/logo';
+import { alpha, useTheme } from '@mui/material/styles';
+import InputAdornment from '@mui/material/InputAdornment';
 import {
   Box,
   Grid,
@@ -15,16 +15,16 @@ import {
   TextField,
   Typography,
   IconButton,
-} from "@mui/material";
+} from '@mui/material';
 
-import { useRouter } from "../../routes/hooks";
+import { useRouter } from '../../routes/hooks';
 
-import { bgGradient } from "../../theme/css";
+import { bgGradient } from '../../theme/css';
 
-import Iconify from "../../components/iconify";
+import Iconify from '../../components/iconify';
 
-import { userLogin, clearError } from "../../store/authSlice";
-import Swal from "sweetalert2";
+import { userLogin, clearError } from '../../store/authSlice';
+import Swal from 'sweetalert2';
 
 export default function LoginPage() {
   const theme = useTheme();
@@ -34,39 +34,39 @@ export default function LoginPage() {
 
   const [showPassword, setShowPassword] = useState(false);
   // Access the auth state from the Redux store
-  const { loading, error, success } = useSelector((state) => state.auth);
-  let redirectPath = location.state?.from?.pathname || "/app/dashboard";
+  const { loading, error, success } = useSelector(state => state.auth);
+  let redirectPath = location.state?.from?.pathname || '/app/dashboard';
   const formik = useFormik({
     initialValues: {
-      phone: "",
-      password: "",
+      phone: '',
+      password: '',
     },
     validationSchema: Yup.object({
-      phone: Yup.string().required("Required"),
-      password: Yup.string().required("Required"),
+      phone: Yup.string().required('Required'),
+      password: Yup.string().required('Required'),
     }),
-    onSubmit: (values) => {
+    onSubmit: values => {
       dispatch(clearError());
       dispatch(userLogin(values))
-        .then((res) => {
+        .then(res => {
           if (!res.error) {
             Swal.fire({
-              icon: "success",
-              title: "Success!",
-              text: "Login Successful",
+              icon: 'success',
+              title: 'Success!',
+              text: 'Login Successful',
             });
             router.push(redirectPath);
             dispatch(clearError());
           } else {
             Swal.fire({
-              icon: "error",
-              title: "Oops...",
+              icon: 'error',
+              title: 'Oops...',
               text: res.payload,
             });
           }
         })
-        .catch((err) => {
-          console.error("Login failed:", err);
+        .catch(err => {
+          console.error('Login failed:', err);
         });
     },
   });
@@ -82,7 +82,7 @@ export default function LoginPage() {
       <Grid
         container
         sx={{
-          minHeight: "100vh",
+          minHeight: '100vh',
           margin: 0,
           backgroundColor: theme.palette.background.paper,
         }}
@@ -92,12 +92,12 @@ export default function LoginPage() {
             sx={{
               ...bgGradient({
                 color: alpha(theme.palette.background.default, 0.1),
-                imgUrl: "/assets/background/image1.png",
+                imgUrl: '/assets/background/image1.png',
               }),
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "100vh",
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '100vh',
               margin: 0,
             }}
           />
@@ -117,25 +117,25 @@ export default function LoginPage() {
                 p: 4,
                 width: 1,
                 maxWidth: 400,
-                textAlign: "center",
+                textAlign: 'center',
               }}
             >
               <Logo />
               <Typography
                 variant="h4"
                 paddingY={1}
-                textAlign={"center"}
-                sx={{ color: (theme) => theme.palette.primary.main }}
+                textAlign={'center'}
+                sx={{ color: theme => theme.palette.primary.main }}
               >
                 Sign in to sapthapadhi
               </Typography>
 
               <Box
                 sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                   gap: 1,
                 }}
               >
@@ -144,7 +144,7 @@ export default function LoginPage() {
                   textAlign="center"
                   sx={{ color: theme.palette.text.primary }}
                 >
-                  Don’t have an account?{" "}
+                  Don’t have an account?{' '}
                 </Typography>
                 <Link to="/register" variant="subtitle2">
                   <Typography
@@ -166,7 +166,7 @@ export default function LoginPage() {
                       input: { color: theme.palette.text.primary },
                       color: theme.palette.text.primary,
                     }}
-                    label={"Mobile number"}
+                    label={'Mobile number'}
                     placeholder="Mobile Number"
                     autoComplete="tel"
                     value={values.phone}
@@ -179,7 +179,7 @@ export default function LoginPage() {
                   <TextField
                     InputLabelProps={{ shrink: true }}
                     name="password"
-                    label={"Password"}
+                    label={'Password'}
                     placeholder="Password"
                     value={values.password}
                     onChange={handleChange}
@@ -189,7 +189,7 @@ export default function LoginPage() {
                     }}
                     onBlur={handleBlur}
                     autoComplete="current-password"
-                    type={showPassword ? "Text" : "password"}
+                    type={showPassword ? 'Text' : 'password'}
                     error={touched.password && Boolean(errors.password)}
                     helperText={touched.password && errors.password}
                     InputProps={{
@@ -202,8 +202,8 @@ export default function LoginPage() {
                             <Iconify
                               icon={
                                 showPassword
-                                  ? "eva:eye-fill"
-                                  : "eva:eye-off-fill"
+                                  ? 'eva:eye-fill'
+                                  : 'eva:eye-off-fill'
                               }
                             />
                           </IconButton>
@@ -217,7 +217,7 @@ export default function LoginPage() {
                   sx={{
                     color: theme.palette.common.white,
                     backgroundColor: theme.palette.primary.main,
-                    "&:hover": {
+                    '&:hover': {
                       backgroundColor: theme.palette.primary.main,
                     },
                   }}
@@ -228,7 +228,7 @@ export default function LoginPage() {
                   color="inherit"
                   disabled={loading}
                 >
-                  {loading ? "loading ..." : "Login"}
+                  {loading ? 'loading ...' : 'Login'}
                 </Button>
 
                 <Stack
