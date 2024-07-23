@@ -1,64 +1,49 @@
 import React from 'react';
 import { Grid, Card, CardContent, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const services = [
   {
     id: 1,
-    title: 'WEDDING SERVICES',
+    title: 'FUNCTION OR WEDDING HALL',
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    imageUrl: '/images/Rectangle 280.jpg',
+      "We provide seamless function and wedding hall bookings, ensuring the perfect venue for all your special events and celebrations.",
+    imageUrl: '/images/function.png',
+    slug: 'function-or-wedding-hall', // Added slug for URL
   },
   {
     id: 2,
-    title: 'THE CEREMONY',
+    title: 'THE PHOTOGRAPHY',
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    imageUrl: '/images/Rectangle 281.jpg',
+      "Capture your special moments with our professional photography services, ensuring memories that last a lifetime.",
+    imageUrl: '/images/photography.png',
+    slug: 'photography', // Added slug for URL
   },
   {
     id: 3,
-    title: 'PHOTOGRAPHY & VIDEO',
+    title: 'DECORATION',
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    imageUrl: '/images/Rectangle 282.jpg',
+      "Transform your event with our stunning decoration services, creating unforgettable atmospheres for every occasion.",
+    imageUrl: '/images/decoration.png',
+    slug: 'decoration', // Added slug for URL
   },
   {
     id: 4,
-    title: 'FOOD CATERING',
+    title: 'CATERING',
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    imageUrl: '/images/Rectangle 283.jpg',
+      "Delight your guests with our exceptional catering services, offering a feast of flavors for every celebration.",
+    imageUrl: '/images/catering.png',
+    slug: 'catering', // Added slug for URL
   },
   {
     id: 5,
-    title: 'DECORATIONS',
+    title: 'MUSIC OR ORCHESTRA',
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    imageUrl: '/images/Rectangle 284.jpg',
-  },
-  {
-    id: 6,
-    title: 'WEDDING HALLS',
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    imageUrl: '/images/Rectangle 285.jpg',
-  },
-  {
-    id: 7,
-    title: 'WEDDING REGISTRY',
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    imageUrl: '/images/Rectangle 286.jpg',
-  },
-  {
-    id: 8,
-    title: 'THE PERFECT CAKE',
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-    imageUrl: '/images/Rectangle 287.jpg',
-  },
+      "Elevate your event with our enchanting music and orchestra services, creating a memorable soundscape.",
+    imageUrl: '/images/musicandorchestra.png',
+    slug: 'music-or-orchestra', // Added slug for URL
+  }
 ];
 
 const PREFIX = 'OurService';
@@ -163,34 +148,36 @@ const Services = () => {
       <Grid container spacing={3}>
         {services.map(service => (
           <Grid item xs={12} sm={6} md={4} key={service.id}>
-            <Card className={classes.card}>
-              <div className={classes.mediaContainer}>
-                <img
-                  className={classes.media}
-                  src={service.imageUrl}
-                  alt={service.title}
-                />
-                <div className={classes.overlay}>
-                  <Typography
-                    className={classes.title}
-                    variant="h5"
-                    component="h2"
-                  >
-                    WEDDING SERVICES
-                  </Typography>
-                  <Typography
-                    className={classes.description}
-                    variant="body2"
-                    color="inherit"
-                  >
-                    {service.description}
-                  </Typography>
+            <Link to={`/services/${service.slug}`} style={{ textDecoration: 'none' }}>
+              <Card className={classes.card}>
+                <div className={classes.mediaContainer}>
+                  <img
+                    className={classes.media}
+                    src={service.imageUrl}
+                    alt={service.title}
+                  />
+                  <div className={classes.overlay}>
+                    <Typography
+                      className={classes.title}
+                      variant="h5"
+                      component="h2"
+                    >
+                      {service.title}
+                    </Typography>
+                    <Typography
+                      className={classes.description}
+                      variant="body2"
+                      color="inherit"
+                    >
+                      {service.description}
+                    </Typography>
+                  </div>
                 </div>
-              </div>
-              <CardContent className={classes.content}>
-                {/* Additional content if needed */}
-              </CardContent>
-            </Card>
+                <CardContent className={classes.content}>
+
+                </CardContent>
+              </Card>
+            </Link>
           </Grid>
         ))}
       </Grid>

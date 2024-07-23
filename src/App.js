@@ -13,6 +13,7 @@ import Pricing from './pages/home/Pricing';
 import Contact from './pages/home/Contact';
 import Gallery from './pages/home/Gallery';
 import Services from './pages/home/Services';
+import ServiceEnquaryPage from './pages/ServiceEnquaryPage';
 
 const RegisterPage = lazy(() => import('./pages/auth/Register'));
 const LoginPage = lazy(() => import('./pages/auth/login'));
@@ -47,6 +48,7 @@ export default function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="services" element={<Services />} />
+          <Route path="services/:subject" element={<ServiceEnquaryPage />} />
           <Route path="terms-and-conditions" element={<TermsConditions />} />
           <Route path="privacy-policy" element={<PrivacyPolicy />} />
           <Route path="login" element={<LoginPage />} />
