@@ -145,6 +145,7 @@ const Pricing = () => {
                       variant="contained"
                       size="medium"
                       fullWidth
+                      
                       sx={{
                         color: theme.palette.text.info,
                         boxShadow: 'none',

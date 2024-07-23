@@ -68,7 +68,7 @@ export const userLogin = createAsyncThunk(
      if(error.response && error.response.data.message){
       return rejectWithValue(error.response.data.message);
      }
-      else if(error.response && error.response.data) {
+      else if (error.response && error.response.data) {
         var extractErrorMessage;
 
         //Extract the error message from html.
