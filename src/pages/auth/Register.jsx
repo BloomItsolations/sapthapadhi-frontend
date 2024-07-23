@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -31,6 +31,18 @@ export default function RegisterPage() {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const { loading, error, success } = useSelector(state => state.auth);
+  
+  useEffect(() => {
+    if (success) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Registration Successful',
+        text: 'You have successfully registered!',
+      });
+      dispatch(clearError());
+    }
+  }, [success]);
+
 
   const formik = useFormik({
     initialValues: {

@@ -14,12 +14,33 @@ export const userRegister = createAsyncThunk(
         },
       };
       // Make request to the backend
-      const { data } = await RestApi.post("auth/user/create", formData, config);
+      const response = await RestApi.post("auth/user/create", formData, config);
+      const { data } = response;
+      console.log("response", response);
       return data;
     } catch (error) {
       // Return custom error message from the API if any
-      if (error.response && error.response.data.error) {
-        return rejectWithValue(error.response.data.error);
+
+      if (error.response && error.response.data) {   //error.response.data.error. there are no error message in this, i was getting html in data.
+        var extractErrorMessage;
+
+        //Extract the error message from html.
+        const preTagRegex = /<pre>(.*?)<\/pre>/;
+        const preTagMatch = error.response.data.match(preTagRegex);
+        if (preTagMatch && preTagMatch[1]) {
+          const preTagContent = preTagMatch[1].replace(/<br>/g, '').trim();
+          const errorMessageRegex = /Error:\s*(.*)/;
+          const errorMessageMatch = preTagContent.match(errorMessageRegex);
+          if (errorMessageMatch && errorMessageMatch[1]) {
+            const specificErrorMessage = errorMessageMatch[1].split('&nbsp;')[0].trim();
+            extractErrorMessage = specificErrorMessage;
+          } else {
+            extractErrorMessage = "Specific error message not found";
+          }
+        } else {
+          extractErrorMessage = "Error message not found";
+        }
+        return rejectWithValue(extractErrorMessage);
       }
       return rejectWithValue(error.message);
     }
@@ -43,13 +64,37 @@ export const userLogin = createAsyncThunk(
       sessionStorage.setItem("authInfo", JSON.stringify(data?.userDetails));
       return data?.userDetails;
     } catch (error) {
-      // Return custom error message from the API if any
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
+     console.log("Error",error);
+     if(error.response && error.response.data.message){
+      return rejectWithValue(error.response.data.message);
+     }
+      else if(error.response && error.response.data) {
+        var extractErrorMessage;
+
+        //Extract the error message from html.
+        const preTagRegex = /<pre>(.*?)<\/pre>/;
+        const preTagMatch = error.response.data.match(preTagRegex);
+        if (preTagMatch && preTagMatch[1]) {
+          const preTagContent = preTagMatch[1].replace(/<br>/g, '').trim();
+          const errorMessageRegex = /Error:\s*(.*)/;
+          const errorMessageMatch = preTagContent.match(errorMessageRegex);
+          if (errorMessageMatch && errorMessageMatch[1]) {
+            const specificErrorMessage = errorMessageMatch[1].split('&nbsp;')[0].trim();
+            extractErrorMessage = specificErrorMessage;
+          } else {
+            extractErrorMessage = "Specific error message not found";
+          }
+        } else {
+          extractErrorMessage = "Error message not found";
+        }
+        return rejectWithValue(extractErrorMessage);
       }
-      return rejectWithValue(error.message);
-    }
+
+    
+    return rejectWithValue(error.message);
   }
+  }
+  
 );
 
 // Async thunk for user login
