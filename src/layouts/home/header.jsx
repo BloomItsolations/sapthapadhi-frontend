@@ -30,6 +30,7 @@ import { HEADER } from '../dashboard/config-layout';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../store/authSlice';
 const pages = [
+  { name: 'Home', to: '/' },
   { name: 'About', to: '/about' },
   { name: 'Services', to: '/services' },
   { name: 'Plans', to: '/pricing' },

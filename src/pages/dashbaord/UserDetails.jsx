@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Grid,
   TextField,
@@ -10,9 +10,16 @@ import {
   Checkbox,
   FormControlLabel,
 } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { updateUserDetails } from '../../store/authSlice';
 
 const UserDetails = ({ userDetails, onSave }) => {
   const [formValues, setFormValues] = useState(userDetails);
+   console.log("formValues",formValues);
+   const dispatch=useDispatch();
+   useEffect(()=>{
+    setFormValues(userDetails)
+   },[userDetails])
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -25,27 +32,19 @@ const UserDetails = ({ userDetails, onSave }) => {
   };
 
   const handleSave = () => {
-    onSave(formValues);
+    dispatch(updateUserDetails(formValues));
   };
 
   return (
     <form>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            label="Name"
-            name="name"
-            value={formValues.name || ''}
-            onChange={handleInputChange}
-            fullWidth
-          />
-        </Grid>
+       
         <Grid item xs={12} sm={6}>
           <TextField
             label="Date of Birth"
             name="dateOfBirth"
             type="date"
-            value={formValues.dateOfBirth || ''}
+            value={formValues?.dateOfBirth || ''}
             onChange={handleInputChange}
             InputLabelProps={{
               shrink: true,
@@ -58,7 +57,7 @@ const UserDetails = ({ userDetails, onSave }) => {
             label="Age"
             name="age"
             type="number"
-            value={formValues.age || ''}
+            value={formValues?.age || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -67,7 +66,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Height"
             name="height"
-            value={formValues.height || ''}
+            value={formValues?.height || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -76,7 +75,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Weight"
             name="weight"
-            value={formValues.weight || ''}
+            value={formValues?.weight || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -86,7 +85,7 @@ const UserDetails = ({ userDetails, onSave }) => {
             <InputLabel>Looking For</InputLabel>
             <Select
               name="lookingFor"
-              value={formValues.lookingFor || ''}
+              value={formValues?.lookingFor || ''}
               onChange={handleInputChange}
             >
               <MenuItem value="Friendship">Friendship</MenuItem>
@@ -99,7 +98,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Marital Status"
             name="maritalStatus"
-            value={formValues.maritalStatus || ''}
+            value={formValues?.maritalStatus || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -108,7 +107,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Body Type"
             name="bodyType"
-            value={formValues.bodyType || ''}
+            value={formValues?.bodyType || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -117,7 +116,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Physical Status"
             name="physicalStatus"
-            value={formValues.physicalStatus || ''}
+            value={formValues?.physicalStatus || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -126,7 +125,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Mother Tongue"
             name="motherTongue"
-            value={formValues.motherTongue || ''}
+            value={formValues?.motherTongue || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -135,7 +134,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Eating Habits"
             name="eatingHabits"
-            value={formValues.eatingHabits || ''}
+            value={formValues?.eatingHabits || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -144,7 +143,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Drinking Habits"
             name="drinkingHabits"
-            value={formValues.drinkingHabits || ''}
+            value={formValues?.drinkingHabits || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -153,7 +152,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Smoking Habits"
             name="smokingHabits"
-            value={formValues.smokingHabits || ''}
+            value={formValues?.smokingHabits || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -162,7 +161,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Religion"
             name="religion"
-            value={formValues.religion || ''}
+            value={formValues?.religion || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -171,7 +170,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Caste"
             name="caste"
-            value={formValues.caste || ''}
+            value={formValues?.caste || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -180,7 +179,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Sub Caste"
             name="subCaste"
-            value={formValues.subCaste || ''}
+            value={formValues?.subCaste || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -189,7 +188,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <FormControlLabel
             control={
               <Checkbox
-                checked={formValues.willingToMarryFromOtherCommunities || false}
+                checked={formValues?.willingToMarryFromOtherCommunities || false}
                 onChange={handleCheckboxChange}
                 name="willingToMarryFromOtherCommunities"
               />
@@ -201,7 +200,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Gothra"
             name="gothra"
-            value={formValues.gothra || ''}
+            value={formValues?.gothra || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -210,7 +209,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Star"
             name="star"
-            value={formValues.star || ''}
+            value={formValues?.star || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -219,7 +218,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Raasi Moon Sign"
             name="raasiMoonSign"
-            value={formValues.raasiMoonSign || ''}
+            value={formValues?.raasiMoonSign || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -228,7 +227,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Zodiac Star Sign"
             name="zodiacStarSign"
-            value={formValues.zodiacStarSign || ''}
+            value={formValues?.zodiacStarSign || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -237,7 +236,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <FormControlLabel
             control={
               <Checkbox
-                checked={formValues.haveDosh || false}
+                checked={formValues?.haveDosh || false}
                 onChange={handleCheckboxChange}
                 name="haveDosh"
               />
@@ -250,7 +249,7 @@ const UserDetails = ({ userDetails, onSave }) => {
             label="Time of Birth"
             name="timeOfBirth"
             type="time"
-            value={formValues.timeOfBirth || ''}
+            value={formValues?.timeOfBirth || ''}
             onChange={handleInputChange}
             InputLabelProps={{
               shrink: true,
@@ -262,7 +261,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Place of Birth"
             name="placeOfBirth"
-            value={formValues.placeOfBirth || ''}
+            value={formValues?.placeOfBirth || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -271,7 +270,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Country Living In"
             name="countryLivingIn"
-            value={formValues.countryLivingIn || ''}
+            value={formValues?.countryLivingIn || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -280,7 +279,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Citizenship"
             name="citizenship"
-            value={formValues.citizenship || ''}
+            value={formValues?.citizenship || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -289,7 +288,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Residing City"
             name="residingCity"
-            value={formValues.residingCity || ''}
+            value={formValues?.residingCity || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -298,7 +297,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Ancestral Origin"
             name="ancestralOrigin"
-            value={formValues.ancestralOrigin || ''}
+            value={formValues?.ancestralOrigin || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -307,7 +306,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Highest Education"
             name="highestEducation"
-            value={formValues.highestEducation || ''}
+            value={formValues?.highestEducation || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -316,7 +315,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Occupation"
             name="occupation"
-            value={formValues.occupation || ''}
+            value={formValues?.occupation || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -325,7 +324,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Annual Income"
             name="annualIncome"
-            value={formValues.annualIncome || ''}
+            value={formValues?.annualIncome || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -334,7 +333,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Family Value"
             name="familyValue"
-            value={formValues.familyValue || ''}
+            value={formValues?.familyValue || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -343,7 +342,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Family Status"
             name="familyStatus"
-            value={formValues.familyStatus || ''}
+            value={formValues?.familyStatus || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -352,7 +351,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Number of Siblings"
             name="noofSiblings"
-            value={formValues.noofSiblings || ''}
+            value={formValues?.noofSiblings || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -361,7 +360,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Family Location"
             name="familyLocation"
-            value={formValues.familyLocation || ''}
+            value={formValues?.familyLocation || ''}
             onChange={handleInputChange}
             fullWidth
           />
@@ -370,7 +369,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="Hobbies"
             name="hobbies"
-            value={formValues.hobbies || ''}
+            value={formValues?.hobbies || ''}
             onChange={handleInputChange}
             fullWidth
             multiline
@@ -380,7 +379,7 @@ const UserDetails = ({ userDetails, onSave }) => {
           <TextField
             label="In My Own Words"
             name="inMyOwnWordsClose"
-            value={formValues.inMyOwnWordsClose || ''}
+            value={formValues?.inMyOwnWordsClose || ''}
             onChange={handleInputChange}
             fullWidth
             multiline

@@ -4,7 +4,12 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { TextField, MenuItem, Button } from "@mui/material";
 import { country_list } from "../../_mock/country";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
+
 const Header = () => {
+  const navigate = useNavigate();
   const [lookingFor, setLookingFor] = React.useState("");
   const [age, setAge] = React.useState("");
   const [religion, setReligion] = React.useState("");
@@ -28,6 +33,25 @@ const Header = () => {
       default:
         break;
     }
+  };
+   let auth=useSelector(state=>state.auth?.authInfo);
+  const handleSearch = () => {
+     if(!auth){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Please Login First..",
+      });
+      navigate('/login')
+      return;
+     }
+    const queryParams = new URLSearchParams({
+      age,
+      religion,
+      location,
+    }).toString();
+
+    navigate(`/app/dashboard?${queryParams}`);
   };
 
   return (
@@ -108,21 +132,23 @@ const Header = () => {
           marginTop: "30px",
         }}
       >
-        <TextField
+        {/* <TextField
           fullWidth
           label="Looking For"
+          name="lookingFor"
           select
           value={lookingFor}
           onChange={handleChange}
           variant="outlined"
         >
           <MenuItem value="">Select your Preference</MenuItem>
-          <MenuItem value="Male">bride</MenuItem>
-          <MenuItem value="Female">Groom</MenuItem>
-        </TextField>
+          <MenuItem value="bride">Bride</MenuItem>
+          <MenuItem value="groom">Groom</MenuItem>
+        </TextField> */}
         <TextField
           fullWidth
           label="Age"
+          name="age"
           select
           value={age}
           onChange={handleChange}
@@ -136,12 +162,13 @@ const Header = () => {
         <TextField
           fullWidth
           label="Religion"
+          name="religion"
           select
           value={religion}
           onChange={handleChange}
           variant="outlined"
         >
-          <MenuItem value="">{"Select Your Religion "}</MenuItem>
+          <MenuItem value="">Select Your Religion</MenuItem>
           {[
             "Hinduism",
             "Sikhism",
@@ -155,20 +182,25 @@ const Header = () => {
             "Zoroastrianism",
             "Others",
           ].map((item) => (
-            <MenuItem value={item}>{item}</MenuItem>
+            <MenuItem key={item} value={item}>
+              {item}
+            </MenuItem>
           ))}
         </TextField>
         <TextField
           fullWidth
           label="Location"
+          name="location"
           select
           value={location}
           onChange={handleChange}
           variant="outlined"
         >
-          <MenuItem value="">{"Select Your Country "}</MenuItem>
+          <MenuItem value="">Select Your Country</MenuItem>
           {country_list?.map((item) => (
-            <MenuItem value={item}>{item}</MenuItem>
+            <MenuItem key={item} value={item}>
+              {item}
+            </MenuItem>
           ))}
         </TextField>
 
@@ -176,6 +208,7 @@ const Header = () => {
           fullWidth
           color="secondary"
           variant="contained"
+          onClick={handleSearch}
           sx={{
             color: (theme) => theme.palette.text.primary,
             boxShadow: "none",
