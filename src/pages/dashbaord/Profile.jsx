@@ -37,8 +37,7 @@ export const Profile = () => {
    },[success])
 
   const { mydetails } = useSelector(state => state.user);
-  // const profileImage = mydetails?.userDetails?.profilePhoto && mydetails?.userDetails?.profilePhoto[0]?.path;
-  const profileImage = mydetails?.userDetails?.profilePhoto.path;
+  const profileImage = mydetails?.userDetails?.profilePhoto && mydetails?.userDetails?.profilePhoto?.path;
    console.log("Mydetails",mydetails)
    console.log("ProfileImage",profileImage);
   useEffect(() => {
