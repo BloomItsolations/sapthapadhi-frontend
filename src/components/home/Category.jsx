@@ -76,8 +76,8 @@ const Category = () => {
           variants={variants}
         >
         <Slider {...settings}>
-          <CategoryCard image="images/weddingimage.jpg" title="Wedding Page" link="/ourgallery" />
-          <CategoryCard image="images/weddingimagetwo.jpg" title="All Services" link="/ourservice" />
+          <CategoryCard image="images/weddingimage.jpg" title="Wedding Page" link="/gallery" />
+          <CategoryCard image="images/weddingimagetwo.jpg" title="All Services" link="/services" />
           <CategoryCard image="images/weddingimagethree.jpg" title="Join Now" link="/register" />
         </Slider>
         </motion.div>

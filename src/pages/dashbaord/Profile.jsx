@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUserDetails, userDetailsById } from '../../store/authSlice';
+import { clearError, updateUserDetails, userDetailsById } from '../../store/authSlice';
 import Swal from 'sweetalert2';
 import { Avatar, Button, Grid, TextField, Box } from '@mui/material';
 import UserDetails from './UserDetails';
+import { myalldetails } from '../../store/userSlice';
 export const Profile = () => {
-  const dispatch = useDispatch();
+  const dispatch=useDispatch();
+  const [firstName,setFirstName]=useState('');
+  const [lastName,setLastName]=useState('');
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -17,21 +21,39 @@ export const Profile = () => {
     state: '',
     pinCode: '',
   });
-  const { authInfo, error } = useSelector(state => state.auth);
+  const { authInfo, error,success } = useSelector(state => state.auth);
+  console.log("error",error)
+  console.log("success",success)
+   useEffect(()=>{
+         if(success){
+          Swal.fire({
+            icon: 'success',
+            title: 'Registration Successful',
+            text: success,
+          });
+          dispatch(clearError());
+         }
+         
+   },[success])
 
-  const profileImage = authInfo.profileImage && authInfo?.profileImage[0]?.path;
-
+  const { mydetails } = useSelector(state => state.user);
+  // const profileImage = mydetails?.userDetails?.profilePhoto && mydetails?.userDetails?.profilePhoto[0]?.path;
+  const profileImage = mydetails?.userDetails?.profilePhoto.path;
+   console.log("Mydetails",mydetails)
+   console.log("ProfileImage",profileImage);
   useEffect(() => {
-    if (authInfo) {
-      setName(authInfo.name);
-      setEmail(authInfo.email);
-      setPhone(authInfo.phone);
+    if (mydetails?.user) {
+      setFirstName(mydetails.user.firstName);
+      setLastName(mydetails.user.lastName);
+      setEmail(mydetails.user.email);
+      setPhone(mydetails.user.phone);
       setImage(profileImage);
     }
-  }, [profileImage, authInfo]);
+  }, [profileImage, mydetails]);
 
   useEffect(() => {
     dispatch(userDetailsById());
+    dispatch(myalldetails());
     return () => {};
   }, [dispatch]);
 
@@ -59,20 +81,14 @@ export const Profile = () => {
   };
 
   const handleUpdateProfile = e => {
-    e.preventDefault();
-
-    // Check if all required fields are filled
-    if (!name || !email || !address || !image) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: error,
-      });
-      return;
-    }
-
+    e.preventDefault();   
+     let formData=new FormData();
+     formData.append('firstName',firstName);
+     formData.append('lastName',lastName);
+     formData.append('email',email);
+     formData.append('image',image);
     try {
-      dispatch(updateUserDetails({ name, email, address, image }));
+      dispatch(updateUserDetails(formData));
       dispatch(userDetailsById());
     } catch (error) {
       Swal.fire({
@@ -106,7 +122,7 @@ export const Profile = () => {
                 <Avatar
                   alt="Profile Picture"
                   src={
-                    newProfilePic || (image && `http://api.skpay.in//${image}`)
+                    newProfilePic || (image && `https://sapthapadhi.bloomitsolutions.co.in/${image}`)
                   }
                   sx={{
                     width: 120,
@@ -125,11 +141,21 @@ export const Profile = () => {
               />
             </Box>
           </Grid>
+          
           <Grid item xs={12}>
             <TextField
-              label="Name"
-              value={name}
-              onChange={handleNameChange}
+              label="First Name"
+              value={firstName}
+              onChange={(e)=>setFirstName(e.target.value)}
+              fullWidth
+              variant="outlined"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Last Name"
+              value={lastName}
+              onChange={(e)=>setLastName(e.target.value)}
               fullWidth
               variant="outlined"
             />
@@ -154,7 +180,7 @@ export const Profile = () => {
               variant="outlined"
             />
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <TextField
               label="Delivery Address"
               name="deliverAddress"
@@ -193,7 +219,7 @@ export const Profile = () => {
               fullWidth
               variant="outlined"
             />
-          </Grid>
+          </Grid> */}
         </Grid>
         <Box sx={{ display: 'flex', justifyContent: 'end', marginY: 2 }}>
           <Button
@@ -206,7 +232,7 @@ export const Profile = () => {
           </Button>
         </Box>
       </Box>
-      <UserDetails />
+      <UserDetails userDetails={mydetails?.userDetails}/>
     </Box>
   );
 };

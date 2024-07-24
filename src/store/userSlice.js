@@ -26,6 +26,31 @@ export const matchesUser = createAsyncThunk(
   }
 );
 
+export const myalldetails = createAsyncThunk(
+  "user/Details",
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const { authInfo } = getState().auth;
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authInfo.token}`,
+        },
+      };
+      // Make request to the backend
+      const { data } = await RestApi.get("/app/viewProfile", config);
+      return data;
+    } catch (error) {
+      // Return custom error message from the API if any
+      if (error.response && error.response.data.error) {
+        return rejectWithValue(error.response.data.error);
+      }
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+
 // Async thunk for fetch all users
 export const recUsers = createAsyncThunk(
   "user/recUsers",
@@ -108,6 +133,7 @@ export const withdrawFund = createAsyncThunk(
 const userSlice = createSlice({
   name: "user",
   initialState: {
+    mydetails:null,
     loading: false,
     matchUser: null,
     recUsersList: null,
@@ -143,6 +169,22 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = payload;
       })
+
+      //fetch userdetails
+      .addCase(myalldetails.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.success = false;
+      })
+      .addCase(myalldetails.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.mydetails = payload;
+      })
+      .addCase(myalldetails.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      
       // fetch all users data
       .addCase(recUsers.pending, (state) => {
         state.loading = true;

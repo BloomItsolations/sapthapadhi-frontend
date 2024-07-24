@@ -16,6 +16,8 @@ import {
 import { listAllPlans } from '../store/planSlice';
 import RestApi from '../api/RestApi';
 import { CheckCircle, Cancel } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 // rozarpay
 function loadScript(src) {
   return new Promise(resolve => {
@@ -32,6 +34,7 @@ function loadScript(src) {
 }
 
 const Plan = () => {
+  const navigate=useNavigate();
   const theme = useTheme();
   const dispatch = useDispatch();
 
@@ -44,6 +47,15 @@ const Plan = () => {
   const { authInfo } = useSelector(state => state.auth);
   //razorpay
   const displayRazorpay = async (e, item) => {
+    if(!authInfo){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Please Login First",
+      });
+      navigate('/login');
+      return;
+    }
     e.preventDefault();
 
     try {
@@ -72,7 +84,7 @@ const Plan = () => {
       return;
     }
     const options = {
-      key: 'rzp_test_hMjp1Sqe2hmCbh',
+      key: 'rzp_test_wiEoVPHYx1DrGq',
       currency: 'INR',
       handler: function (response) {
         try {

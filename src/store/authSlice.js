@@ -110,11 +110,13 @@ export const updateUserDetails = createAsyncThunk(
         },
       };
       // Make request to the backend
-      const { data } = await RestApi.post(
-        "/app/updateUserProfile",
+      const  response  = await RestApi.post(
+        "app/updateUserProfile",
         formData,
         config
       );
+      // console.log("Response",response);
+      const {data}=response;
       return data;
     } catch (error) {
       // Return custom error message from the API if any
@@ -170,6 +172,7 @@ export const userDetailsById = createAsyncThunk(
 
       // Make request to the backend
       const { data } = await RestApi.get("/app/userDetailsById", config);
+      console.log("UserDetails",data);
       sessionStorage.setItem("authInfo", JSON.stringify(data?.userDetails));
       return data?.userDetails;
     } catch (error) {
