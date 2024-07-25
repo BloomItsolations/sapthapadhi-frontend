@@ -13,9 +13,11 @@ const HomePage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { matchUser, recUsersList } = useSelector(state => state.user);
+  console.log("MatchUserr",matchUser)
+  console.log("recUsersList",recUsersList)
   const [filteredMatchUsers, setFilteredMatchUsers] = useState([]);
   const [filteredRecUsers, setFilteredRecUsers] = useState([]);
-
+  
   useEffect(() => {
     dispatch(recUsers());
     dispatch(matchesUser());

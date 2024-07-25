@@ -55,6 +55,7 @@ export default function RegisterPage() {
       religion: '',
       country: '',
       password: '',
+      gender:''
     },
 
     validationSchema: Yup.object({
@@ -72,6 +73,7 @@ export default function RegisterPage() {
       religion: Yup.string().required('religion is required'),
       country: Yup.string().required('Country is required'),
       password: Yup.string().required('Password is required'),
+      gender: Yup.string().required('Gender is required'),
     }),
 
     onSubmit: values => {
@@ -240,10 +242,38 @@ export default function RegisterPage() {
                     helperText={touched.lookingFor && errors.lookingFor}
                   >
                     <MenuItem value="">Select your Preference</MenuItem>
-                    <MenuItem value="Male">bride</MenuItem>
-                    <MenuItem value="Female">Groom</MenuItem>
+                    <MenuItem value="bride">bride</MenuItem>
+                    <MenuItem value="groom">Groom</MenuItem>
                   </TextField>
                 </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    select
+                    size="medium"
+                    InputLabelProps={{ shrink: true }}
+                    name="gender"
+                    label={'Gender'}
+                    autoComplete="gender"
+                    value={values.gender}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    defaultValue={''}
+                    error={touched.gender && Boolean(errors.gender)}
+                    helperText={touched.gender && errors.gender}
+                  >
+                    <MenuItem value="">{'Select Your Gender '}</MenuItem>
+                    {[
+                      'male',
+                      'female',
+                      'others',
+                    ].map(item => (
+                      <MenuItem value={item}>{item}</MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+
                 <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth

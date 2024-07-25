@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { Container, Typography, Box, Grid, Avatar } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { matchesUser, recUsers } from '../store/userSlice';
+import { matchesUser, myalldetails, recUsers } from '../store/userSlice';
 import { useResponsive } from '../hooks/use-responsive';
 import { alpha } from '@mui/material/styles';
 import { usePathname } from '../routes/hooks';
@@ -12,6 +12,8 @@ export default function Dashboard() {
   const lgUp = useResponsive('up', 'lg');
   const dispatch = useDispatch();
   const { authInfo } = useSelector(state => state.auth);
+  const { mydetails } = useSelector(state => state.user);
+  console.log("mydetails",mydetails);
 
   const menuItems = [
     {
@@ -29,6 +31,7 @@ export default function Dashboard() {
   ];
   useEffect(() => {
     dispatch(recUsers());
+    dispatch(myalldetails());
     dispatch(matchesUser());
     return () => {};
   }, [dispatch]);
@@ -55,7 +58,7 @@ export default function Dashboard() {
 
         <Grid container spacing={4}>
           {lgUp && (
-            <Grid item xs={2.5}>
+            <Grid item xs={2.5} >
               <Box
                 sx={{
                   display: 'flex',
@@ -81,6 +84,7 @@ export default function Dashboard() {
                     flexDirection: 'column',
                     borderRadius: 1.5,
                     alignItems: 'start',
+                    
                     backgroundColor: theme => `${theme.palette.primary.light}`,
                   }}
                 >
@@ -94,7 +98,7 @@ export default function Dashboard() {
                       border: theme =>
                         `solid 2px ${theme.palette.background.default}`,
                     }}
-                    src={`https://avatars.githubusercontent.com/u/53830804`}
+                    src={mydetails?.userDetails?.profilePhoto ? "https://sapthapadhi.bloomitsolutions.co.in/"+mydetails?.userDetails?.profilePhoto?.path :''}
                   ></Avatar>
                   <Box sx={{ color: theme => theme.palette.primary.main }}>
                     <Typography
