@@ -14,6 +14,7 @@ import Contact from './pages/home/Contact';
 import Gallery from './pages/home/Gallery';
 import Services from './pages/home/Services';
 import ServiceEnquaryPage from './pages/ServiceEnquaryPage';
+import UserDetailsPage from './pages/UserDetailsPage';
 
 const RegisterPage = lazy(() => import('./pages/auth/Register'));
 const LoginPage = lazy(() => import('./pages/auth/login'));
@@ -75,6 +76,7 @@ export default function App() {
         >
           {authInfo !== null ? (
             <>
+                <Route path="userdetails/:id" element={<UserDetailsPage />} />
               <Route path={'dashboard/'} element={<Dashboard />}>
                 <Route index element={<HomePage />} />
                 <Route path="preferences" element={<Preferences />} />
