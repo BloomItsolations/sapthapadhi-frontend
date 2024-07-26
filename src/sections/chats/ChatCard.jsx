@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 export default function ChatCard({ to, name, image, unreadCount, captions }) {
   return (
-    <Card sx={{ display: 'flex', my: 1 }} component={Link} to={to}>
+    <Card sx={{ display: 'flex', my: 1 }} component={Link} to={`/app/chat/${to}`}>
       <CardMedia
         component="img"
         sx={{ width: 100, height: 100, borderRadius: '100%', p: 1 }}
@@ -18,7 +18,7 @@ export default function ChatCard({ to, name, image, unreadCount, captions }) {
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CardContent sx={{ flex: '1 0 auto' }}>
           <Typography variant="subtitle2" color="primary.light">
-            {unreadCount} unread
+            {unreadCount} 
           </Typography>
           <Typography component="div" variant="h5">
             {name}

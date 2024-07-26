@@ -17,7 +17,7 @@ const HomePage = () => {
   console.log("recUsersList",recUsersList)
   const [filteredMatchUsers, setFilteredMatchUsers] = useState([]);
   const [filteredRecUsers, setFilteredRecUsers] = useState([]);
-  
+    // console.log("id",filteredRecUsers[0].id)
   useEffect(() => {
     dispatch(recUsers());
     dispatch(matchesUser());
@@ -68,6 +68,7 @@ const HomePage = () => {
                   name={user.name}
                   age={user.age}
                   height={user.height}
+                  id={user.id}
                 />
               </SwiperSlide>
             ))}
@@ -88,6 +89,8 @@ const HomePage = () => {
                   name={user.name}
                   age={user.age}
                   height={user.height}
+                  id={user.id}
+
                 />
               </SwiperSlide>
             ))}

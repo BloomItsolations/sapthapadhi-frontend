@@ -1,14 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { io } from 'socket.io-client';
+import RestApi from '../api/RestApi';
 
-const socket = io('http://localhost:8800');
+const socket = io(process.env.REACT_APP_BaseURL);
 
 export const fetchMessages = createAsyncThunk(
   'chat/fetchMessages',
   async (toUser, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/fetchMessages/${toUser}`);
+      const response = await RestApi.get(`/app/messages/${toUser}`);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -16,11 +17,27 @@ export const fetchMessages = createAsyncThunk(
   },
 );
 
+export const myMessages = createAsyncThunk(
+  'chat/mychat',
+  async (toUser, { rejectWithValue }) => {
+    try {
+      const response = await RestApi.get(`/app/messages/${toUser}`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
+
+
 export const sendMessage = createAsyncThunk(
   'chat/sendMessage',
-  async ({ toUser, message }, { rejectWithValue }) => {
+  async ({ toUser, message }, {getState, rejectWithValue }) => {
+
+    const { authInfo } = getState().auth;
+
     try {
-      const response = await axios.post('/sendMessages', { toUser, message });
+      const response = await RestApi.post('/app/messages', {fromUser:authInfo.userId, toUser, message });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -33,6 +50,7 @@ const chatSlice = createSlice({
   initialState: {
     messages: [],
     status: 'idle',
+    myMessage:[],
     error: null,
   },
   reducers: {
@@ -53,6 +71,21 @@ const chatSlice = createSlice({
         state.status = 'failed';
         state.error = action.payload;
       })
+
+      //my Message
+      .addCase(myMessages.pending, state => {
+        state.status = 'loading';
+      })
+      .addCase(myMessages.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.myMessage = action.payload;
+      })
+      .addCase(myMessages.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      })
+
+
       .addCase(sendMessage.fulfilled, (state, action) => {
         state.messages.push(action.payload);
       });

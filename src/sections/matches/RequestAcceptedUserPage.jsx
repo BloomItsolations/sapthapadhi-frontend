@@ -1,110 +1,73 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Box, Avatar, Typography, Button, Card, Grid } from '@mui/material';
-import { styled } from '@mui/system';
 import { Link } from 'react-router-dom';
-
-const UserCard = styled(Card)(({ theme }) => ({
-  backgroundColor: '#EDEDED',
-  display: 'flex',
-  flexDirection: { xs: 'column', sm: 'row' },
-  padding: theme.spacing(2),
-  marginBottom: theme.spacing(2),
-}));
-
-const UserDetails = styled(Box)(({ theme }) => ({
-  display: 'none',
-  justifyContent: 'space-between',
-  flexWrap: 'wrap',
-  width: '80%',
-  marginTop: '10px',
-  fontSize: '16px',
-  fontWeight: '500',
-  [theme.breakpoints.up('sm')]: {
-    display: 'flex',
-  },
-}));
-
-const UserInfo = styled(Box)(({ theme }) => ({
-  marginLeft: theme.spacing(2),
-  display: 'flex',
-  flexDirection: 'column',
-  flex: 1,
-}));
-
-const NameAndButtonBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  flexDirection: { xs: 'column', sm: 'row' },
-}));
+import { useDispatch, useSelector } from 'react-redux';
+import { acceptedUser } from '../../store/userSlice';
+import { Avatar, Typography, Button, Grid, CircularProgress, Box } from '@mui/material';
+import ChatIcon from '@mui/icons-material/Chat';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const RequestAcceptedUserPage = ({ userId }) => {
-  const [requests, setRequests] = useState([]);
+  const { accepteReqUserList, loading } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchAcceptedRequests = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_BaseURL}/app/accepted-requests/${userId}`,
-        );
-        setRequests(response.data);
-      } catch (error) {
-        console.error('Error fetching accepted requests:', error);
-      }
-    };
+    dispatch(acceptedUser());
+  }, [dispatch, userId]);
 
-    fetchAcceptedRequests();
-  }, [userId]);
+  if (loading || !accepteReqUserList) {
+    return  (
+      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
-    <Grid container spacing={2}>
-      {requests.map(request => (
-        <Grid item xs={12} key={request.requestId}>
-          <UserCard>
+    <Grid container spacing={2} >
+      {accepteReqUserList.map((request) => (
+        <Grid item xs={12} md={6} key={request.requestId}>
+          <div className="bg-white flex  md:flex-row p-1 md:p-4 mb-1 md:mb-4 rounded-lg shadow-md hover:scale-105 hover:shadow-lg transition-transform duration-300">
             <Avatar
               alt={request.fromUser.firstName}
-              src={
-                request.fromUser.profilePhoto
-                  ? `${process.env.REACT_APP_BaseURL}/${request.fromUser.profilePhoto[0].path}`
-                  : '/default-avatar.jpg'
-              }
+              src={request.fromUser.profilePhoto || '/default-avatar.jpg'}
+              sx={{
+                width: { xs: '50px', md: '100px' },
+                height: { xs: '50px', md: '100px' },
+              }}
+              className="rounded-lg"
             />
-            <UserInfo>
-              <NameAndButtonBox>
-                <Typography variant="h6">
-                  {request.fromUser.firstName}
-                </Typography>
-                <Typography variant="body2" sx={{ color: '#51A22B' }}>
-                  Accepted
-                </Typography>
-              </NameAndButtonBox>
-              <UserDetails>
-                <Typography variant="body2">
-                  City: {request.fromUser.city}
-                </Typography>
-                <Typography variant="body2">
-                  Age: {request.fromUser.age}
-                </Typography>
-                <Typography variant="body2">
-                  Working: {request.fromUser.working}
-                </Typography>
-                <Typography variant="body2">
-                  Height: {request.fromUser.height}
-                </Typography>
-              </UserDetails>
-              <Typography variant="body2" color="textSecondary">
+            <div className="flex flex-col items-start ml-4  md:mt-0 text-left">
+              <Typography
+                variant="h6"
+                className="text-lg font-semibold"
+              >
+                {request.fromUser.firstName}
+              </Typography>
+              <Typography
+                variant="body2"
+                className="text-gray-600 text-[5px] lg:text-sm mt-0 md:mt-1"
+                
+              >
                 Requested on: {request.requestTime}
               </Typography>
-              <Button
-                component={Link}
-                to={`/profile/${request.fromUser.id}`}
-                sx={{ marginTop: '10px' }}
-              >
-                View Full Profile
-              </Button>
-            </UserInfo>
-          </UserCard>
+              <div className="flex justify-start mt-1 md:mt-2 w-full space-x-2">
+                <Button
+                  component={Link}
+                  to={`/app/userdetails/${request.fromUser.id}`}
+                  className=" text-white rounded-full flex items-center px-1 md:px-4 py-2 text-[5px] md:text-sm bg-blue-400 hover:bg-blue-600"
+                  startIcon={<VisibilityIcon />}
+                >
+                  <span>View Profile</span>
+                </Button>
+                <Button
+                  className="bg-green-500 text-white rounded-full flex items-center px-2 md:px-4 py-2 text-sm hover:bg-green-600"
+                  startIcon={<ChatIcon />}
+                >
+                  <span>Chat Now</span>
+                </Button>
+              </div>
+            </div>
+          </div>
         </Grid>
       ))}
     </Grid>

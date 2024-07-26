@@ -45,20 +45,16 @@ export default function Matches() {
           onChange={handleChange}
         >
           <Tab
-            label="RequestUserPage"
+            label="Friend Request"
             sx={{ borderRadius: '6px 6px 0 0', paddingX: 6, paddingY: 0 }}
             {...a11yProps(0)}
           />
           <Tab
-            label="RequestAcceptedUserPage"
+            label="Accepted User"
             sx={{ borderRadius: '6px 6px 0 0', paddingX: 6, paddingY: 0 }}
             {...a11yProps(1)}
           />
-          <Tab
-            label="DeniedRequestsPage"
-            sx={{ borderRadius: '6px 6px 0 0', paddingX: 6, paddingY: 0 }}
-            {...a11yProps(3)}
-          />
+          
         </Tabs>
         <Divider />
         <CustomTabPanel value={tabvalue} index={0}>
@@ -67,7 +63,7 @@ export default function Matches() {
         <CustomTabPanel value={tabvalue} index={1}>
           <RequestAcceptedUserPage />
         </CustomTabPanel>
-        <CustomTabPanel value={tabvalue} index={1}>
+        <CustomTabPanel value={tabvalue} index={2}>
           <DeniedRequestsPage />
         </CustomTabPanel>
       </Box>
