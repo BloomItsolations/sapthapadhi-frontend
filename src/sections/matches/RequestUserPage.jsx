@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import {
@@ -9,219 +9,151 @@ import {
   Card,
   CardActions,
   Grid,
+  CircularProgress,
+  CardContent,
+  CardMedia,
 } from '@mui/material';
-import { styled } from '@mui/system';
+import { styled, useTheme } from '@mui/system';
+import { useDispatch, useSelector } from 'react-redux';
+import { acceptRequest, clearError, denayRequest, reciveRequest } from '../../store/userSlice';
+import Swal from 'sweetalert2';
 
 const UserCard = styled(Card)(({ theme }) => ({
-  backgroundColor: '#EDEDED',
+  backgroundColor: '#fff',
+  boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
   display: 'flex',
-  flexDirection: { xs: 'column', sm: 'row' },
-  padding: theme.spacing(2),
-  marginBottom: theme.spacing(2),
-}));
-
-const UserDetails = styled(Box)(({ theme }) => ({
-  display: 'none',
-  justifyContent: 'space-between',
-  flexWrap: 'wrap',
-  width: '80%',
-  marginTop: '10px',
-  fontSize: '16px',
-  fontWeight: '500',
-  [theme.breakpoints.up('sm')]: {
-    display: 'flex',
+  flexDirection: 'row',
+  padding: theme.spacing(1),
+  marginBottom: theme.spacing(1),
+  borderRadius: theme.shape.borderRadius,
+  alignItems: 'center',
+  transition: 'transform 0.3s, box-shadow 0.3s',
+  '&:hover': {
+    transform: 'scale(1.02)',
+    boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.15)',
+  },
+  height: '100%',
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 }));
+
+const AvatarWrapper = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '100%',
+});
 
 const UserInfo = styled(Box)(({ theme }) => ({
   marginLeft: theme.spacing(2),
   display: 'flex',
   flexDirection: 'column',
-  flex: 1,
-}));
-
-const NameAndButtonBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  flexDirection: { xs: 'column', sm: 'row' },
-}));
-
-const UserActions = styled(CardActions)({
-  display: 'flex',
-  alignItems: 'center',
   justifyContent: 'center',
-});
+  flex: 1,
+  height: '100%',
+  [theme.breakpoints.down('sm')]: {
+    marginLeft: 0,
+    alignItems: 'center',
+  },
+}));
 
-const RequestUserPage = ({ userId }) => {
-  const [requests, setRequests] = useState([]);
+const UserActions = styled(CardActions)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-end',
+  gap: '4px',
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+}));
+
+const RequestUserPage = () => {
+  const dispatch = useDispatch();
+  const { recUsersList, loading, success, error } = useSelector((state) => state.user);
+  console.log("ReUsereList", recUsersList);
+  useEffect(() => {
+    if (success) {
+      Swal.fire({
+        icon: 'success',
+        title: ' Successful',
+        text: success,
+      });
+      dispatch(clearError());
+    }
+    if (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error,
+      });
+      dispatch(clearError());
+    }
+  }, [success, error]);
+
 
   useEffect(() => {
-    const fetchRequests = async () => {
-      try {
-        // Replace with your actual API endpoint for fetching pending requests
-        const response = await axios.get(
-          `${process.env.REACT_APP_BaseURL}/app/receive-requests/${userId}`,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          },
-        );
-        setRequests(response.data);
-      } catch (error) {
-        console.error('Error fetching requests:', error);
-      } finally {
-      }
-    };
+    dispatch(reciveRequest());
+  }, [dispatch]);
 
-    fetchRequests();
-  }, [userId]);
-
-  const acceptUser = async fromUserId => {
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_BaseURL}/app/update-request-status`,
-        {
-          fromUserId: fromUserId,
-          toUserId: userId,
-          status: 'accepted',
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-
-      console.log('Response from accept user', response);
-
-      if (response.statusText === 'OK') {
-        // Optionally update the local state or refetch pending requests after successful accept
-      }
-    } catch (error) {
-      console.log('Error', error);
-    } finally {
-    }
+  const acceptUser = async (fromUserId) => {
+    dispatch(acceptRequest(fromUserId))
   };
-  console.log('requests', requests);
+  const denayUser = async (fromUserId) => {
+    dispatch(denayRequest(fromUserId))
+  };
+
+  if (loading || !recUsersList) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
-    <>
-      <Grid container spacing={2}>
-        {requests.map(request => (
-          <Grid item xs={12} key={request.fromUser.id}>
-            <UserCard sx={{ padding: '8px' }}>
-              <Avatar
-                alt={request.fromUser.profilePhoto}
-                src={
-                  request.fromUser.profilePhoto
-                    ? `${process.env.REACT_APP_BaseURL}/${request.fromUser.profilePhoto[0].path}`
-                    : '/default-avatar.jpg'
-                }
-                sx={{
-                  width: { xs: '40px', sm: '40px', md: '240px' },
-                  height: { xs: '40px', sm: '40px', md: '157px' },
-                  borderRadius: '0px',
-                }}
+    <Grid container spacing={2}>
+      {recUsersList?.map((request) => (
+
+        <Card sx={{ width: 260, height: 340,marginTop:'5px' }} key={request?.fromUser?.id}>
+          <Link to={`/app/request-user-details/${request?.fromUser?.id}`} style={{ textDecoration: 'none' }}>
+              <CardMedia
+                sx={{ height: 200, objectFit:'cover' }}
+                image={request?.fromUser?.profilePhoto || 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'}
+                alt={request?.fromUser?.firstName}
+                title={request?.fromUser?.firstName}
               />
-              <UserInfo>
-                <NameAndButtonBox>
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      fontSize: { xs: '17px', sm: '18px', md: '24px' },
-                      fontWeight: '500',
-                    }}
-                  >
-                    {request.fromUser.firstName}
-                  </Typography>
-                  <UserActions>
-                    <Button
-                      sx={{
-                        marginRight: { xs: '0px', sm: '0px', md: '8px' },
-                        fontSize: { xs: '8px', sm: '8px', md: '18px' },
-                        marginBottom: { xs: '0px', sm: '0px' },
-                        width: { sm: '30px', md: '82px' },
-                        height: { sm: '15px', md: '29px' },
-                        borderRadius: '15px',
-                        backgroundColor: '#51A22B',
-                        color: 'white',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}
-                      onClick={() => acceptUser(request.fromUser.id)} // Replace with the actual toUserId
-                    >
-                      Accept
-                    </Button>
-                    <Button
-                      sx={{
-                        width: { sm: '30px', md: '82px' },
-                        height: { sm: '15px', md: '29px' },
-                        fontSize: { xs: '8px', sm: '8px', md: '18px' },
-                        borderRadius: '15px',
-                        border: '1px solid red',
-                        color: 'red',
-                        backgroundColor: 'white',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}
-                    >
-                      Deny
-                    </Button>
-                  </UserActions>
-                </NameAndButtonBox>
-                <UserDetails>
-                  {/* Display relevant details */}
-                  <Typography variant="body2">
-                    City: {request.fromUser.city}
-                  </Typography>
-                  <Typography variant="body2">
-                    Age: {request.fromUser.age}
-                  </Typography>
-                  <Typography variant="body2">
-                    Working: {request.fromUser.working}
-                  </Typography>
-                  <Typography variant="body2">
-                    Height: {request.fromUser.height}
-                  </Typography>
-                </UserDetails>
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  sx={{
-                    fontSize: { sm: '2px', md: '16px' },
-                    fontWeight: '500',
-                    marginTop: { sm: '2px', md: '8px' },
-                  }}
-                >
-                  Request on: {request.createdAt}
-                </Typography>
-                <Button
-                  component={Link}
-                  to={`/ViewNewRequestProfile/${request.fromUser.id}`}
-                  sx={{
-                    width: '182px',
-                    height: '30px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginTop: '10px',
-                    color: 'black',
-                    fontWeight: '500',
-                    borderRadius: '15px',
-                    border: '1px solid black',
-                  }}
-                >
-                  View Full Profile
-                </Button>
-              </UserInfo>
-            </UserCard>
-          </Grid>
-        ))}
-      </Grid>
-    </>
+            
+            <CardContent sx={{ textAlign: 'start' }}>
+              <Typography gutterBottom variant="h5" component="div" sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                {request?.fromUser?.firstName}
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+              >
+                Age: {request?.fromUser?.age} Yrs, Height: {request?.fromUser?.height}
+              </Typography>
+            </CardContent>
+          </Link>
+          <Box sx={{ display: 'flex', justifyContent: 'space-around', mb: 1 }}>
+            <Link to={`/app/request-user-details/${request?.fromUser?.id}`} style={{ textDecoration: 'none' }}>
+              <Button size="small" variant="outlined">
+                View Profile
+              </Button>
+            </Link>
+            <Button size="small" variant="contained" color="primary" onClick={() => acceptUser(request?.fromUser?.id)}  >
+              Accept Request
+            </Button>
+          </Box>
+        </Card>
+      ))}
+    </Grid>
+
   );
 };
 

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Grid, Card, CardMedia, CardContent, Typography, IconButton, Button, CircularProgress, Box } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -7,10 +8,10 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import UserDetails from './UserDetails';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearError, sendRequest, singleUserDetails } from '../store/userSlice';
+import { acceptRequest, clearError, denayRequest, sendRequest, singleUserDetails } from '../store/userSlice';
 import Swal from 'sweetalert2';
 
-const UserDetailsPage = () => {
+const NewRequestUserDetails = () => {
 
     const { success, error } = useSelector(state => state.user);
 
@@ -43,10 +44,15 @@ const UserDetailsPage = () => {
         dispatch(singleUserDetails(id))
     }, [id])
 
-    const handleSendRequest = async () => {
-        dispatch(sendRequest(id))
-    };
+   
 
+    const acceptUser = async () => {
+        dispatch(acceptRequest(id))
+      };
+      const denayUser = async () => {
+        dispatch(denayRequest(id))
+      };
+    
     const [galleryImage] = useState([
         { path: 'https://i.pinimg.com/originals/00/5c/a7/005ca765038679e314b2df606eb1e0dd.jpg' },
         { path: 'https://i.pinimg.com/originals/00/5c/a7/005ca765038679e314b2df606eb1e0dd.jpg' },
@@ -54,7 +60,7 @@ const UserDetailsPage = () => {
         { path: 'https://i.pinimg.com/originals/00/5c/a7/005ca765038679e314b2df606eb1e0dd.jpg' },
     ]);
 
-    if (loading) {
+    if (loading || !singleUser) {
         return <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
             <CircularProgress />
         </Box>
@@ -67,7 +73,7 @@ const UserDetailsPage = () => {
                     <Card style={{ display: 'flex', flexDirection: 'column', margin: 0, width: '100%', borderRadius: 0 }} sx={{ height: { xs: '280px', sm: '280px', md: '320px', lg: '300px' } }}>
                         <CardMedia
                             component="img"
-                            image={singleUser?.userDetails?.profilePhoto}
+                            image={ singleUser?.userDetails ? singleUser?.userDetails?.profilePhoto : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'}
                             alt="User Profile"
                             style={{ height: '100%', objectFit: 'contain', borderRadius: 0 }}
                         />
@@ -113,11 +119,13 @@ const UserDetailsPage = () => {
 
                                 <Grid item xs={12} container spacing={2}>
                                     <Grid item>
-
+                                    <Button variant="contained" onClick={denayUser} color="primary" startIcon={<ArrowForwardIcon />}>
+                                            Reject Request
+                                        </Button>
                                     </Grid>
                                     <Grid item>
-                                        <Button variant="contained" onClick={handleSendRequest} color="primary" startIcon={<ArrowForwardIcon />}>
-                                            Send Interest
+                                        <Button variant="contained" onClick={acceptUser} color="primary" startIcon={<ArrowForwardIcon />}>
+                                            Accept Request
                                         </Button>
                                     </Grid>
                                 </Grid>
@@ -148,4 +156,8 @@ const UserDetailsPage = () => {
     );
 };
 
-export default UserDetailsPage;
+export default NewRequestUserDetails;
+
+
+
+

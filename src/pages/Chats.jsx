@@ -5,7 +5,7 @@ import { Container, Box, Grid } from '@mui/material';
 // import { useDispatch, useSelector } from 'react-redux';
 import { useResponsive } from '../hooks/use-responsive';
 // import { usePathname } from '../routes/hooks';
-import ChatList from '../sections/chats/ChatList';
+import ChatList from '../sections/ChatList';
 
 export default function Dashboard() {
   const lgUp = useResponsive('up', 'lg');

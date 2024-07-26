@@ -41,7 +41,15 @@ export default function RegisterPage() {
       });
       dispatch(clearError());
     }
-  }, [success]);
+    if(error){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error,
+      });
+      dispatch(clearError());
+    }
+  }, [success,error]);
 
 
   const formik = useFormik({
@@ -78,25 +86,7 @@ export default function RegisterPage() {
 
     onSubmit: values => {
       dispatch(clearError());
-      dispatch(userRegister(values))
-        .then(res => {
-          if (!res.error) {
-            dispatch(clearError());
-          } else {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: res.payload,
-            });
-          }
-        })
-        .catch(err => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'error occured while registering user. Please try again later.',
-          });
-        });
+      dispatch(userRegister(values))   
     },
   });
 
@@ -230,6 +220,7 @@ export default function RegisterPage() {
                 <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
+                    select
                     size="medium"
                     InputLabelProps={{ shrink: true }}
                     name="lookingFor"
@@ -242,8 +233,9 @@ export default function RegisterPage() {
                     helperText={touched.lookingFor && errors.lookingFor}
                   >
                     <MenuItem value="">Select your Preference</MenuItem>
-                    <MenuItem value="bride">bride</MenuItem>
-                    <MenuItem value="groom">Groom</MenuItem>
+                    <MenuItem value="men">Men</MenuItem>
+                    <MenuItem value="women">Women</MenuItem>
+                    <MenuItem value="All">All</MenuItem>
                   </TextField>
                 </Grid>
 

@@ -15,6 +15,9 @@ import Gallery from './pages/home/Gallery';
 import Services from './pages/home/Services';
 import ServiceEnquaryPage from './pages/ServiceEnquaryPage';
 import UserDetailsPage from './pages/UserDetailsPage';
+import NewRequestUserDetails from './pages/NewRequestUserDetails';
+import ChatList from './sections/ChatList';
+import ChatBox from './sections/ChatBox';
 
 const RegisterPage = lazy(() => import('./pages/auth/Register'));
 const LoginPage = lazy(() => import('./pages/auth/login'));
@@ -77,6 +80,7 @@ export default function App() {
           {authInfo !== null ? (
             <>
                 <Route path="userdetails/:id" element={<UserDetailsPage />} />
+                <Route path="request-user-details/:id" element={<NewRequestUserDetails />} />
               <Route path={'dashboard/'} element={<Dashboard />}>
                 <Route index element={<HomePage />} />
                 <Route path="preferences" element={<Preferences />} />
@@ -85,9 +89,9 @@ export default function App() {
               </Route>
               <Route path={'matches'} element={<Matches />} />
               <Route path={'plans'} element={<Plan />} />
-              <Route path={'chat/'} element={<Chats />}>
-                <Route path=":userId" element={<ChatRoom />} />
-              </Route>
+              <Route path={'chat/'} element={<ChatList />}/>
+                <Route path="chat/:userId" element={<ChatBox />} />
+              
             </>
           ) : null}
         </Route>

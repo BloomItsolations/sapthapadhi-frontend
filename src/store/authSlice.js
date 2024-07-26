@@ -20,27 +20,26 @@ export const userRegister = createAsyncThunk(
       return data;
     } catch (error) {
       // Return custom error message from the API if any
-
+     console.log(error);
       if (error.response && error.response.data) {   //error.response.data.error. there are no error message in this, i was getting html in data.
-        var extractErrorMessage;
-
+        // var extractErrorMessage;
         //Extract the error message from html.
-        const preTagRegex = /<pre>(.*?)<\/pre>/;
-        const preTagMatch = error.response.data.match(preTagRegex);
-        if (preTagMatch && preTagMatch[1]) {
-          const preTagContent = preTagMatch[1].replace(/<br>/g, '').trim();
-          const errorMessageRegex = /Error:\s*(.*)/;
-          const errorMessageMatch = preTagContent.match(errorMessageRegex);
-          if (errorMessageMatch && errorMessageMatch[1]) {
-            const specificErrorMessage = errorMessageMatch[1].split('&nbsp;')[0].trim();
-            extractErrorMessage = specificErrorMessage;
-          } else {
-            extractErrorMessage = "Specific error message not found";
-          }
-        } else {
-          extractErrorMessage = "Error message not found";
-        }
-        return rejectWithValue(extractErrorMessage);
+        // const preTagRegex = /<pre>(.*?)<\/pre>/;
+        // const preTagMatch = error.response.data.match(preTagRegex);
+        // if (preTagMatch && preTagMatch[1]) {
+        //   const preTagContent = preTagMatch[1].replace(/<br>/g, '').trim();
+        //   const errorMessageRegex = /Error:\s*(.*)/;
+        //   const errorMessageMatch = preTagContent.match(errorMessageRegex);
+        //   if (errorMessageMatch && errorMessageMatch[1]) {
+        //     const specificErrorMessage = errorMessageMatch[1].split('&nbsp;')[0].trim();
+        //     extractErrorMessage = specificErrorMessage;
+        //   } else {
+        //     extractErrorMessage = "Specific error message not found";
+        //   }
+        // } else {
+        //   extractErrorMessage = "Error message not found";
+        // }
+        return rejectWithValue(error.response.data.message);
       }
       return rejectWithValue(error.message);
     }
