@@ -1,18 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardMedia, CardContent, Typography, Button, Box } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearError, sendRequest } from '../../store/userSlice';
 import Swal from 'sweetalert2';
 
-const UserCard = ({id, profilePhoto, name, age, height }) => {
-  console.log("id",id)
-  const navigate = useNavigate();
-  const dispatch=useDispatch();
-  const {success,error}=useSelector(state=>state.user);
-
-  useEffect(()=>{
+const UserCard = ({ id, profilePhoto, name, age, height, status }) => {
+  const dispatch = useDispatch();
+  const { success, error } = useSelector(state => state.user);
+  const [newStatus,setNewStatus]=useState(status);
+  useEffect(() => {
     if (success) {
       Swal.fire({
         icon: 'success',
@@ -21,7 +18,7 @@ const UserCard = ({id, profilePhoto, name, age, height }) => {
       });
       dispatch(clearError());
     }
-    if(error){
+    if (error) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -29,10 +26,11 @@ const UserCard = ({id, profilePhoto, name, age, height }) => {
       });
       dispatch(clearError());
     }
-  },[success,error])
-  
+  }, [success, error])
+
   const handleSendRequest = async () => {
-      dispatch(sendRequest(id))
+    dispatch(sendRequest(id))
+    setNewStatus(true);
   };
 
   return (
@@ -51,7 +49,7 @@ const UserCard = ({id, profilePhoto, name, age, height }) => {
           />
         )}
         <CardContent sx={{ textAlign: 'start' }}>
-          <Typography gutterBottom variant="h5" component="div"  sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          <Typography gutterBottom variant="h5" component="div" sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             {name}
           </Typography>
           <Typography
@@ -69,8 +67,20 @@ const UserCard = ({id, profilePhoto, name, age, height }) => {
             View Profile
           </Button>
         </Link>
-        <Button size="small" variant="contained" color="primary" onClick={handleSendRequest}>
-          Send Request
+        <Button
+          size="small"
+          variant="contained"
+          color={newStatus ? "success" : "primary"}
+          onClick={!newStatus ? handleSendRequest : null}
+          sx={{
+            textTransform: 'none',
+            borderRadius: '20px',
+            padding: '5px 15px',
+            fontSize: '14px',
+            fontWeight: 'bold',
+          }}
+        >
+          {newStatus ? 'Requested' : 'Send Request'}
         </Button>
       </Box>
     </Card>

@@ -67,7 +67,7 @@ const UserDetailsPage = () => {
                     <Card style={{ display: 'flex', flexDirection: 'column', margin: 0, width: '100%', borderRadius: 0 }} sx={{ height: { xs: '280px', sm: '280px', md: '320px', lg: '300px' } }}>
                         <CardMedia
                             component="img"
-                            image={singleUser?.userDetails?.profilePhoto}
+                            image={singleUser?.userDetails?.profilePhoto ? singleUser?.userDetails?.profilePhoto : "https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg"}
                             alt="User Profile"
                             style={{ height: '100%', objectFit: 'contain', borderRadius: 0 }}
                         />

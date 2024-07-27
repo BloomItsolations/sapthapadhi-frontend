@@ -24,12 +24,12 @@ const RequestAcceptedUserPage = ({ userId }) => {
 
   return (
     <Grid container spacing={2} >
-      {accepteReqUserList.map((request) => (
+      {accepteReqUserList?.map((request) => (
         <Grid item xs={12} md={6} key={request.requestId}>
           <div className="bg-white flex  md:flex-row p-1 md:p-4 mb-1 md:mb-4 rounded-lg shadow-md hover:scale-105 hover:shadow-lg transition-transform duration-300">
             <Avatar
-              alt={request.fromUser.firstName}
-              src={request.fromUser.profilePhoto || '/default-avatar.jpg'}
+              alt={request?.fromUser?.firstName}
+              src={request?.fromUser?.profilePhoto || '/default-avatar.jpg'}
               sx={{
                 width: { xs: '50px', md: '100px' },
                 height: { xs: '50px', md: '100px' },
@@ -41,14 +41,14 @@ const RequestAcceptedUserPage = ({ userId }) => {
                 variant="h6"
                 className="text-lg font-semibold"
               >
-                {request.fromUser.firstName}
+                {request?.fromUser?.firstName}
               </Typography>
               <Typography
                 variant="body2"
                 className="text-gray-600 text-[5px] lg:text-sm mt-0 md:mt-1"
                 
               >
-                Requested on: {request.requestTime}
+                Requested on: {request?.requestTime}
               </Typography>
               <div className="flex justify-start mt-1 md:mt-2 w-full space-x-2">
                 <Button
@@ -60,6 +60,8 @@ const RequestAcceptedUserPage = ({ userId }) => {
                   <span>View Profile</span>
                 </Button>
                 <Button
+                component={Link}
+                to={`/app/chat`}
                   className="bg-green-500 text-white rounded-full flex items-center px-2 md:px-4 py-2 text-sm hover:bg-green-600"
                   startIcon={<ChatIcon />}
                 >

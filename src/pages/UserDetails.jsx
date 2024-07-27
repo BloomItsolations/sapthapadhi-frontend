@@ -48,7 +48,7 @@ const UserDetails = ({user, userDetails }) => {
   };
 
   const hobbies = {
-    Hobbies: userDetails.hobbies.length > 0 ? userDetails.hobbies.join(', ') : 'N/A',
+    Hobbies: userDetails?.hobbies?.length > 0 ? userDetails?.hobbies?.join(', ') : 'N/A',
   };
 
   return (
