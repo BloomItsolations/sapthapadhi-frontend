@@ -38,8 +38,7 @@ export const Profile = () => {
 
   const { mydetails } = useSelector(state => state.user);
   const profileImage = mydetails?.userDetails?.profilePhoto && mydetails?.userDetails?.profilePhoto?.path;
-   console.log("Mydetails",mydetails)
-   console.log("ProfileImage",profileImage);
+   
   useEffect(() => {
     if (mydetails?.user) {
       setFirstName(mydetails.user.firstName);

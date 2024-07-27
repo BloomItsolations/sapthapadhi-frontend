@@ -15,9 +15,9 @@ const ChatBox = () => {
     //Merge Message,
 
     const mergeMessages = (myMessages, allMessages, myUserId, userId) => {
-        const combinedMessages = [...myMessages, ...allMessages];    
+        const combinedMessages = [...myMessages, ...allMessages];
         combinedMessages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-        
+
         return combinedMessages
             .filter(message => {
                 const isMyMessage = message.fromUser == myUserId && message.toUser == userId;
@@ -29,11 +29,11 @@ const ChatBox = () => {
                 return {
                     messageFrom,
                     message: message.message,
-                    timestamp: message.timestamp, 
+                    timestamp: message.timestamp,
                 };
             });
     };
-    
+
     const navigate = useNavigate();
 
     const getUserIdFromUrl = () => {
@@ -47,7 +47,21 @@ const ChatBox = () => {
     const dispatch = useDispatch();
     const { singleUser, loading } = useSelector(state => state.user);
     const { authInfo } = useSelector(state => state.auth);
-      const [update,setUpdate]=useState(false);
+    const [update, setUpdate] = useState(false);
+
+    useEffect(() => {
+        socket.on('newMessages', () => {
+            setUpdate(!update)
+            console.log("new message is comming");
+        })
+    },[])
+
+   useEffect(()=>{
+    socket.on("previousMessages",()=>{
+        console.log("new Message is comming from previous message");
+    },[])
+  
+   })
     useEffect(() => {
         dispatch(singleUserDetails(userId))
     }, [userId])
@@ -60,12 +74,16 @@ const ChatBox = () => {
     useEffect(() => {
         dispatch(fetchMessages(userId));
         setupSocketListeners();
-    }, [dispatch, userId,update]);
+    }, [dispatch, userId, update]);
 
     useEffect(() => {
         dispatch(myMessages(authInfo?.userId));
         setupSocketListeners();
-    }, [dispatch, userId, authInfo,update]);
+    }, [dispatch, userId, authInfo, update]);
+
+
+
+    
 
     const setupSocketListeners = () => {
         socket.on(`/app/messages/${userId}`, message => {
@@ -77,11 +95,12 @@ const ChatBox = () => {
             console.error('Socket error:', error);
         });
     };
-
+    
     const handleSendMessage = async e => {
         e.preventDefault();
         if (newMessage.trim()) {
             socket.emit('sendMessage', { userId, message: newMessage });
+            socket.emit('fetchMessages', { userId, message: newMessage });
             dispatch(sendMessage({ toUser: userId, message: newMessage }))
             setNewMessage('');
             scrollToBottom();
@@ -109,11 +128,10 @@ const ChatBox = () => {
 
     useEffect(() => {
         const mergeMessage = mergeMessages(myMessage, messages, authInfo?.userId, userId);
-        console.log("mergeMessage",mergeMessage)
+        console.log("mergeMessage", mergeMessage)
         setMergeMessage(mergeMessage)
-    }, [messages, myMessage,update])
+    }, [messages, myMessage, update])
 
-    console.log("MergeMessage", mergeMessage);
 
     if (loading || !singleUser) {
         return (
@@ -124,7 +142,7 @@ const ChatBox = () => {
     }
 
     return (
-        <Box sx={{ width: '100%', height: { xs: 'calc(100vh - 56px)', sm: '80vh' }, display: 'flex', flexDirection: 'column', overflowY: 'scroll' }}>
+        <Box sx={{ width: '100%',    marginBottom: '-100px' ,  height: { xs: 'calc(100vh - 100px)', sm: '80vh', marginTop: '10px' }, display: 'flex', flexDirection: 'column', overflowY: 'scroll', }}>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton edge="start" color="inherit" onClick={handleBack} aria-label="back">
@@ -146,6 +164,7 @@ const ChatBox = () => {
                     {mergeMessage.map((msg, index) => (
                         <ListItem key={index} sx={{ justifyContent: msg.messageFrom === 'me' ? 'flex-end' : 'flex-start' }}>
                             <ListItemText
+
                                 primary={msg.message}
                                 sx={{
                                     textAlign: msg.messageFrom === 'me' ? 'right' : 'left',
@@ -155,12 +174,12 @@ const ChatBox = () => {
                                     maxWidth: '75%',
                                 }}
                             />
+                            <div ref={messagesEndRef} />
                         </ListItem>
                     ))}
-                    <div ref={messagesEndRef} />
                 </List>
             </Box>
-            <Divider />
+            {/* <Divider /> */}
             <Box sx={{ display: 'flex', alignItems: 'center', p: 2 }}>
                 <TextField
                     variant="outlined"
