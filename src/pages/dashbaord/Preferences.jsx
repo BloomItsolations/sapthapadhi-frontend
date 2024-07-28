@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
-import { Box, Button, Grid, TextField, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Box, Button, Grid, TextField, Typography, MenuItem } from '@mui/material';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import RestApi from '../../api/RestApi';
 
 const Preferences = () => {
+
+  const {authInfo}=useSelector((state)=>state.auth);
+
   const [formValues, setFormValues] = useState({
-    age: '',
-    height: '',
+    minAge: '',
+    maxAge: '',
+    minHeight: '',
+    maxHeight: '',
     maritalStatus: '',
     motherTongue: '',
     physicalStatus: '',
@@ -17,12 +25,31 @@ const Preferences = () => {
     haveDosh: '',
     star: '',
     education: '',
-    employedIn: '',
     occupation: '',
     annualIncome: '',
-    country: '',
-    ancestralOrigin: '',
   });
+
+  const maritalStatusOptions = ['single', 'divorced', 'widowed', 'married', 'Separated'];
+  const eatingHabitsOptions = ['vegetarian', 'non-vegetarian', 'vegan', 'flexitarian', 'halal', 'junk food', 'A Little of everything'];
+  const religionOptions = ['Hinduism', 'Sikhism', 'Christianity', 'Jainism', 'Islam', 'Judaism', 'Buddhism', 'Shinto', 'Confucianism', 'Zoroastrianism', 'Others'];
+
+  useEffect(() => {
+    // Fetch existing preferences and update the form values
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authInfo.token}`,
+      },
+    };
+    RestApi.get('/app/get-preferences',config)
+      .then(response => {
+        setFormValues(response.data);
+        console.log("Get Preference",response)
+      })
+      .catch(error => {
+        console.error("There was an error fetching the preferences!", error);
+      });
+  }, []);
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -34,8 +61,20 @@ const Preferences = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(formValues);
-    // You can add your submit logic here
+    // Submit logic here
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authInfo.token}`,
+      },
+    };
+    RestApi.post('/app/add-preference', formValues, config)
+      .then(response => {
+        console.log("Preferences updated successfully", response);
+      })
+      .catch(error => {
+        console.error("There was an error updating the preferences!", error);
+      });
   };
 
   return (
@@ -57,32 +96,57 @@ const Preferences = () => {
         Preferences Form
       </Typography>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6} md={4}>
+        {/* <Grid item xs={12} sm={6} md={4}>
           <TextField
             fullWidth
-            name="age"
-            label="Age"
-            value={formValues.age}
+            name="minAge"
+            label="Min Age"
+            value={formValues.minAge}
             onChange={handleInputChange}
           />
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
           <TextField
             fullWidth
-            name="height"
-            label="Height"
-            value={formValues.height}
+            name="maxAge"
+            label="Max Age"
+            value={formValues.maxAge}
             onChange={handleInputChange}
           />
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
           <TextField
             fullWidth
+            name="minHeight"
+            label="Min Height"
+            value={formValues.minHeight}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <TextField
+            fullWidth
+            name="maxHeight"
+            label="Max Height"
+            value={formValues.maxHeight}
+            onChange={handleInputChange}
+          />
+        </Grid> */}
+        <Grid item xs={12} sm={6} md={4}>
+          <TextField
+            fullWidth
+            select
             name="maritalStatus"
             label="Marital Status"
             value={formValues.maritalStatus}
             onChange={handleInputChange}
-          />
+          >
+            {maritalStatusOptions.map(option => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
           <TextField
@@ -105,11 +169,18 @@ const Preferences = () => {
         <Grid item xs={12} sm={6} md={4}>
           <TextField
             fullWidth
+            select
             name="eatingHabits"
             label="Eating Habits"
             value={formValues.eatingHabits}
             onChange={handleInputChange}
-          />
+          >
+            {eatingHabitsOptions.map(option => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
           <TextField
@@ -132,11 +203,18 @@ const Preferences = () => {
         <Grid item xs={12} sm={6} md={4}>
           <TextField
             fullWidth
+            select
             name="religion"
             label="Religion"
             value={formValues.religion}
             onChange={handleInputChange}
-          />
+          >
+            {religionOptions.map(option => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
           <TextField
@@ -174,7 +252,7 @@ const Preferences = () => {
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        {/* <Grid item xs={12} sm={6} md={4}>
           <TextField
             fullWidth
             name="education"
@@ -182,16 +260,7 @@ const Preferences = () => {
             value={formValues.education}
             onChange={handleInputChange}
           />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            name="employedIn"
-            label="Employed In"
-            value={formValues.employedIn}
-            onChange={handleInputChange}
-          />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} sm={6} md={4}>
           <TextField
             fullWidth
@@ -207,24 +276,6 @@ const Preferences = () => {
             name="annualIncome"
             label="Annual Income"
             value={formValues.annualIncome}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            name="country"
-            label="Country"
-            value={formValues.country}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            name="ancestralOrigin"
-            label="Ancestral Origin"
-            value={formValues.ancestralOrigin}
             onChange={handleInputChange}
           />
         </Grid>

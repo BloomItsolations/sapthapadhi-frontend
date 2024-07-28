@@ -165,9 +165,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
             </div>
             <div className="conversation-main">
                 <ul className="conversation-wrapper h-[60vh] overflow-y-scroll">
-                    <div className="coversation-divider">
-                        {/* <span>Today</span> */}
-                    </div>
+                   
                     {
                         mergeMessage.map((msg, index) => (
                             msg.messageFrom !== 'me' ? (
@@ -219,7 +217,6 @@ const ChatWindow = ({ userId, onBackClick }) => {
                     }
                    <div ref={messagesEndRef} />
                 </ul>
-
                 <div className="conversation-form">
                     <div className="conversation-form-group">
                         <textarea
@@ -244,6 +241,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
                         <i className="ri-send-plane-2-line"></i>
                     </button>
                 </div>
+              
             </div>
         </>
 
