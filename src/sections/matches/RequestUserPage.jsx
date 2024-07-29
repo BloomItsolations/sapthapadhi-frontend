@@ -74,7 +74,6 @@ const UserActions = styled(CardActions)(({ theme }) => ({
 const RequestUserPage = () => {
   const dispatch = useDispatch();
   const { recUsersList, loading, success, error } = useSelector((state) => state.user);
-  console.log("ReUsereList", recUsersList);
   useEffect(() => {
     if (success) {
       Swal.fire({

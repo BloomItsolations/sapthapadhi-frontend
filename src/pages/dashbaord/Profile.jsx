@@ -22,8 +22,7 @@ export const Profile = () => {
     pinCode: '',
   });
   const { authInfo, error,success } = useSelector(state => state.auth);
-  console.log("error",error)
-  console.log("success",success)
+
    useEffect(()=>{
          if(success){
           Swal.fire({

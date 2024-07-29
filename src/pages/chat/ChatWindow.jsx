@@ -10,7 +10,6 @@ import { Box, CircularProgress } from '@mui/material';
 const socket = io(process.env.REACT_APP_BaseURL);
 
 const ChatWindow = ({ userId, onBackClick }) => {
-    console.log("userId", userId)
 
 
     /// This is for merging the message
@@ -43,13 +42,11 @@ const ChatWindow = ({ userId, onBackClick }) => {
     useEffect(() => {
         socket.on('message', () => {
             setUpdate(!update)
-            console.log("new message is comming");
         })
     }, [socket])
 
     useEffect(() => {
         socket.on("previousMessages", () => {
-            console.log("new Message is comming from previous message");
         }, [socket])
 
     })
@@ -64,9 +61,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
     const { mydetails } = useSelector(state => state.user);
     const { myMessage } = useSelector(state => state.chat);
     const [newMessage, setNewMessage] = useState('');
-    console.log("messagees", messages);
-    console.log("myMessage", myMessage);
-    console.log("mydetails", mydetails);
+    
     useEffect(() => {
         dispatch(fetchMessages(userId));
         setupSocketListeners();
@@ -79,7 +74,6 @@ const ChatWindow = ({ userId, onBackClick }) => {
 
     const setupSocketListeners = () => {
         socket.on(`${process.env.REACT_APP_BaseURL}/app/messages/${userId}`, message => {
-            console.log(message);
             dispatch(addMessage(message));
         });
 
@@ -116,7 +110,6 @@ const ChatWindow = ({ userId, onBackClick }) => {
 
     useEffect(() => {
         const mergeMessage = mergeMessages(myMessage, messages, authInfo?.userId, userId);
-        console.log("mergeMessage", mergeMessage)
         setMergeMessage(mergeMessage)
     }, [messages, myMessage, update])
 
@@ -127,7 +120,6 @@ const ChatWindow = ({ userId, onBackClick }) => {
     //         </Box>
     //     );
     // }
-    console.log("mergeMessage", mergeMessage);
     useEffect(() => {
         scrollToBottom();
     }, [mergeMessage]);

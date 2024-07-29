@@ -65,7 +65,6 @@ export const recUsers = createAsyncThunk(
       };
       // Make request to the backend
       const { data } = await RestApi.get("/app/recommendedProfiles", config);
-      console.log("REcommended",data)
       return data;
     } catch (error) {
       // Return custom error message from the API if any

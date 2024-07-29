@@ -35,10 +35,8 @@ const UserDetailsPage = () => {
 
 
     const { id } = useParams();
-    console.log("Id", id);
     const dispatch = useDispatch();
     const { singleUser, loading } = useSelector(state => state.user);
-    console.log("SingleUser", singleUser);
     useEffect(() => {
         dispatch(singleUserDetails(id))
     }, [id])

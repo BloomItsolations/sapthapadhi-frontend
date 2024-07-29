@@ -15,7 +15,6 @@ import { updateUserDetails } from '../../store/authSlice';
 
 const UserDetails = ({ userDetails, onSave }) => {
   const [formValues, setFormValues] = useState(userDetails);
-   console.log("formValues",formValues);
    const dispatch=useDispatch();
    useEffect(()=>{
     setFormValues(userDetails)

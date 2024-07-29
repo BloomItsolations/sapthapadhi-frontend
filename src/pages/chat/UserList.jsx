@@ -11,7 +11,6 @@ const UserList = ({ onUserClick }) => {
     useEffect(() => {
         dispatch(acceptedUser());
     }, []);
-   console.log("accepteReqUserList",accepteReqUserList);
     if (loading || !accepteReqUserList) {
         return (
             <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
