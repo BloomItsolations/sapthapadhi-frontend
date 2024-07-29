@@ -12,7 +12,7 @@ const socket = io(process.env.REACT_APP_BaseURL, {
 });
 
 const ChatWindow = ({ userId, onBackClick }) => {
-    console.log("userId",userId)
+    console.log("userId", userId)
 
 
     /// This is for merging the message
@@ -47,12 +47,12 @@ const ChatWindow = ({ userId, onBackClick }) => {
             setUpdate(!update)
             console.log("new message is comming");
         })
-    }, [])
+    }, [socket])
 
     useEffect(() => {
         socket.on("previousMessages", () => {
             console.log("new Message is comming from previous message");
-        }, [])
+        }, [socket])
 
     })
     useEffect(() => {
@@ -61,7 +61,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
     useEffect(() => {
         dispatch(myalldetails())
     }, [])
-   
+
     const { messages, status, error } = useSelector(state => state.chat);
     const { mydetails } = useSelector(state => state.user);
     const { myMessage } = useSelector(state => state.chat);
@@ -121,7 +121,6 @@ const ChatWindow = ({ userId, onBackClick }) => {
         console.log("mergeMessage", mergeMessage)
         setMergeMessage(mergeMessage)
     }, [messages, myMessage, update])
-    console.log("Single User",singleUser);
 
     // if (loading || !singleUser) {
     //     return (
@@ -130,14 +129,14 @@ const ChatWindow = ({ userId, onBackClick }) => {
     //         </Box>
     //     );
     // }
-
+    console.log("mergeMessage", mergeMessage);
     useEffect(() => {
         scrollToBottom();
     }, [mergeMessage]);
 
 
-    if (!userId ) {
-       return  <div className='h-screen text-black font-bold  flex items-center justify-center'>Select a User to chat</div>
+    if (!userId) {
+        return <div className='h-screen text-black font-bold  flex items-center justify-center'>Select a User to chat</div>
     }
 
     return (
@@ -158,8 +157,6 @@ const ChatWindow = ({ userId, onBackClick }) => {
                     </div>
                 </div>
                 <div className="conversation-buttons">
-
-
                     <button type="button">
                         <i className="ri-information-line" />
                     </button>
@@ -167,7 +164,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
             </div>
             <div className="conversation-main">
                 <ul className="conversation-wrapper h-[60vh] overflow-y-scroll">
-                   
+
                     {
                         mergeMessage.map((msg, index) => (
                             msg.messageFrom !== 'me' ? (
@@ -186,7 +183,8 @@ const ChatWindow = ({ userId, onBackClick }) => {
                                                     <p>
                                                         {msg.message}
                                                     </p>
-                                                    <div className="conversation-item-time">12:30</div>
+                                                    <div className="conversation-item-time">  {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -197,7 +195,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
                                     <div className="conversation-item-side">
                                         <img
                                             className="conversation-item-image"
-                                            src={mydetails?.userDetails?.profilePhoto ? mydetails?.userDetails?.profilePhoto[0].path : "https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg" }
+                                            src={mydetails?.userDetails?.profilePhoto ? mydetails?.userDetails?.profilePhoto[0].path : "https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg"}
                                             alt=""
                                         />
                                     </div>
@@ -208,7 +206,8 @@ const ChatWindow = ({ userId, onBackClick }) => {
                                                     <p>
                                                         {msg.message}
                                                     </p>
-                                                    <div className="conversation-item-time">12:30</div>
+                                                    <div className="conversation-item-time">  {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -217,7 +216,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
                             )
                         ))
                     }
-                   <div ref={messagesEndRef} />
+                    <div ref={messagesEndRef} />
                 </ul>
                 <div className="conversation-form">
                     <div className="conversation-form-group">
@@ -243,7 +242,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
                         <i className="ri-send-plane-2-line"></i>
                     </button>
                 </div>
-              
+
             </div>
         </>
 

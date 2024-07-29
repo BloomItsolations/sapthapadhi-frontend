@@ -108,13 +108,14 @@ const Plan = () => {
             },
           ).then(res => {
             if (res.status === 201) {
-              console.log(res.data.msg);
+              // console.log(res?.data?.msg);
+              console.log("ressponse",res?.data?.msg);
             } else {
-              console.log(res.data.msg);
+              console.log(res?.data?.msg);
             }
           });
         } catch (error) {
-          console.log(error.response.data.message);
+          console.log(error?.response?.data?.message);
         }
       },
       prefill: {

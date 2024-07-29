@@ -53,17 +53,17 @@ const ReviewCard = ({ review }) => {
           ))}
         </Box>
         <Typography variant="body1" gutterBottom sx={{ fontSize: "16px" }}>
-          {review.text}
+          {review.reviewText}
         </Typography>
         <Box className={classes.profile}>
           <Avatar
-            src={review.profilePicture}
+            src={review.reviewerProfilePic ? review.reviewerProfilePic : "https://via.placeholder.com/150"}
             className={classes.avatar}
             sx={{ width: "78px", height: "78px" }}
           />
-          <Typography className={classes.name}>{review.name}</Typography>
+          <Typography className={classes.name}>{review.reviewerName}</Typography>
           <Typography className={classes.profession}>
-            {review.profession}
+            {review.reviewerRole}
           </Typography>
         </Box>
       </CardContent>
