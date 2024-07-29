@@ -479,5 +479,9 @@
     .chat-container{
         height: 87vh;
     }
+    .conversation-form{
+        padding: 3px 0px;
+        margin-top: 22px;
+    }
 }
 /* end: Breakpoints */
