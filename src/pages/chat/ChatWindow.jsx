@@ -7,7 +7,9 @@ import { addMessage, fetchMessages, myMessages, sendMessage } from '../../store/
 import { Box, CircularProgress } from '@mui/material';
 
 
-const socket = io(process.env.REACT_APP_BaseURL);
+const socket = io(process.env.REACT_APP_BaseURL, {
+    transports: ['websocket']
+  });
 
 const ChatWindow = ({ userId, onBackClick }) => {
     console.log("userId",userId)
