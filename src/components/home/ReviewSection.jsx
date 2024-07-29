@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Grid, Button, TextField, Rating } from '@mui/material';
+import { Container, Typography, Grid, Button, TextField, Rating, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import ReviewCard from './ReviewCard';
 import { motion } from 'framer-motion';
@@ -9,6 +9,7 @@ import axios from 'axios';
 import RestApi from '../../api/RestApi';
 import Swal from 'sweetalert2';
 import { useSelector } from 'react-redux';
+import Slider from 'react-slick';
 
 const PREFIX = 'ReviewSection';
 const classes = {
@@ -29,6 +30,31 @@ const Root = styled('div')(({ theme }) => ({
 
 const ReviewSection = () => {
   let mydata = JSON.parse(localStorage.getItem('userdata'));
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToScroll: 1,
+    autoplay: true,
+    slidesToShow: 3,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
+
+
   const { ref, inView } = useInView({
     threshold: 0.2,
   });
@@ -42,19 +68,19 @@ const ReviewSection = () => {
   const [starRating, setStarRating] = useState(0);
   const [reviews, setReviews] = useState([]);
   const { authInfo } = useSelector((state) => state.auth);
-
+ const [reviewRefeach,setReviewRefeach]=useState(false);
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         const response = await RestApi.get(`/admin/list-reviews`);
-        setReviews(response.data.reviews); 
+        setReviews(response.data.reviews);
       } catch (error) {
         console.error('Error fetching reviews:', error);
       }
     };
 
     fetchReviews();
-  }, []);
+  }, [reviewRefeach]);
 
   const handleReviewSubmit = async () => {
     try {
@@ -76,11 +102,10 @@ const ReviewSection = () => {
           title: 'Congratulations!',
           text: response?.data?.message,
         });
-        const newReviews = await axios.get(`${process.env.REACT_APP_BaseURL}/app/list-reviews`);
-        setReviews(newReviews.data.reviews);
       }
       setReviewText('');
       setStarRating(0);
+      setReviewRefeach(!reviewRefeach);
     } catch (error) {
       if (error.response) {
         Swal.fire({
@@ -94,7 +119,7 @@ const ReviewSection = () => {
           icon: 'error',
           title: 'Sorry! ...',
           text: "Something went wrong",
-        });        
+        });
       }
     }
   }
@@ -127,14 +152,37 @@ const ReviewSection = () => {
           >
             REVIEWS
           </Typography>
-          <Grid container spacing={4} sx={{ marginTop: '20px' }}>
-            {reviews.map((review, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <ReviewCard review={review} />
-              </Grid>
-            ))}
-          </Grid>
-          
+
+
+          <Box
+            // ref={ref}
+            sx={{
+              maxWidth: { xs: '98%', md: '95%' },
+              paddingInline: { xs: '24px', sm: '24px', md: '40px' },
+              overflow: 'hidden',
+              marginInline: 'auto',
+              marginTop:'20px',
+              '.slick-prev:before, .slick-next:before': {
+                color: 'black',
+              },
+              '.slick-prev, .slick-next': {
+                zIndex: 1,
+              },
+            }}
+          >
+            <motion.div
+              initial="hidden"
+              animate={inView ? 'visible' : 'hidden'}
+              variants={variants}
+            >
+              <Slider {...settings}>
+                {reviews.map((review, index) => (
+                  <ReviewCard review={review} />
+                ))}
+              </Slider>
+            </motion.div>
+          </Box>
+
           {
             authInfo && <div className={classes.inputBox}>
               <TextField

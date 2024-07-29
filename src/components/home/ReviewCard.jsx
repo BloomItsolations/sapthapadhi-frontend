@@ -1,4 +1,3 @@
-// src/components/ReviewCard.jsx
 import React from "react";
 import { Card, CardContent, Typography, Box, Avatar } from "@mui/material";
 import { styled } from "@mui/material/styles";
@@ -47,14 +46,6 @@ const ReviewCard = ({ review }) => {
   return (
     <Root className={classes.card}>
       <CardContent>
-        <Box className={classes.stars}>
-          {Array.from({ length: 5 }).map((_, index) => (
-            <StarIcon key={index} style={{ color: "gold", fontSize: "40px" }} />
-          ))}
-        </Box>
-        <Typography variant="body1" gutterBottom sx={{ fontSize: "16px" }}>
-          {review.reviewText}
-        </Typography>
         <Box className={classes.profile}>
           <Avatar
             src={review.reviewerProfilePic ? review.reviewerProfilePic : "https://via.placeholder.com/150"}
@@ -62,9 +53,17 @@ const ReviewCard = ({ review }) => {
             sx={{ width: "78px", height: "78px" }}
           />
           <Typography className={classes.name}>{review.reviewerName}</Typography>
-          <Typography className={classes.profession}>
-            {review.reviewerRole}
-          </Typography>
+        </Box>
+        <Typography variant="body1" gutterBottom sx={{ fontSize: {xs:'10px',sm:'12px',md:'14px',lg:'16px'}, marginBottom: "10px" }}>
+          {review.reviewText}
+        </Typography>
+        <Box className={classes.stars}>
+          {Array.from({ length: 5 }).map((_, index) => (
+            <StarIcon
+              key={index}
+              style={{ color: index < review.starRating ? "gold" : "black", fontSize: {xs:'15px',sm:'20px',md:'30px',lg:'40px'} }}
+            />
+          ))}
         </Box>
       </CardContent>
     </Root>
