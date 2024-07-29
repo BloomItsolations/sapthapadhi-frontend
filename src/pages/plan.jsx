@@ -70,7 +70,6 @@ const Plan = () => {
         },
       );
       if (response.status === 200) {
-        console.log(response.data);
       }
     } catch (error) {
       console.log(error.response.data.message);
@@ -108,10 +107,19 @@ const Plan = () => {
             },
           ).then(res => {
             if (res.status === 201) {
-              // console.log(res?.data?.msg);
-              console.log("ressponse",res?.data?.msg);
+              localStorage.setItem("myplan", JSON.stringify(item));
+              Swal.fire({
+                icon: 'success',
+                title: 'Congratulations!',
+                text: 'Plan Purchase Successful',
+              });
             } else {
               console.log(res?.data?.msg);
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Something went wrong..",
+              });
             }
           });
         } catch (error) {
