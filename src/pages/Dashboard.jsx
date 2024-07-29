@@ -13,7 +13,6 @@ export default function Dashboard() {
   const dispatch = useDispatch();
   const { authInfo } = useSelector(state => state.auth);
   const { mydetails } = useSelector(state => state.user);
-  console.log("mydetails",mydetails);
 
   const menuItems = [
     {
