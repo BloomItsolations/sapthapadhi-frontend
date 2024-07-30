@@ -24,7 +24,7 @@ const HomePage = () => {
     const ageRange = params.get('age');
     const religion = params.get('religion');
     const locationParam = params.get('location');
-    
+
     const filterUsers = (users) => {
       return users?.filter(user => {
         const [ageMin, ageMax] = ageRange ? ageRange.split('-').map(Number) : [null, null];
@@ -38,7 +38,7 @@ const HomePage = () => {
       });
     };
 
-    if ( ageRange || religion || locationParam) {
+    if (ageRange || religion || locationParam) {
       setFilteredMatchUsers(filterUsers(matchUser));
       setFilteredRecUsers(filterUsers(recUsersList));
     } else {
@@ -66,7 +66,6 @@ const HomePage = () => {
                   height={user.height}
                   id={user.id}
                   status={user?.ReceivedRequests[0]?.status ? true : false}
-
                 />
               </SwiperSlide>
             ))}
@@ -83,14 +82,20 @@ const HomePage = () => {
               <SwiperSlide key={index}>
                 <UserCard
                   key={index + 1}
-                  profilePhoto={user?.profilePhoto ? user?.profilePhoto  : "https://www.pngarts.com/files/10/Default-Profile-Picture-PNG-Image.png"}
+                  profilePhoto={
+                    user?.profilePhoto
+                      ? typeof user.profilePhoto === 'string'
+                        ? user.profilePhoto
+                        : `${process.env.REACT_APP_BaseURL}/${user.profilePhoto.path}`
+                      : 'https://www.pngarts.com/files/10/Default-Profile-Picture-PNG-Image.png'
+                  }
                   name={user.name}
                   age={user.age}
                   height={user.height}
                   id={user.id}
-                  status={user?.ReceivedRequests[0]?.status ? true : false}
-
+                  status={user?.ReceivedRequests && user?.ReceivedRequests[0]?.status ? true : false}
                 />
+
               </SwiperSlide>
             ))}
           </SliderContainer>

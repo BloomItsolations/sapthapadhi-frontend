@@ -14,6 +14,8 @@ export default function Dashboard() {
   const { authInfo } = useSelector(state => state.auth);
   const { mydetails } = useSelector(state => state.user);
 
+  let myPlan = JSON.parse(localStorage.getItem('myplan'));
+
   const menuItems = [
     {
       title: 'Profile',
@@ -22,17 +24,13 @@ export default function Dashboard() {
     {
       title: 'preferences',
       path: 'preferences',
-    },
-    {
-      title: 'settings',
-      path: 'settings',
-    },
+    }
   ];
   useEffect(() => {
     dispatch(recUsers());
     dispatch(myalldetails());
     dispatch(matchesUser());
-    return () => {};
+    return () => { };
   }, [dispatch]);
   // const profileImage =
   //   authInfo.profileImage !== null && authInfo.profileImage[0].path;
@@ -83,7 +81,7 @@ export default function Dashboard() {
                     flexDirection: 'column',
                     borderRadius: 1.5,
                     alignItems: 'start',
-                    
+
                     backgroundColor: theme => `${theme.palette.primary.light}`,
                   }}
                 >
@@ -97,7 +95,7 @@ export default function Dashboard() {
                       border: theme =>
                         `solid 2px ${theme.palette.background.default}`,
                     }}
-                    src={mydetails?.userDetails?.profilePhoto ? "https://sapthapadhi.bloomitsolutions.co.in/"+mydetails?.userDetails?.profilePhoto?.path :''}
+                    src={mydetails?.userDetails?.profilePhoto ? "https://sapthapadhi.bloomitsolutions.co.in/" + mydetails?.userDetails?.profilePhoto?.path : ''}
                   ></Avatar>
                   <Box sx={{ color: theme => theme.palette.primary.main }}>
                     <Typography
@@ -113,6 +111,12 @@ export default function Dashboard() {
                     >
                       {authInfo?.phone}
                     </Typography>
+                    {
+                      myPlan && <div className='text-white  font-sans gap-x-1 font-medium flex items-center '>
+                        <h2 className='text-[15px]'>My Plan: </h2>
+                        <p className='text-[15px] font-sans font-normal'>{myPlan?.name}</p>
+                      </div>
+                    }
                   </Box>
                 </Box>
                 <Box

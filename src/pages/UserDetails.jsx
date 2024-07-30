@@ -1,6 +1,6 @@
 import React from 'react';
 
-const UserDetails = ({user, userDetails }) => {
+const UserDetails = ({ user, userDetails }) => {
   if (!userDetails) {
     return <div></div>; // Handle case where userDetails is empty
   }
@@ -12,9 +12,7 @@ const UserDetails = ({user, userDetails }) => {
     Height: userDetails.height,
     Weight: userDetails.weight,
     'Marital Status': userDetails.maritalStatus,
-    'No. of Children': userDetails.noOfChildren,
     'Body Type': userDetails.bodyType,
-    'Body Complexion': userDetails.bodyComplexion,
     'Physical Status': userDetails.physicalStatus,
     'Mother Tongue': userDetails.motherTongue,
     'Eating Habits': userDetails.eatingHabits,
@@ -22,7 +20,6 @@ const UserDetails = ({user, userDetails }) => {
     'Smoking Habits': userDetails.smokingHabits,
     Religion: userDetails.religion,
     Caste: userDetails.caste,
-    'Sub Caste': userDetails.subCaste,
     Gothra: userDetails.gothra,
     Star: userDetails.star,
     'Zodiac Sign': userDetails.zodiacSign,
@@ -30,20 +27,16 @@ const UserDetails = ({user, userDetails }) => {
     'Time of Birth': userDetails.timeOfBirth,
     'Place of Birth': userDetails.placeOfBirth,
     Country: userDetails.country,
-    Citizenship: userDetails.citizenship,
-    'Residing City': userDetails.residingCity,
     'Highest Education': userDetails.highestEducation,
     Occupation: userDetails.occupation,
     'Annual Income': userDetails.annualIncome,
-    'Family Value': userDetails.familyValue,
     'Family Status': userDetails.familyStatus,
-    'No. of Siblings': userDetails.noofSiblings,
     'Family Location': userDetails.familyLocation,
     Bio: userDetails.bio,
   };
 
   const contactInfo = {
-    Phone: user.phone || 'N/A', 
+    Phone: user.phone || 'N/A',
     Email: user.email || 'N/A',
   };
 
@@ -57,11 +50,11 @@ const UserDetails = ({user, userDetails }) => {
         <h2 className="font-yeseva text-xl lg:text-2xl font-normal text-center py-2">PERSONAL INFORMATION</h2>
         <hr />
         <div className="p-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 border border-gray-300">
             {Object.entries(personalInfo).map(([label, value]) => (
-              <div key={label} className="flex gap-2 border border-gray-300 p-2 bg-white rounded-[6px]">
-                <span className="font-inter text-sm lg:text-lg font-medium text-gray-800">{label}:</span>
-                <span className="font-inter text-sm lg:text-lg text-gray-600">{value}</span>
+              <div key={label} className="p-2 bg-white border-b border-r border-gray-300 gap-x-1 last:border-b-0 sm:last:border-b md:last:border-b-0 sm:last:border-r-0 md:last:border-r-0">
+                <span className="font-inter text-sm lg:text-lg font-medium text-gray-800">{label}:  </span>
+                <span className="font-inter text-sm lg:text-lg text-gray-600 capitalize">{value}</span>
               </div>
             ))}
           </div>
@@ -71,11 +64,11 @@ const UserDetails = ({user, userDetails }) => {
         <h2 className="font-yeseva text-xl lg:text-2xl font-normal text-center py-2">CONTACT INFORMATION</h2>
         <hr />
         <div className="p-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 border border-gray-300">
             {Object.entries(contactInfo).map(([label, value]) => (
-              <div key={label} className="flex gap-2 border border-gray-300 p-2 bg-white rounded-[6px]">
-                <span className="font-inter text-sm lg:text-lg font-medium text-gray-800">{label}:</span>
-                <span className="font-inter text-lg text-gray-600">{value}</span>
+              <div key={label} className="p-2 bg-white border-b border-r gap-x-1 border-gray-300 last:border-b-0 sm:last:border-b-0 sm:last:border-r-0">
+                <span className="font-inter text-sm lg:text-lg font-medium text-gray-800">{label}: </span>
+                <span className="font-inter text-sm lg:text-lg text-gray-600 capitalize">{value}</span>
               </div>
             ))}
           </div>
@@ -85,11 +78,11 @@ const UserDetails = ({user, userDetails }) => {
         <h2 className="font-yeseva text-xl lg:text-2xl font-normal text-center py-2">HOBBIES</h2>
         <hr />
         <div className="p-6">
-          <div className="grid grid-cols-1 gap-6">
+          <div className="grid grid-cols-1 border border-gray-300">
             {Object.entries(hobbies).map(([label, value]) => (
-              <div key={label} className="flex gap-2 border border-gray-300 p-2 bg-white rounded-[6px]">
-                <span className="font-inter text-sm lg:text-lg font-medium text-gray-800">{label}:</span>
-                <span className="font-inter text-lg text-gray-600">{value}</span>
+              <div key={label} className="p-2 bg-white border-b border-r gap-x-1 border-gray-300 last:border-b-0 last:border-r-0">
+                <span className="font-inter text-sm lg:text-lg font-medium text-gray-800">{label}: </span>
+                <span className="font-inter text-sm lg:text-lg text-gray-600 capitalize">{value}</span>
               </div>
             ))}
           </div>

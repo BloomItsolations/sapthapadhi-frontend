@@ -35,7 +35,7 @@ const UserCard = ({ id, profilePhoto, name, age, height, status }) => {
 
   return (
     <Card sx={{ width: 260, height: 340 }}>
-      <Link to={`/app/userdetails/${id}`} style={{ textDecoration: 'none' }}>
+      <Link to={!newStatus ? `/app/userdetails/${id}` : `/app/requested-profile-view/${id}` } style={{ textDecoration: 'none' }}>
         {profilePhoto !== null && (
           <CardMedia
             sx={{ height: 200 }}
@@ -62,7 +62,7 @@ const UserCard = ({ id, profilePhoto, name, age, height, status }) => {
         </CardContent>
       </Link>
       <Box sx={{ display: 'flex', justifyContent: 'space-around', mb: 1 }}>
-        <Link to={`/app/userdetails/${id}`} style={{ textDecoration: 'none' }}>
+        <Link to={!newStatus ? `/app/userdetails/${id}` : `/app/requested-profile-view/${id}`} style={{ textDecoration: 'none' }}>
           <Button size="small" variant="outlined">
             View Profile
           </Button>

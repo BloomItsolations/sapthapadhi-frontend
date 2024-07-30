@@ -26,6 +26,29 @@ export const matchesUser = createAsyncThunk(
   }
 );
 
+export const myfriendlist = createAsyncThunk(
+  "my/allfriend",
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const { authInfo } = getState().auth;
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authInfo.token}`,
+        },
+      };
+      const { data } = await RestApi.get("/app/getChatMessages", config);
+      return data;
+    } catch (error) {
+      if (error.response && error.response.data.error) {
+        return rejectWithValue(error.response.data.error);
+      }
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+
 export const myalldetails = createAsyncThunk(
   "user/Details",
   async (_, { getState, rejectWithValue }) => {
@@ -135,7 +158,7 @@ export const sendRequest = createAsyncThunk(
   async (toUserId, { getState, rejectWithValue }) => {
     try {
       const { authInfo } = getState().auth;
-      
+
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -146,15 +169,15 @@ export const sendRequest = createAsyncThunk(
       const response = await RestApi.post(
         "/app/sendrequest",
         {
-          toUserId:toUserId
+          toUserId: toUserId
         },
         config
       );
-      const {data}=response;
+      const { data } = response;
       return data?.message;
 
     } catch (error) {
-      console.log("Error",error)
+      console.log("Error", error)
       if (error.response && error.response.data) {
         return rejectWithValue(error.response.data.message);
       }
@@ -192,7 +215,7 @@ export const reciveRequest = createAsyncThunk(
   async (_, { getState, rejectWithValue }) => {
     try {
       const { authInfo } = getState().auth;
-      
+
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -204,11 +227,11 @@ export const reciveRequest = createAsyncThunk(
         "/app/receive-requests",
         config
       );
-      const {data}=response;
+      const { data } = response;
       return data;
 
     } catch (error) {
-      console.log("Error",error)
+      console.log("Error", error)
       if (error.response && error.response.data) {
         return rejectWithValue(error.response.data.message);
       }
@@ -223,7 +246,7 @@ export const acceptRequest = createAsyncThunk(
   async (id, { getState, rejectWithValue }) => {
     try {
       const { authInfo } = getState().auth;
-      
+
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -234,16 +257,16 @@ export const acceptRequest = createAsyncThunk(
       const response = await RestApi.post(
         "/app/update-request-status",
         {
-          fromUserId:id,
-          status:'accepted'
+          fromUserId: id,
+          status: 'accepted'
         },
         config
       );
-      const {data}=response;
+      const { data } = response;
       return data.message;
 
     } catch (error) {
-      console.log("Error",error)
+      console.log("Error", error)
       if (error.response && error.response.data) {
         return rejectWithValue(error.response.data.message);
       }
@@ -258,7 +281,7 @@ export const denayRequest = createAsyncThunk(
   async (id, { getState, rejectWithValue }) => {
     try {
       const { authInfo } = getState().auth;
-      
+
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -269,16 +292,16 @@ export const denayRequest = createAsyncThunk(
       const response = await RestApi.post(
         "/app/update-request-status",
         {
-          fromUserId:id,
-          status:'reject'
+          fromUserId: id,
+          status: 'reject'
         },
         config
       );
-      const {data}=response;
+      const { data } = response;
       return data.message;
 
     } catch (error) {
-      console.log("Error",error)
+      console.log("Error", error)
       if (error.response && error.response.data) {
         return rejectWithValue(error.response.data.message);
       }
@@ -294,7 +317,7 @@ export const acceptedUser = createAsyncThunk(
   async (id, { getState, rejectWithValue }) => {
     try {
       const { authInfo } = getState().auth;
-      
+
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -306,11 +329,11 @@ export const acceptedUser = createAsyncThunk(
         "/app/accepted-requests",
         config
       );
-      const {data}=response;
+      const { data } = response;
       return data;
 
     } catch (error) {
-      console.log("Error",error)
+      console.log("Error", error)
       if (error.response && error.response.data) {
         return rejectWithValue(error.response.data.message);
       }
@@ -325,16 +348,16 @@ export const acceptedUser = createAsyncThunk(
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    mydetails:null,
+    mydetails: null,
     loading: false,
-    singleUser:null,
+    singleUser: null,
     matchUser: null,
     recUsersList: null,
-    accepteReqUserList:null,
+    accepteReqUserList: null,
     //this is for downline users
     uplinePayouts: null,
     downline: null,
-    fundsList: null,
+    friendList: null,
     incomeHistory: null,
     payouts: null,
     allIncome: null,
@@ -360,6 +383,21 @@ const userSlice = createSlice({
         state.matchUser = payload;
       })
       .addCase(matchesUser.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+
+      //My All Friend List
+      .addCase(myfriendlist.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.success = false;
+      })
+      .addCase(myfriendlist.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.friendList = payload;
+      })
+      .addCase(myfriendlist.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       })
@@ -437,7 +475,7 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = payload;
       })
-        
+
       //send Request
       .addCase(sendRequest.pending, (state) => {
         state.loading = true;
@@ -467,7 +505,7 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = payload;
       })
-      
+
       // fetch all users data
       .addCase(recUsers.pending, (state) => {
         state.loading = true;

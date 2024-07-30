@@ -61,7 +61,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
     const { mydetails } = useSelector(state => state.user);
     const { myMessage } = useSelector(state => state.chat);
     const [newMessage, setNewMessage] = useState('');
-    
+
     useEffect(() => {
         dispatch(fetchMessages(userId));
         setupSocketListeners();
@@ -137,11 +137,19 @@ const ChatWindow = ({ userId, onBackClick }) => {
                     <i className="ri-arrow-left-line" />
                 </button>
                 <div className="conversation-user">
+                   
                     <img
                         className="conversation-user-image"
-                        src={singleUser?.userDetails?.profilePhoto ? singleUser?.userDetails?.profilePhoto : "https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg"}
+                        src={
+                            singleUser?.userDetails?.profilePhoto
+                                ? typeof singleUser.userDetails.profilePhoto === 'string'
+                                    ? singleUser.userDetails.profilePhoto
+                                    : `${process.env.REACT_APP_BaseURL}/${singleUser.userDetails.profilePhoto.path}`
+                                : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'
+                        }
                         alt=""
                     />
+
                     <div>
                         <div className="conversation-user-name">{singleUser?.user?.firstName}</div>
                     </div>
