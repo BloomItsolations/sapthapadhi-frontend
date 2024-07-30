@@ -27,16 +27,16 @@ const MENU_OPTIONS = [
   {
     label: 'Edit preferences',
     path: 'dashboard/preferences',
-  },
-  {
-    label: 'settings',
-    path: 'dashboard/settings',
-  },
+  }
 ];
 
 // -------------------------------------
 
 export default function AccountPopover() {
+
+  let myPlan = JSON.parse(localStorage.getItem('myplan'));
+
+
   const router = useRouter();
   const { authInfo } = useSelector(state => state.auth);
   const [open, setOpen] = useState(null);
@@ -112,6 +112,13 @@ export default function AccountPopover() {
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
             {authInfo?.phone}
           </Typography>
+          {
+            myPlan && <div className='text-black font-sans font-bold flex items-center'>
+              <h2>My Plan: </h2>
+              <p className='text-[15px] font-sans font-semibold'>{myPlan?.name}</p>
+            </div>
+          }
+
         </Box>
 
         <Divider sx={{ borderStyle: 'dashed' }} />

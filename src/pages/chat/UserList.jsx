@@ -2,16 +2,20 @@ import React, { useEffect } from 'react'
 import './newchatpage.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, CircularProgress } from '@mui/material';
-import { acceptedUser } from '../../store/userSlice';
+import { acceptedUser, myfriendlist } from '../../store/userSlice';
 
 const UserList = ({ onUserClick }) => {
 
-    const { accepteReqUserList, loading } = useSelector((state) => state.user);
+    const { accepteReqUserList, friendList, loading } = useSelector((state) => state.user);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(acceptedUser());
+        dispatch(myfriendlist());
     }, []);
-    if (loading || !accepteReqUserList) {
+
+    console.log("FriendList", friendList);
+
+    if (loading || !accepteReqUserList || !friendList) {
         return (
             <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
                 <CircularProgress />
@@ -28,7 +32,7 @@ const UserList = ({ onUserClick }) => {
                     className="content-sidebar-input"
                     placeholder="Search..."
                 />
-                
+
             </form>
             <div className="content-messages h-[80vh] overflow-y-scroll">
                 <ul className="content-messages-list">
@@ -37,16 +41,22 @@ const UserList = ({ onUserClick }) => {
                     </li>
 
                     {
-                        accepteReqUserList.map((user) => (
+                        friendList?.map((user) => (
                             <li >
-                                <button type='button' onClick={()=>onUserClick(user?.fromUser?.id)}>
+                                <button type='button' onClick={() => onUserClick(user?.id)}>
                                     <img
                                         className="content-message-image"
-                                        src={user?.fromUser?.profilePhoto ? user?.fromUser?.profilePhoto : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'}
-                                        alt=""
+                                        src={
+                                            user?.profilePhoto
+                                                ? typeof user.profilePhoto === 'string'
+                                                    ? user.profilePhoto
+                                                    : `${process.env.REACT_APP_BaseURL}/${user.profilePhoto.path}`
+                                                : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'
+                                        }
+                                        alt="User Profile"
                                     />
                                     <span className="content-message-info">
-                                        <span className="content-message-name">{user?.fromUser?.firstName}</span>
+                                        <span className="content-message-name">{user?.firstName}</span>
                                         <span className="content-message-text">
                                             check new message......
                                         </span>

@@ -15,7 +15,6 @@ export default function Setting() {
       <Helmet>
         <title> Setting | Sapthapadhi </title>
       </Helmet>
-
       <Box
         component="main"
         className="MainContent"

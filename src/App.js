@@ -15,8 +15,12 @@ import Gallery from './pages/home/Gallery';
 import Services from './pages/home/Services';
 import ServiceEnquaryPage from './pages/ServiceEnquaryPage';
 import UserDetailsPage from './pages/UserDetailsPage';
-import NewRequestUserDetails from './pages/NewRequestUserDetails';
+import NewRequestUserDetails from './pages/userdetails/NewRequestUserDetails';
 import ChatPage from './pages/chat/ChatPage';
+import UserProfile from './pages/userdetails/UserProfile';
+import ViewNewProfile from './pages/userdetails/ViewNewProfile';
+import AcceptedUserDetail from './pages/userdetails/AcceptedUserDetail';
+import RequestSendedProfileView from './pages/userdetails/RequestSendedProfileView';
 
 const RegisterPage = lazy(() => import('./pages/auth/Register'));
 const LoginPage = lazy(() => import('./pages/auth/login'));
@@ -78,8 +82,11 @@ export default function App() {
         >
           {authInfo !== null ? (
             <>
-              <Route path="userdetails/:id" element={<UserDetailsPage />} />
+              <Route path="userdetails/:id" element={<ViewNewProfile />} />
+              <Route path="userProfile" element={<UserProfile />} />
               <Route path="request-user-details/:id" element={<NewRequestUserDetails />} />
+              <Route path="friend-request-accepted/:id" element={<AcceptedUserDetail />} />
+              <Route path="requested-profile-view/:id" element={<RequestSendedProfileView />} />
               <Route path={'dashboard/'} element={<Dashboard />}>
                 <Route index element={<HomePage />} />
                 <Route path="preferences" element={<Preferences />} />
