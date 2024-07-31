@@ -68,6 +68,8 @@ export default function Dashboard() {
                   color: 'primary.contrastText',
                   borderRadius: 1,
                   boxShadow: 1,
+                  position: 'sticky',
+                  top: '78px',
                 }}
               >
                 {/* profile Crad */}

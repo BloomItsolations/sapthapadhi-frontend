@@ -1,79 +1,102 @@
-import React, { useEffect } from 'react'
-import './newchatpage.css'
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, CircularProgress } from '@mui/material';
-import { acceptedUser, myfriendlist } from '../../store/userSlice';
+import { Box, CircularProgress, TextField, List, ListItem, ListItemAvatar, ListItemText, Avatar, Typography, Divider } from '@mui/material';
+import { myfriendlist } from '../../store/userSlice';
+import { styled } from '@mui/system';
+
+const CustomScrollbarBox = styled(Box)(({ theme }) => ({
+    height: '68vh',
+    overflowY: 'auto',
+    '&::-webkit-scrollbar': {
+        width: '3px',
+    },
+    '&::-webkit-scrollbar-track': {
+        background: '#f1f1f1',
+    },
+    '&::-webkit-scrollbar-thumb': {
+        backgroundColor: '#888',
+        borderRadius: '10px',
+    },
+    '&::-webkit-scrollbar-thumb:hover': {
+        background: '#555',
+    },
+    [theme.breakpoints.up(760)]: {
+        height: '60vh',
+        '&::-webkit-scrollbar': {
+            width: '8px',
+        },
+    },
+}));
+
 
 const UserList = ({ onUserClick }) => {
-
-    const { accepteReqUserList, friendList, loading } = useSelector((state) => state.user);
+    const { friendList, loading } = useSelector((state) => state.user);
     const dispatch = useDispatch();
+
     useEffect(() => {
-        dispatch(acceptedUser());
         dispatch(myfriendlist());
-    }, []);
+    }, [dispatch]);
 
-    console.log("FriendList", friendList);
-
-    if (loading || !accepteReqUserList || !friendList) {
+    if (loading || !friendList) {
         return (
             <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
                 <CircularProgress />
             </Box>
         );
     }
+
     return (
-
-        <>
-            <div className="content-sidebar-title">Chats</div>
-            <form className="content-sidebar-form">
-                <input
-                    type="search"
-                    className="content-sidebar-input"
+        <Box sx={{ width: '100%' }}>
+            <Typography variant="h6" component="div" sx={{ p: 2 }}>
+                Chats
+            </Typography>
+            <Box sx={{ px: 2, pb: 2 }}>
+                <TextField
+                    fullWidth
+                    variant="outlined"
                     placeholder="Search..."
+                    InputProps={{
+                        style: { borderRadius: 30 },
+                    }}
                 />
+            </Box>
+            <Divider />
+            <CustomScrollbarBox>
+                <Typography variant="subtitle2" component="div" sx={{ px: 2, py: 1 }}>
+                    Recently
+                </Typography>
+                <List>
+                    {friendList?.map((user) => (
+                        <ListItem
+                            button
+                            key={user.id}
+                            onClick={() => onUserClick(user.id)}
+                            sx={{ py: 1.5, px: 2 }}
+                        >
+                            <ListItemAvatar>
+                                <Avatar
+                                    src={
+                                        user.profilePhoto
+                                            ? typeof user.profilePhoto === 'string'
+                                                ? user.profilePhoto
+                                                : `${process.env.REACT_APP_BaseURL}/${user.profilePhoto.path}`
+                                            : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'
+                                    }
+                                    alt="User Profile"
+                                />
+                            </ListItemAvatar>
+                            <ListItemText
+                                primary={<Typography variant="body1">{user.firstName}</Typography>}
+                                secondary={<Typography variant="body2" color="textSecondary">check new message...</Typography>}
+                            />
+                            <Typography variant="caption" color="textSecondary">12:30</Typography>
+                        </ListItem>
+                    ))}
+                   
+                </List>
+            </CustomScrollbarBox>
+        </Box>
+    );
+};
 
-            </form>
-            <div className="content-messages h-[80vh] overflow-y-scroll">
-                <ul className="content-messages-list">
-                    <li className="content-message-title">
-                        <span>Recently</span>
-                    </li>
-
-                    {
-                        friendList?.map((user) => (
-                            <li >
-                                <button type='button' onClick={() => onUserClick(user?.id)}>
-                                    <img
-                                        className="content-message-image"
-                                        src={
-                                            user?.profilePhoto
-                                                ? typeof user.profilePhoto === 'string'
-                                                    ? user.profilePhoto
-                                                    : `${process.env.REACT_APP_BaseURL}/${user.profilePhoto.path}`
-                                                : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'
-                                        }
-                                        alt="User Profile"
-                                    />
-                                    <span className="content-message-info">
-                                        <span className="content-message-name">{user?.firstName}</span>
-                                        <span className="content-message-text">
-                                            check new message......
-                                        </span>
-                                    </span>
-                                    <span className="content-message-more">
-                                        <span className="content-message-time">12:30</span>
-                                    </span>
-                                </button>
-                            </li>
-                        ))
-                    }
-                </ul>
-
-            </div>
-        </>
-
-    )
-}
-
-export default UserList
+export default UserList;

@@ -5,16 +5,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { myalldetails, singleUserDetails } from '../../store/userSlice';
 import { addMessage, fetchMessages, myMessages, sendMessage } from '../../store/chatSlice';
 import { Box, CircularProgress } from '@mui/material';
+import SelectUserPrompt from './SelectUserPrompt';
 
 
 const socket = io(process.env.REACT_APP_BaseURL, {
-  transports: ['websocket']
-});
 
+    transports: ['websocket']
+  });
+
+
+//some change in
+  
 const ChatWindow = ({ userId, onBackClick }) => {
-
-
-    /// This is for merging the message
+    
     const mergeMessages = (myMessages, allMessages, myUserId, userId) => {
         const combinedMessages = [...myMessages, ...allMessages];
         combinedMessages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
@@ -49,9 +52,10 @@ const ChatWindow = ({ userId, onBackClick }) => {
 
     useEffect(() => {
         socket.on("previousMessages", () => {
-        }, [socket])
+            setUpdate(!update)
+        },)
+    },[[socket]])
 
-    })
     useEffect(() => {
         dispatch(singleUserDetails(userId))
     }, [userId])
@@ -128,7 +132,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
 
 
     if (!userId) {
-        return <div className='h-screen text-black font-bold  flex items-center justify-center'>Select a User to chat</div>
+        return <SelectUserPrompt/>
     }
 
     return (

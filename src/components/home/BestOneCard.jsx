@@ -48,12 +48,12 @@ const BestOneCard = ({ image, title }) => {
                         <Button
                             variant="contained"
                             sx={{
-                                backgroundColor: '#007bff',
+                                backgroundColor: '#e5026b',
                                 borderRadius:'20px',
                                 fontFamily: 'Cabin',
                                 color: 'white',
                                 '&:hover': {
-                                    backgroundColor: '#0056b3',
+                                    backgroundColor: '#b60e5c',
                                 },
                             }}
                         >

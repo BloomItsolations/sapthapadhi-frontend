@@ -92,7 +92,8 @@ const images = [
 const Gallery = () => {
   return (
     <Root className={classes.root}>
-      <Typography
+     <div className="flex justify-center">
+     <Typography
         sx={{
           borderRadius: "0px 10px 0 10px",
           display: "flex",
@@ -104,12 +105,14 @@ const Gallery = () => {
           width: { xs: "auto", sm: "300px", md: "526px" },
           fontSize: { xs: "25px", md: "40px" },
           backgroundColor: "#f9f9f9",
+          color:'primary.main'
         }}
         variant="h4"
         component="div"
       >
         PHOTO GALLERY
       </Typography>
+     </div>
 
       <Box
         className={classes.banner}

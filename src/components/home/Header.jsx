@@ -92,30 +92,31 @@ const Header = () => {
         },
       }}
     >
-      <Box>
+       <Box>
         <Typography
           variant="h3"
           sx={{
-            fontSize: { xs: "24px", sm: "40px", md: "64px" },
-            fontFamily: "Noto Serif",
+            fontSize: { xs: '24px', sm: '40px', md: '64px' },
+            fontFamily:'Noto Serif',
             mb: 2,
-            fontWeight: "600",
+            fontWeight: '600'
           }}
         >
-          Find your
-          <br />
-          <span style={{ color: "red" }}>Right Match</span> here
+          Find your<br />
+          <span style={{ color: 'red',fontSize:'inherit' }}>Right Match</span> here
         </Typography>
         <Typography
           variant="h6"
           sx={{
-            fontSize: { xs: "16px", sm: "30px", md: "48px" },
-            fontFamily: "Cabin",
+            fontSize: { xs: '16px', sm: '30px', md: '48px' },
+            fontFamily:'Cabin',
             mb: 4,
           }}
         >
           “One love, one heart, one destiny.”
         </Typography>
+        
+
       </Box>
       <Box
         sx={{

@@ -38,7 +38,7 @@ const UserDetails = ({ userDetails, onSave }) => {
   };
 
   return (
-    <form>
+    <form className='bg-white mt-[25px] px-4 py-7 rounded-[10px]'>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -318,8 +318,9 @@ const UserDetails = ({ userDetails, onSave }) => {
             variant="contained"
             color="primary"
             onClick={handleSave}
+            fullWidth
           >
-            Save
+            Update User Details
           </Button>
         </Grid>
       </Grid>
