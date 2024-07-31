@@ -8,12 +8,15 @@ import { Box, CircularProgress } from '@mui/material';
 import SelectUserPrompt from './SelectUserPrompt';
 
 
-const socket = io(process.env.REACT_APP_BaseURL,{
-    transports:['websocket']
+
+const socket = io(process.env.REACT_APP_BaseURL, {
+    transports: ['websocket']
 });
-  
+
+
+
 const ChatWindow = ({ userId, onBackClick }) => {
-    
+
     const mergeMessages = (myMessages, allMessages, myUserId, userId) => {
         const combinedMessages = [...myMessages, ...allMessages];
         combinedMessages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
@@ -50,7 +53,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
         socket.on("previousMessages", () => {
             setUpdate(!update)
         },)
-    },[[socket]])
+    }, [[socket]])
 
     useEffect(() => {
         dispatch(singleUserDetails(userId))
@@ -128,7 +131,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
 
 
     if (!userId) {
-        return <SelectUserPrompt/>
+        return <SelectUserPrompt />
     }
 
     return (
@@ -139,7 +142,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
                     <i className="ri-arrow-left-line" />
                 </button>
                 <div className="conversation-user">
-                   
+
                     <img
                         className="conversation-user-image"
                         src={
