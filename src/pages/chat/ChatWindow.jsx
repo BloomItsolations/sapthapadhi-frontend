@@ -7,12 +7,12 @@ import { addMessage, fetchMessages, myMessages, sendMessage } from '../../store/
 import { Box, CircularProgress } from '@mui/material';
 
 
-const socket = io(process.env.REACT_APP_BaseURL);
-
+const socket = io(process.env.REACT_APP_BaseURL,{
+    transports:['websocket']
+});
+  
 const ChatWindow = ({ userId, onBackClick }) => {
-
-
-    /// This is for merging the message
+    
     const mergeMessages = (myMessages, allMessages, myUserId, userId) => {
         const combinedMessages = [...myMessages, ...allMessages];
         combinedMessages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));

@@ -124,7 +124,8 @@ const Root = styled('div')(({ theme }) => ({
 const Services = () => {
   return (
     <Root className={classes.root}>
-      <Typography
+    <div className='flex justify-center'>
+    <Typography
         sx={{
           borderRadius: '0px 10px 0 10px',
           display: 'flex',
@@ -144,6 +145,7 @@ const Services = () => {
       >
         OUR SERVICES
       </Typography>
+    </div>
 
       <Grid container spacing={3}>
         {services.map(service => (

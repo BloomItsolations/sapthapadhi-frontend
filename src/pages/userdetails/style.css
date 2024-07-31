@@ -245,7 +245,7 @@
 .userDetails .userName .map {
   position: absolute;
   top: 2.5rem;
-  left: 18.5rem;
+  left: 20.5rem;
   display: flex;
   justify-content: center;
   align-items: center;

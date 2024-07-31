@@ -40,23 +40,26 @@ const Category = () => {
   return (
     <Box sx={{ padding: '20px', backgroundColor: '#f5f5f5' }}>
       <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+       
         <Typography
-          sx={{
-            borderRadius: '0px 10px 0 10px',
-            border: '1px solid #ccc',
-            padding: '10px 20px',
-            fontSize: { xs: '25px', md: '40px' },
-            backgroundColor: '#007bff', 
-            color: 'white',
-            fontFamily: 'Cabin',
-            textAlign: 'center',
-            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-          }}
-          variant="h4"
-          component="div"
-        >
-          CATEGORIES
-        </Typography>
+            sx={{
+              borderRadius: '0px 10px 0 10px',
+              display: 'flex',
+              justifyContent: 'center',
+              marginInline: 'auto',
+              border: '1px solid black',
+              width: { xs: 'auto', sm: '300px', md: '526px' },
+              fontSize: { xs: '25px', md: '40px' },
+              fontFamily: 'Cabin',
+              color: '#e5026b',
+              textAlign: 'center',
+              boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+            }}
+            variant="h4"
+            component="div"
+          >
+           CATEGORIES
+          </Typography>
       </Box>
       <Box ref={ref} sx={{
         maxWidth: { xs: '98%', md: '95%' },

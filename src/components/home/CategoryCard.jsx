@@ -61,14 +61,14 @@ const CategoryCard = ({ image, title, link }) => {
             sx={{
               display: 'inline-block', 
               padding: '8px 16px', 
-              backgroundColor: '#007bff', 
+              backgroundColor: '#e5026b', 
               color: 'white', 
               borderRadius: '20px', 
               textDecoration: 'none',
               fontFamily: 'Cabin',
               transition: 'background-color 0.3s',
               '&:hover': {
-                backgroundColor: '#0056b3'
+                backgroundColor: '#b60e5c'
               }
             }}
           >

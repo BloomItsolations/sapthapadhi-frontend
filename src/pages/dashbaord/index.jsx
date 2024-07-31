@@ -8,7 +8,6 @@ import UserCard from './UserCard';
 import { SwiperSlide } from 'swiper/react';
 import { useLocation } from 'react-router-dom';
 
-// -
 const HomePage = () => {
   const dispatch = useDispatch();
   const location = useLocation();

@@ -157,8 +157,8 @@ const ReviewSection = () => {
           <Box
             // ref={ref}
             sx={{
-              maxWidth: { xs: '98%', md: '95%' },
-              paddingInline: { xs: '24px', sm: '24px', md: '40px' },
+              maxWidth: { xs: '98%', md: '100%' },
+              paddingInline: { xs: '10px', sm: '15px', md: '25px' },
               overflow: 'hidden',
               marginInline: 'auto',
               marginTop:'20px',
@@ -184,7 +184,7 @@ const ReviewSection = () => {
           </Box>
 
           {
-            authInfo && <div className={classes.inputBox}>
+            authInfo && <div className='w-[96%] mx-auto'>
               <TextField
                 id="review-text"
                 label="Write your review"
@@ -194,11 +194,11 @@ const ReviewSection = () => {
                 onChange={(e) => setReviewText(e.target.value)}
                 multiline
                 rows={4}
-                sx={{ marginBottom: '10px' }}
+                sx={{ marginBottom: '10px',backgroundColor:'white',border:'black 2px',borderRadius:'10px' }}
               />
               {/* Star rating input */}
               <div className={classes.ratingBox}>
-                <Typography variant="subtitle1" sx={{ marginBottom: '10px' }}>Rating:</Typography>
+                <Typography variant="subtitle1" sx={{ marginBottom: '10px',color:'black' }}>Rating:</Typography>
                 <Rating
                   name="star-rating"
                   value={starRating}

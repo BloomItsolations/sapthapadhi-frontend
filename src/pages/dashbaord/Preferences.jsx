@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Grid, TextField, Typography, MenuItem } from '@mui/material';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 import RestApi from '../../api/RestApi';
+import Swal from 'sweetalert2';
 
 const Preferences = () => {
-
-  const {authInfo}=useSelector((state)=>state.auth);
+  const { authInfo } = useSelector((state) => state.auth);
 
   const [formValues, setFormValues] = useState({
     minAge: '',
@@ -29,29 +28,36 @@ const Preferences = () => {
     annualIncome: '',
   });
 
+  const [errors, setErrors] = useState({});
+
   const maritalStatusOptions = ['single', 'divorced', 'widowed', 'married', 'Separated'];
   const eatingHabitsOptions = ['vegetarian', 'non-vegetarian', 'vegan', 'flexitarian', 'halal', 'junk food', 'A Little of everything'];
   const religionOptions = ['Hinduism', 'Sikhism', 'Christianity', 'Jainism', 'Islam', 'Judaism', 'Buddhism', 'Shinto', 'Confucianism', 'Zoroastrianism', 'Others'];
 
   useEffect(() => {
-    // Fetch existing preferences and update the form values
     const config = {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${authInfo.token}`,
       },
     };
-    RestApi.get('/app/get-preferences',config)
+    RestApi.get('/app/get-preferences', config)
       .then(response => {
-        setFormValues(response.data);
-        console.log("Get Preference",response)
+        const filteredData = Object.keys(response.data).reduce((acc, key) => {
+          if (!['id', 'userId', 'createdAt', 'updatedAt'].includes(key)) {
+            acc[key] = response.data[key];
+          }
+          return acc;
+        }, {});
+        setFormValues(filteredData);
+        console.log("Get Preference", response);
       })
       .catch(error => {
         console.error("There was an error fetching the preferences!", error);
       });
-  }, []);
+  }, [authInfo.token]);
 
-  const handleInputChange = e => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({
       ...formValues,
@@ -59,21 +65,62 @@ const Preferences = () => {
     });
   };
 
-  const handleSubmit = e => {
+  const validateForm = () => {
+    const newErrors = {};
+    if (!/^\d+$/.test(formValues.minAge)) newErrors.minAge = 'Min Age should be a number';
+    if (!/^\d+$/.test(formValues.maxAge)) newErrors.maxAge = 'Max Age should be a number';
+    if (!/^\d+$/.test(formValues.minHeight)) newErrors.minHeight = 'Min Height should be a number';
+    if (!/^\d+$/.test(formValues.maxHeight)) newErrors.maxHeight = 'Max Height should be a number';
+
+    Object.keys(formValues).forEach((key) => {
+      if (!formValues[key] && formValues[key] !== '') {
+        newErrors[key] = `${key} is required`;
+      }
+    });
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // Submit logic here
+    if (!validateForm()) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please fill all required fields correctly!',
+      });
+      return;
+    }
+
+    const filteredValues = Object.keys(formValues).reduce((acc, key) => {
+      if (!['id', 'userId', 'createdAt', 'updatedAt'].includes(key)) {
+        acc[key] = formValues[key];
+      }
+      return acc;
+    }, {});
+
     const config = {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${authInfo.token}`,
       },
     };
-    RestApi.post('/app/add-preference', formValues, config)
+    RestApi.post('/app/add-preference', filteredValues, config)
       .then(response => {
-        console.log("Preferences updated successfully", response);
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Preferences updated successfully!',
+        });
       })
       .catch(error => {
         console.error("There was an error updating the preferences!", error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'There was an error updating the preferences!',
+        });
       });
   };
 
@@ -96,191 +143,31 @@ const Preferences = () => {
         Preferences Form
       </Typography>
       <Grid container spacing={2}>
-        {/* <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            name="minAge"
-            label="Min Age"
-            value={formValues.minAge}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            name="maxAge"
-            label="Max Age"
-            value={formValues.maxAge}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            name="minHeight"
-            label="Min Height"
-            value={formValues.minHeight}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            name="maxHeight"
-            label="Max Height"
-            value={formValues.maxHeight}
-            onChange={handleInputChange}
-          />
-        </Grid> */}
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            select
-            name="maritalStatus"
-            label="Marital Status"
-            value={formValues.maritalStatus}
-            onChange={handleInputChange}
-          >
-            {maritalStatusOptions.map(option => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            name="motherTongue"
-            label="Mother Tongue"
-            value={formValues.motherTongue}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            name="physicalStatus"
-            label="Physical Status"
-            value={formValues.physicalStatus}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            select
-            name="eatingHabits"
-            label="Eating Habits"
-            value={formValues.eatingHabits}
-            onChange={handleInputChange}
-          >
-            {eatingHabitsOptions.map(option => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            name="drinkingHabits"
-            label="Drinking Habits"
-            value={formValues.drinkingHabits}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            name="smokingHabits"
-            label="Smoking Habits"
-            value={formValues.smokingHabits}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            select
-            name="religion"
-            label="Religion"
-            value={formValues.religion}
-            onChange={handleInputChange}
-          >
-            {religionOptions.map(option => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            name="caste"
-            label="Caste"
-            value={formValues.caste}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            name="subcaste"
-            label="Subcaste"
-            value={formValues.subcaste}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            name="haveDosh"
-            label="Have Dosh"
-            value={formValues.haveDosh}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            name="star"
-            label="Star"
-            value={formValues.star}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        {/* <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            name="education"
-            label="Education"
-            value={formValues.education}
-            onChange={handleInputChange}
-          />
-        </Grid> */}
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            name="occupation"
-            label="Occupation"
-            value={formValues.occupation}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            fullWidth
-            name="annualIncome"
-            label="Annual Income"
-            value={formValues.annualIncome}
-            onChange={handleInputChange}
-          />
-        </Grid>
+        {Object.keys(formValues).map((key) => (
+          <Grid item xs={12} sm={6} md={4} key={key}>
+            <TextField
+              fullWidth
+              name={key}
+              label={key.charAt(0).toUpperCase() + key.slice(1)}
+              value={formValues[key]}
+              onChange={handleInputChange}
+              error={!!errors[key]}
+              helperText={errors[key]}
+              select={
+                ['maritalStatus', 'eatingHabits', 'religion'].includes(key)
+              }
+            >
+              {['maritalStatus', 'eatingHabits', 'religion'].includes(key) &&
+                (key === 'maritalStatus' ? maritalStatusOptions : key === 'eatingHabits' ? eatingHabitsOptions : religionOptions).map(option => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+            </TextField>
+          </Grid>
+        ))}
         <Grid item xs={12}>
-          <Button variant="contained" color="primary" type="submit">
+          <Button variant="contained" color="primary" type="submit" fullWidth>
             Submit
           </Button>
         </Grid>
