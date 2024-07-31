@@ -48,9 +48,10 @@ const ChatWindow = ({ userId, onBackClick }) => {
 
     useEffect(() => {
         socket.on("previousMessages", () => {
-        }, [socket])
+            setUpdate(!update)
+        },)
+    },[[socket]])
 
-    })
     useEffect(() => {
         dispatch(singleUserDetails(userId))
     }, [userId])
