@@ -193,7 +193,7 @@ const ReviewSection = () => {
                 value={reviewText}
                 onChange={(e) => setReviewText(e.target.value)}
                 multiline
-                rows={4}
+                rows={2}
                 sx={{ marginBottom: '10px',backgroundColor:'white',border:'black 2px',borderRadius:'10px' }}
               />
               {/* Star rating input */}

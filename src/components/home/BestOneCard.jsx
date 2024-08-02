@@ -2,7 +2,7 @@ import { Box, Card, CardActionArea, CardContent, Typography, Button } from '@mui
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const BestOneCard = ({ image, title }) => {
+const BestOneCard = ({ image, title ,story}) => {
     return (
         <Card
             sx={{
@@ -62,9 +62,8 @@ const BestOneCard = ({ image, title }) => {
                     </Link>
                 </CardContent>
             </CardActionArea>
-            <Typography variant="body2" sx={{ color: 'black', padding: '16px', fontFamily: 'Merriweather, serif' , textAlign: 'center',  }}>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-            </Typography>
+            <Typography variant="body2" sx={{ color: 'black', padding: '16px', fontFamily: 'Merriweather, serif' , textAlign: 'center', fontSize:'inherit' }}>
+{story}            </Typography>
         </Card>
     );
 };

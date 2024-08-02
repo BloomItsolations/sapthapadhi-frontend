@@ -133,19 +133,7 @@ const Header = () => {
           marginTop: "30px",
         }}
       >
-        {/* <TextField
-          fullWidth
-          label="Looking For"
-          name="lookingFor"
-          select
-          value={lookingFor}
-          onChange={handleChange}
-          variant="outlined"
-        >
-          <MenuItem value="">Select your Preference</MenuItem>
-          <MenuItem value="bride">Bride</MenuItem>
-          <MenuItem value="groom">Groom</MenuItem>
-        </TextField> */}
+        
         <TextField
           fullWidth
           label="Age"

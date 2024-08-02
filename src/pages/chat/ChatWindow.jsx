@@ -12,10 +12,9 @@ const socket = io(process.env.REACT_APP_BaseURL, {
     transports: ['websocket']
   });
 
-//some change in
   
 const ChatWindow = ({ userId, onBackClick }) => {
-    
+ 
     const mergeMessages = (myMessages, allMessages, myUserId, userId) => {
         const combinedMessages = [...myMessages, ...allMessages];
         combinedMessages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));

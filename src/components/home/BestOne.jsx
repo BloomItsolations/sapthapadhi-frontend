@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import Slider from 'react-slick';
 import BestOneCard from './BestOneCard';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllCouple } from '../../store/userSlice';
 
 const BestOne = () => {
+  const dispatch = useDispatch();
+
+  let { coupledata } = useSelector((state) => state.user);
+  console.log("CoupleData",);
+  useEffect(() => {
+    dispatch(getAllCouple())
+  }, [])
+
   const settings = {
     dots: true,
     infinite: true,
@@ -41,26 +51,27 @@ const BestOne = () => {
   return (
     <Box sx={{ padding: '15px', backgroundColor: '#f5f5f5' }}>
       <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-        
+
+
         <Typography
-            sx={{
-              borderRadius: '0px 10px 0 10px',
-              display: 'flex',
-              justifyContent: 'center',
-              marginInline: 'auto',
-              border: '1px solid black',
-              width: { xs: 'auto', sm: '300px', md: '526px' },
-              fontSize: { xs: '25px', md: '40px' },
-              fontFamily: 'Cabin',
-              color: '#e5026b',
-              textAlign: 'center',
-              boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-            }}
-            variant="h4"
-            component="div"
-          >
-            CATCH UP THE BEST ONE
-          </Typography>
+          sx={{
+            borderRadius: '0px 10px 0 10px',
+            display: 'flex',
+            justifyContent: 'center',
+            marginInline: 'auto',
+            border: '1px solid black',
+            width: { xs: 'auto', sm: '300px', md: '526px' },
+            fontSize: { xs: '25px', md: '40px' },
+            fontFamily: 'Cabin',
+            color: '#e5026b',
+            textAlign: 'center',
+            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+          }}
+          variant="h4"
+          component="div"
+        >
+          CATCH UP THE BEST ONE
+        </Typography>
 
 
       </Box>
@@ -85,9 +96,16 @@ const BestOne = () => {
           variants={variants}
         >
           <Slider {...settings}>
-            <BestOneCard image="images/weddingimage.jpg" title="Jack danial" />
-            <BestOneCard image="images/weddingimagetwo.jpg" title="Jack danial" />
-            <BestOneCard image="images/weddingimagethree.jpg" title="Jack danial" />
+            {
+              coupledata && coupledata?.couples.map((value) => (
+                <BestOneCard
+                  image={`https://sapthapadhi.bloomitsolutions.co.in/${value?.image[0]?.path}`}
+                  title={`${value?.groomName} & ${value?.brideName}`}
+                  story={value?.aboutUs}
+                />
+              ))
+            }
+
           </Slider>
         </motion.div>
       </Box>
