@@ -9,6 +9,7 @@ import SelectUserPrompt from './SelectUserPrompt';
 
 
 const socket = io(process.env.REACT_APP_BaseURL, {
+
     transports: ['websocket']
   });
 
