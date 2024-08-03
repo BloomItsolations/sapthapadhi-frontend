@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import RestApi from "../api/RestApi";
 // Async Thunk for listing all banners
-export const listBanners = createAsyncThunk(
-  "banner/listBanners",
+export const listGallery = createAsyncThunk(
+  "gallery/listGallery",
   async (_, { getState, rejectWithValue }) => {
     try {
-      const response = await RestApi.get("/admin/listBanner");
+      const response = await RestApi.get("/admin/getGallery");
       return response.data;
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -16,10 +16,10 @@ export const listBanners = createAsyncThunk(
   }
 );
 
-const bannerSlice = createSlice({
-  name: "banner",
+const gallerySlice = createSlice({
+  name: "image",
   initialState: {
-    bannersList: null,
+    galleryList: null,
     selectedBanner: null,
     status: "idle",
     error: null,
@@ -37,20 +37,20 @@ const bannerSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // List all banners
-      .addCase(listBanners.pending, (state) => {
+      .addCase(listGallery.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(listBanners.fulfilled, (state, action) => {
+      .addCase(listGallery.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.bannersList = action.payload;
+        state.galleryList = action.payload;
       })
-      .addCase(listBanners.rejected, (state, action) => {
+      .addCase(listGallery.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       });
   },
 });
 
-export const { clearSelectedBanner, clearMessages } = bannerSlice.actions;
+export const { clearSelectedBanner, clearMessages } = gallerySlice.actions;
 
-export default bannerSlice.reducer;
+export default gallerySlice.reducer;

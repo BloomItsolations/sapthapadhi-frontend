@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid, Card, CardContent, Typography, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useDispatch, useSelector } from "react-redux";
+import { listGallery } from "../../store/gallerySlice";
 
 const PREFIX = "OurGallery";
 const classes = {
@@ -77,19 +79,19 @@ const Root = styled("div")(({ theme }) => ({
   },
 }));
 
-const images = [
-  "/images/galleryimage.jpg",
-  "/images/galleryimagetwo.jpg",
-  "/images/galleryimagethree.jpg",
-  "/images/galleryimagefour.jpg",
-  "/images/galleryimagefifth.jpg",
-  "/images/galleryimagesix.jpg",
-  "/images/galleryimageseven.jpg",
-  "/images/galleryimageeight.jpg",
-  "/images/galleryimagenine.jpg",
-];
 
 const Gallery = () => {
+
+    const dispatch=useDispatch();
+    const {galleryList}=useSelector(state=>state.gallery);
+    useEffect(()=>{
+      dispatch(listGallery());
+    },[])
+
+   if(!galleryList){
+    return <div>Laoding...</div>
+   }
+
   return (
     <Root className={classes.root}>
      <div className="flex justify-center">
@@ -130,7 +132,7 @@ const Gallery = () => {
         </div>
       </Box>
       <Grid container spacing={3} className={classes.galleryContainer}>
-        {images.map((image, index) => (
+        {galleryList.map((image, index) => (
           <Grid
             item
             xs={12}
@@ -142,7 +144,7 @@ const Gallery = () => {
             <Card>
               <CardContent>
                 <img
-                  src={image}
+                  src={`https://sapthapadhi.bloomitsolutions.co.in/${image?.photos[0]?.path}`}
                   alt={`Gallery ${index + 1}`}
                   className={classes.image}
                 />

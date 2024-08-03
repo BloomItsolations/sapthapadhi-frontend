@@ -26,6 +26,24 @@ export const matchesUser = createAsyncThunk(
   }
 );
 
+export const getAllCouple = createAsyncThunk(
+  "all/couple",
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      
+      // Make request to the backend
+      const { data } = await RestApi.get("/admin/couples");
+      return data;
+    } catch (error) {
+      // Return custom error message from the API if any
+      if (error.response && error.response.data.error) {
+        // return rejectWithValue(error.response.data.error);
+      }
+      // return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const myfriendlist = createAsyncThunk(
   "my/allfriend",
   async (_, { getState, rejectWithValue }) => {
@@ -37,7 +55,9 @@ export const myfriendlist = createAsyncThunk(
           Authorization: `Bearer ${authInfo.token}`,
         },
       };
-      const { data } = await RestApi.get("/app/getChatMessages", config);
+      const response = await RestApi.get("/app/getChatMessages", config);
+      console.log("Responsec",response)
+      const { data }=response;
       return data;
     } catch (error) {
       if (error.response && error.response.data.error) {
@@ -352,6 +372,7 @@ const userSlice = createSlice({
     loading: false,
     singleUser: null,
     matchUser: null,
+    coupledata:null,
     recUsersList: null,
     accepteReqUserList: null,
     //this is for downline users
@@ -383,6 +404,20 @@ const userSlice = createSlice({
         state.matchUser = payload;
       })
       .addCase(matchesUser.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+      })
+      //get All couple
+      .addCase(getAllCouple.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.success = false;
+      })
+      .addCase(getAllCouple.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.coupledata = payload;
+      })
+      .addCase(getAllCouple.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       })

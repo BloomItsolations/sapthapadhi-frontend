@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Slider from 'react-slick';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useDispatch, useSelector } from 'react-redux';
+import { listBanners } from '../../store/bannerSlice';
 
 const WelcomePage = () => {
+
+    const dispatch = useDispatch();
+    const { bannersList } = useSelector(state => state.banner);
+    console.log("BannerList", bannersList);
+    useEffect(() => {
+        dispatch(listBanners());
+    }, [])
+
     const { ref: textRef, inView: textInView } = useInView({
         threshold: 0.3,
     });
@@ -33,6 +43,10 @@ const WelcomePage = () => {
         autoplay: true,
         slidesToShow: 1,
     };
+
+    if (!bannersList) {
+        return <div>Loading...</div>
+    }
 
     return (
         <div className='pt-16 bg-[#f5f5f5]'>
@@ -67,45 +81,29 @@ const WelcomePage = () => {
                             SAPTHAPADHI.IN
                         </Typography>
 
-                        <Typography variant="body1" sx={{ marginTop: '20px', color: 'black', width: { xs: '100%', md: '70%' }, textAlign: 'center', marginInline: 'auto',fontFamily: 'Poppins',fontSize:'22px' }}>
+                        <Typography variant="body1" sx={{ marginTop: '20px', color: 'black', width: { xs: '100%', md: '70%' }, textAlign: 'center', marginInline: 'auto', fontFamily: 'Poppins', fontSize: '22px' }}>
                             Best wedding matrimony It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
                         </Typography>
-                        <Typography variant="body1" sx={{ marginTop: '20px', fontFamily: 'Poppins',fontSize:'22px', color: 'black', width: { xs: '100%', md: '70%' }, textAlign: "center", marginInline: 'auto' }}>
+                        <Typography variant="body1" sx={{ marginTop: '20px', fontFamily: 'Poppins', fontSize: '22px', color: 'black', width: { xs: '100%', md: '70%' }, textAlign: "center", marginInline: 'auto' }}>
                             There are many variations of passages of Lorem Ipsum available, but the majority have alteration in some form, by injected humor, or randomized words which don't look even slightly believable.
                         </Typography>
                     </motion.div>
                     <motion.div ref={imageRef} initial="hidden" animate={imageInView ? 'visible' : 'hidden'} variants={imageVariants}>
 
-                    <Slider {...settings}>
-                            <Box sx={{ marginTop: '30px', }} >
-                                <img
-                                    src="/images/welcomepage.jpg"
-                                    alt="Sample"
-                                    style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
-                                />
-                            </Box>
-                            <Box sx={{ marginTop: '40px' }}>
-                                <img
-                                    src="/images/welcomepage.jpg"
-                                    alt="Sample"
-                                    style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
-                                />
-                            </Box>
-                            <Box sx={{ marginTop: '40px' }}>
-                                <img
-                                    src="/images/welcomepage.jpg"
-                                    alt="Sample"
-                                    style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
-                                />
-                            </Box>
-                            <Box sx={{ marginTop: '40px' }}>
-                                <img
-                                    src="/images/welcomepage.jpg"
-                                    alt="Sample"
-                                    style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
-                                />
-                            </Box>
-                    </Slider>
+                        <Slider {...settings}>
+                            {
+                              bannersList &&  bannersList?.map((value) => (
+                                    <Box sx={{ marginTop: '30px', }} >
+                                        <img
+                                            src={`https://sapthapadhi.bloomitsolutions.co.in/${value.imageUrls[0].path}`}
+                                            alt="Sample"
+                                            style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
+                                        />
+                                    </Box>
+
+                                ))
+                            }
+                        </Slider>
                     </motion.div>
 
                 </Box>

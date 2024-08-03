@@ -9,4 +9,5 @@ const socket = io(process.env.REACT_APP_BaseURL, {
   randomizationFactor: 0.5,
 });
 
+
 export default socket;
