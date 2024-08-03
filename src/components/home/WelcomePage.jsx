@@ -92,7 +92,7 @@ const WelcomePage = () => {
 
                         <Slider {...settings}>
                             {
-                                bannersList.map((value) => (
+                              bannersList &&  bannersList?.map((value) => (
                                     <Box sx={{ marginTop: '30px', }} >
                                         <img
                                             src={`https://sapthapadhi.bloomitsolutions.co.in/${value.imageUrls[0].path}`}

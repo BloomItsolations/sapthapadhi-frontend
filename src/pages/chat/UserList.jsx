@@ -32,7 +32,7 @@ const CustomScrollbarBox = styled(Box)(({ theme }) => ({
 const UserList = ({ onUserClick }) => {
     const { friendList, loading } = useSelector((state) => state.user);
     const dispatch = useDispatch();
-
+    console.log("FriendList",friendList)
     useEffect(() => {
         dispatch(myfriendlist());
     }, [dispatch]);

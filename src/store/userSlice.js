@@ -55,7 +55,9 @@ export const myfriendlist = createAsyncThunk(
           Authorization: `Bearer ${authInfo.token}`,
         },
       };
-      const { data } = await RestApi.get("/app/getChatMessages", config);
+      const response = await RestApi.get("/app/getChatMessages", config);
+      console.log("Responsec",response)
+      const { data }=response;
       return data;
     } catch (error) {
       if (error.response && error.response.data.error) {

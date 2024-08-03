@@ -39,19 +39,13 @@ const ChatWindow = ({ userId, onBackClick }) => {
     const dispatch = useDispatch();
     const { singleUser, loading } = useSelector(state => state.user);
     const { authInfo } = useSelector(state => state.auth);
-    const [update, setUpdate] = useState(false);
-
+    const [update, setUpdate] = useState(1);
+   
     useEffect(() => {
-        socket.on('message', () => {
-            setUpdate(!update)
+        socket.on("messageiscomming", () => {
+            setUpdate(prevUpdate => prevUpdate + 1); 
         })
-    }, [socket])
-
-    useEffect(() => {
-        socket.on("previousMessages", () => {
-            setUpdate(!update)
-        },)
-    },[[socket]])
+    },[socket])
 
     useEffect(() => {
         dispatch(singleUserDetails(userId))
@@ -68,22 +62,33 @@ const ChatWindow = ({ userId, onBackClick }) => {
     useEffect(() => {
         dispatch(fetchMessages(userId));
         setupSocketListeners();
-    }, [dispatch, userId, update]);
+    }, [update,dispatch, userId]);
 
     useEffect(() => {
         dispatch(myMessages(authInfo?.userId));
         setupSocketListeners();
-    }, [dispatch, userId, authInfo, update]);
+    }, [update,dispatch, userId, authInfo]);
 
     const setupSocketListeners = () => {
-        socket.on(`${process.env.REACT_APP_BaseURL}/app/messages/${userId}`, message => {
-            dispatch(addMessage(message));
+        socket.on('message', (message) => {
+            // dispatch(addMessage(message));
+            console.log("Add message");
         });
-
-        socket.on('error', error => {
+    
+        // Handle errors
+        socket.on('error', (error) => {
             console.error('Socket error:', error);
         });
+    
+        socket.on('connect', () => {
+            console.log('Connected to the server');
+        });
+    
+        socket.on('disconnect', () => {
+            console.log('Disconnected from the server');
+        });
     };
+    
 
     const handleSendMessage = async e => {
         e.preventDefault();
@@ -114,7 +119,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
     useEffect(() => {
         const mergeMessage = mergeMessages(myMessage, messages, authInfo?.userId, userId);
         setMergeMessage(mergeMessage)
-    }, [messages, myMessage, update])
+    }, [messages, myMessage])
 
     // if (loading || !singleUser) {
     //     return (
