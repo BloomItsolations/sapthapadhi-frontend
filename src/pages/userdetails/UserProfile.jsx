@@ -47,7 +47,6 @@ const UserProfile = () => {
 
   console.log("Single User", singleUser)
 
-
   const renderTabContent = () => {
     switch (activeTab) {
       case 'about':

@@ -52,7 +52,7 @@ export default function Header({ onOpenNav }) {
       </Box>
       <Box sx={{ flexGrow: 1 }}>{lgUp && renderMenu}</Box>
       <Stack direction="row" alignItems="center" spacing={1}>
-        <NotificationsPopover />
+        {/* <NotificationsPopover /> */}
         <AccountPopover />
       </Stack>
     </>

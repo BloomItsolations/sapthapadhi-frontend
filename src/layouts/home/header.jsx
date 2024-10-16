@@ -38,9 +38,8 @@ const pages = [
   { name: 'Contact', to: '/contact' },
 ];
 const userNavigation = [
-  { name: 'My Profile', to: '/profile', icon: <AccountCircleIcon /> },
   { name: 'User Dashboard', to: '/app/dashboard', icon: <AccountCircleIcon /> },
-  { name: 'Contact Us', to: '/', icon: <ChatIcon /> },
+  { name: 'Contact Us', to: '/contact', icon: <ChatIcon /> },
 ];
 
 const Header = () => {
@@ -135,6 +134,7 @@ const Header = () => {
                     border: theme =>
                       `solid 2px ${theme.palette.background.default}`,
                   }}
+                  src=''
                 >
                   {authInfo?.name?.charAt(0).toUpperCase()}
                 </Avatar>

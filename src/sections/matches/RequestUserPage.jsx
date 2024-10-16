@@ -121,13 +121,7 @@ const RequestUserPage = () => {
           <Link to={`/app/request-user-details/${request?.fromUser?.id}`} style={{ textDecoration: 'none' }}>
             <CardMedia
               sx={{ height: 200, objectFit: 'cover' }}
-              image={
-                request?.fromUser?.profilePhoto
-                  ? typeof request.fromUser.profilePhoto === 'string'
-                    ? request.fromUser.profilePhoto
-                    : `${process.env.REACT_APP_BaseURL}/${request.fromUser.profilePhoto.path}`
-                  : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'
-              }
+              image={request?.fromUser?.profilePhoto ? `${process.env.REACT_APP_IMASE_BASE_URL}/${JSON.parse(request?.fromUser?.profilePhoto)?.path}` : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'  }
               alt={request?.fromUser?.firstName || 'User'}
               title={request?.fromUser?.firstName || 'User'}
             />

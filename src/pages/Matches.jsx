@@ -49,11 +49,7 @@ export default function Matches() {
             sx={{ borderRadius: '6px 6px 0 0', paddingX: 6, paddingY: 0 }}
             {...a11yProps(0)}
           />
-          <Tab
-            label="Accepted User"
-            sx={{ borderRadius: '6px 6px 0 0', paddingX: 6, paddingY: 0 }}
-            {...a11yProps(1)}
-          />
+         
           
         </Tabs>
         <Divider />

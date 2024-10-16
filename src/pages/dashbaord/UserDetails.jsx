@@ -18,7 +18,10 @@ const UserDetails = ({ userDetails, onSave }) => {
   const dispatch = useDispatch();
 
   console.log('userDetails',userDetails);
+     if(userDetails?.profilePhoto){
+      console.log("Profile Photo",JSON.parse(userDetails?.profilePhoto)?.path);
 
+     }
   useEffect(() => {
     setFormValues(userDetails);
   }, [userDetails]);

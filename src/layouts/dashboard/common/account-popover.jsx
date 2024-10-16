@@ -35,7 +35,8 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
 
   let myPlan = JSON.parse(localStorage.getItem('myplan'));
-
+  const { mydetails } = useSelector(state => state.user);
+  const profileImage = mydetails?.userDetails?.profilePhoto && JSON.parse(mydetails?.userDetails?.profilePhoto)?.path;
 
   const router = useRouter();
   const { authInfo } = useSelector(state => state.auth);
@@ -81,10 +82,12 @@ export default function AccountPopover() {
         ) : (
           <Avatar
             key={'alt'}
+             src={`${process.env.REACT_APP_IMASE_BASE_URL}/${profileImage}`}
             sx={{
               width: 36,
               height: 36,
               border: theme => `solid 2px ${theme.palette.background.default}`,
+              
             }}
           ></Avatar>
         )}

@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardMedia, CardContent, Typography, Button, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearError, sendRequest } from '../../store/userSlice';
 import Swal from 'sweetalert2';
+import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
 
 const UserCard = ({ id, profilePhoto, name, age, height, status }) => {
   const dispatch = useDispatch();
   const { success, error } = useSelector(state => state.user);
-  const [newStatus,setNewStatus]=useState(status);
+  const [newStatus, setNewStatus] = useState(status);
+
   useEffect(() => {
     if (success) {
       Swal.fire({
         icon: 'success',
-        title: ' Successful',
+        title: 'Successful',
         text: success,
       });
       dispatch(clearError());
@@ -26,64 +27,48 @@ const UserCard = ({ id, profilePhoto, name, age, height, status }) => {
       });
       dispatch(clearError());
     }
-  }, [success, error])
+  }, [success, error, dispatch]);
 
-  const handleSendRequest = async () => {
-    dispatch(sendRequest(id))
+  const handleSendRequest = () => {
+    dispatch(sendRequest(id));
     setNewStatus(true);
   };
 
   return (
-    <Card sx={{ width: 260, height: 340 }}>
-      <Link to={!newStatus ? `/app/userdetails/${id}` : `/app/requested-profile-view/${id}` } style={{ textDecoration: 'none' }}>
-        {profilePhoto !== null && (
-          <CardMedia
-            sx={{ height: 200 }}
-            image={
-              typeof profilePhoto === 'string'
-                ? profilePhoto
-                : `https://sapthapadhi.bloomitsolutions.co.in/${profilePhoto?.path}`
-            }
-            alt={name}
-            title={name}
-          />
-        )}
-        <CardContent sx={{ textAlign: 'start' }}>
-          <Typography gutterBottom variant="h5" component="div" sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {name}
-          </Typography>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
-          >
-            Age: {age} Yrs, Height: {height}
-          </Typography>
-        </CardContent>
-      </Link>
-      <Box sx={{ display: 'flex', justifyContent: 'space-around', mb: 1 }}>
+    <div className="flex items-center justify-center bg-gray-200">
+      <div className="relative p-6 bg-gray-200 rounded-lg shadow-lg flex flex-col items-center">
         <Link to={!newStatus ? `/app/userdetails/${id}` : `/app/requested-profile-view/${id}`} style={{ textDecoration: 'none' }}>
-          <Button size="small" variant="outlined">
-            View Profile
-          </Button>
+          <div className="w-36 h-36 rounded-full overflow-hidden flex items-center justify-center bg-gray-300 shadow-inner">
+            <img
+              src={profilePhoto}
+              alt={name}
+              className="w-full h-full object-cover rounded-full"
+            />
+          </div>
+          <div className="mt-4 text-center">
+            <h2 className="text-xl font-semibold text-gray-800">{name}</h2>
+            <p className="text-gray-600">Age: {age} Yrs, Height: {height}</p>
+          </div>
         </Link>
-        <Button
-          size="small"
-          variant="contained"
-          color={newStatus ? "success" : "primary"}
-          onClick={!newStatus ? handleSendRequest : null}
-          sx={{
-            textTransform: 'none',
-            borderRadius: '20px',
-            padding: '5px 15px',
-            fontSize: '14px',
-            fontWeight: 'bold',
-          }}
-        >
-          {newStatus ? 'Requested' : 'Send Request'}
-        </Button>
-      </Box>
-    </Card>
+        {/* <div className="flex mt-4 space-x-4">
+          <a href="#" className="text-blue-600 hover:text-blue-800"><FaFacebookF /></a>
+          <a href="#" className="text-blue-400 hover:text-blue-600"><FaTwitter /></a>
+          <a href="#" className="text-pink-600 hover:text-pink-800"><FaInstagram /></a>
+        </div> */}
+        <div className="flex w-full mt-4">
+          <Link className="w-1/2 bg-white flex justify-center items-center text-gray-800 py-1 text-[12px] rounded-lg shadow-md hover:bg-gray-100 text-center" to={!newStatus ? `/app/userdetails/${id}` : `/app/requested-profile-view/${id}`} style={{ textDecoration: 'none' }}>
+            View Profile
+          </Link>
+          <button
+            className="w-1/2 ml-2 bg-blue-600 text-white text-[10px] py-1 rounded-lg shadow-md hover:bg-blue-700"
+            onClick={handleSendRequest}
+            disabled={newStatus}
+          >
+            {newStatus ? 'Requested' : 'Send Request'}
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 

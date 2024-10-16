@@ -157,6 +157,7 @@ export const updateKycDetails = createAsyncThunk(
     }
   }
 );
+
 export const userDetailsById = createAsyncThunk(
   "auth/userDetailsById",
   async (_, { getState, rejectWithValue }) => {

@@ -1,4 +1,3 @@
-// src/pages/HomePage.js
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { matchesUser, recUsers } from '../../store/userSlice';
@@ -18,6 +17,7 @@ const HomePage = () => {
     dispatch(recUsers());
     dispatch(matchesUser());
   }, [dispatch]);
+
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const ageRange = params.get('age');
@@ -25,14 +25,16 @@ const HomePage = () => {
     const locationParam = params.get('location');
 
     const filterUsers = (users) => {
-      return users?.filter(user => {
+      if (!Array.isArray(users)) return [];
+
+      return users.filter(user => {
         const [ageMin, ageMax] = ageRange ? ageRange.split('-').map(Number) : [null, null];
         const userAge = Number(user.age);
 
         return (
           (!ageRange || (userAge >= ageMin && userAge <= ageMax)) &&
           (!religion || user.religion === religion) &&
-          (!locationParam || user.countryLivingIn === locationParam)
+          (!locationParam || user.country === locationParam)
         );
       });
     };
@@ -41,11 +43,12 @@ const HomePage = () => {
       setFilteredMatchUsers(filterUsers(matchUser));
       setFilteredRecUsers(filterUsers(recUsersList));
     } else {
-      setFilteredMatchUsers(matchUser);
-      setFilteredRecUsers(recUsersList);
+      setFilteredMatchUsers(Array.isArray(matchUser) ? matchUser : []);
+      setFilteredRecUsers(Array.isArray(recUsersList) ? recUsersList : []);
     }
   }, [location.search, matchUser, recUsersList]);
 
+  
 
   return (
     <Grid container spacing={1} marginY={4}>
@@ -59,7 +62,7 @@ const HomePage = () => {
               <SwiperSlide key={index}>
                 <UserCard
                   key={index + 1}
-                  profilePhoto={user?.profilePhoto ? user?.profilePhoto : "https://www.pngarts.com/files/10/Default-Profile-Picture-PNG-Image.png"}
+                  profilePhoto={user?.profilePhoto ? user?.profilePhoto : "https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg"}
                   name={user.name}
                   age={user.age}
                   height={user.height}
@@ -73,30 +76,25 @@ const HomePage = () => {
       ) : null}
       {filteredRecUsers?.length > 0 ? (
         <Grid item xs={12}>
-          <Typography variant="h6" sx={{ mb: 2, color: 'primary.main' }}>
+          <Typography variant="h6" sx={{  color: 'primary.main' }}>
             Recommended Users
           </Typography>
           <SliderContainer>
-            {filteredRecUsers.map((user, index) => (
-              <SwiperSlide key={index}>
+            {filteredRecUsers.map((user, index) => {
+              let primage=  user?.profilePhoto ?  `${process.env.REACT_APP_IMASE_BASE_URL}/${JSON.parse(user?.profilePhoto)?.path}`: 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'
+              console.log("PrImage",primage);
+               return <SwiperSlide key={index}>
                 <UserCard
                   key={index + 1}
-                  profilePhoto={
-                    user?.profilePhoto
-                      ? typeof user.profilePhoto === 'string'
-                        ? user.profilePhoto
-                        : `${process.env.REACT_APP_BaseURL}/${user.profilePhoto.path}`
-                      : 'https://www.pngarts.com/files/10/Default-Profile-Picture-PNG-Image.png'
-                  }
+                  profilePhoto={primage}
                   name={user.name}
                   age={user.age}
                   height={user.height}
                   id={user.id}
                   status={user?.ReceivedRequests && user?.ReceivedRequests[0]?.status ? true : false}
                 />
-
               </SwiperSlide>
-            ))}
+})}
           </SliderContainer>
         </Grid>
       ) : null}

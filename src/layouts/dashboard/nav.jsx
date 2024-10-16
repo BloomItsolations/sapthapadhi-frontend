@@ -50,6 +50,7 @@ const Nav = ({ openNav, onCloseNav }) => {
 
       <Typography variant="body1" sx={{ color: 'primary.main' }}>
         {authInfo?.phone}
+        
       </Typography>
     </Box>
   );

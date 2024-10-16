@@ -46,6 +46,9 @@ const Plan = () => {
   const { planList } = useSelector(state => state.plan);
   const { authInfo } = useSelector(state => state.auth);
   //razorpay
+   
+   console.log("PlanList",planList);
+
   const displayRazorpay = async (e, item) => {
     if(!authInfo){
       Swal.fire({
@@ -186,7 +189,7 @@ const Plan = () => {
                     </Box>
                     <ul>
                       {item.features
-                        ? item.features.map(detail => (
+                        ? JSON.parse(item?.features)?.map(detail => (
                             <Box
                               sx={{
                                 display: 'flex',

@@ -22,7 +22,6 @@ export const Profile = () => {
     pinCode: '',
   });
   const { authInfo, error,success } = useSelector(state => state.auth);
-
    useEffect(()=>{
          if(success){
           Swal.fire({
@@ -36,8 +35,7 @@ export const Profile = () => {
    },[success])
 
   const { mydetails } = useSelector(state => state.user);
-  const profileImage = mydetails?.userDetails?.profilePhoto && mydetails?.userDetails?.profilePhoto?.path;
-   
+  const profileImage = mydetails?.userDetails?.profilePhoto && JSON.parse(mydetails?.userDetails?.profilePhoto)?.path;
   useEffect(() => {
     if (mydetails?.user) {
       setFirstName(mydetails.user.firstName);
@@ -119,7 +117,7 @@ export const Profile = () => {
                 <Avatar
                   alt="Profile Picture"
                   src={
-                    newProfilePic || (image && `https://sapthapadhi.bloomitsolutions.co.in/${image}`)
+                    newProfilePic || (image && `${process.env.REACT_APP_IMASE_BASE_URL}/${image}`)
                   }
                   sx={{
                     width: 120,
@@ -177,46 +175,7 @@ export const Profile = () => {
               variant="outlined"
             />
           </Grid>
-          {/* <Grid item xs={12}>
-            <TextField
-              label="Delivery Address"
-              name="deliverAddress"
-              value={address.deliverAddress}
-              onChange={handleAddressChange}
-              fullWidth
-              variant="outlined"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="City"
-              name="city"
-              value={address.city}
-              onChange={handleAddressChange}
-              fullWidth
-              variant="outlined"
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label="State"
-              name="state"
-              value={address.state}
-              onChange={handleAddressChange}
-              fullWidth
-              variant="outlined"
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label="Pin Code"
-              name="pinCode"
-              value={address.pinCode}
-              onChange={handleAddressChange}
-              fullWidth
-              variant="outlined"
-            />
-          </Grid> */}
+          
         </Grid>
         <Box sx={{ display: 'flex', justifyContent: 'end', marginY: 2 }}>
           <Button

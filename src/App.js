@@ -21,6 +21,8 @@ import UserProfile from './pages/userdetails/UserProfile';
 import ViewNewProfile from './pages/userdetails/ViewNewProfile';
 import AcceptedUserDetail from './pages/userdetails/AcceptedUserDetail';
 import RequestSendedProfileView from './pages/userdetails/RequestSendedProfileView';
+import UserValidateRoute from './routes/UserValidateRoute';
+import CollectUserData from './pages/CollectUserData';
 
 const RegisterPage = lazy(() => import('./pages/auth/Register'));
 const LoginPage = lazy(() => import('./pages/auth/login'));
@@ -87,11 +89,12 @@ export default function App() {
               <Route path="request-user-details/:id" element={<NewRequestUserDetails />} />
               <Route path="friend-request-accepted/:id" element={<AcceptedUserDetail />} />
               <Route path="requested-profile-view/:id" element={<RequestSendedProfileView />} />
-              <Route path={'dashboard/'} element={<Dashboard />}>
+              <Route path={'dashboard/'} element={ <Dashboard /> }>
                 <Route index element={<HomePage />} />
                 <Route path="preferences" element={<Preferences />} />
                 <Route path="settings" element={<Setting />} />
                 <Route path="profile" element={<Profile />} />
+                <Route path="profile-setup" element={<CollectUserData />} />
               </Route>
               <Route path={'matches'} element={<Matches />} />
               <Route path={'plans'} element={<Plan />} />
