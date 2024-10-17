@@ -26,13 +26,114 @@ const Preferences = () => {
     education: '',
     occupation: '',
     annualIncome: '',
-  });
+  }); 
+  console.log("FormValue",formValues);
 
   const [errors, setErrors] = useState({});
 
-  const maritalStatusOptions = ['single', 'divorced', 'widowed', 'married', 'Separated'];
-  const eatingHabitsOptions = ['vegetarian', 'non-vegetarian', 'vegan', 'flexitarian', 'halal', 'junk food', 'A Little of everything'];
-  const religionOptions = ['Hinduism', 'Sikhism', 'Christianity', 'Jainism', 'Islam', 'Judaism', 'Buddhism', 'Shinto', 'Confucianism', 'Zoroastrianism', 'Others'];
+  // Define options for all fields
+  const options = {
+    maritalStatus: ['Single', 'Divorced', 'Widowed', 'Married', 'Separated'],
+    eatingHabits: ['Vegetarian', 'Non-Vegetarian', 'Vegan', 'Flexitarian', 'Halal', 'Junk Food', 'A Little of Everything'],
+    drinkingHabits: ['Non-Drinker', 'Social Drinker', 'Regular Drinker'],
+    smokingHabits: ['Non-Smoker', 'Occasional Smoker', 'Regular Smoker'],
+    religion: ['Hinduism', 'Sikhism', 'Christianity', 'Jainism', 'Islam', 'Judaism', 'Buddhism', 'Shinto', 'Confucianism', 'Zoroastrianism', 'Others'],
+    physicalStatus: ['Healthy', 'Physically Challenged'],
+    education: ['High School', 'Undergraduate', 'Postgraduate', 'Doctorate'],
+    occupation: ['Software Engineer', 'Doctor', 'Teacher', 'Engineer', 'Nurse', 'Accountant', 'Manager', 'Artist', 'Writer', 'Business Owner', 'Unemployed', 'Others'],
+    // Caste and subcaste options
+    caste: [
+      'Brahmin', 'Kshatriya', 'Vaishya', 'Shudra',
+      'Scheduled Castes', 'Scheduled Tribes', 'Other Backward Classes',
+      'Iyer', 'Iyengar', 'Rajput', 'Maratha', 'Bania', 'Yadav',
+      'Dalit', 'Santhal', 'Gond', 'Others'
+    ],
+    motherTongue:['Other','Hindi',
+      'Bengali',
+      'Telugu',
+      'Marathi',
+      'Tamil',
+      'Urdu',
+      'Gujarati',
+      'Malayalam',
+      'Kannada',
+      'Odia',
+      'Punjabi',
+      'Assamese',
+      'Maithili',
+      'Santali',
+      'Kashmiri',
+      'Dogri',
+      'Manipuri',
+      'Nepali',
+      'Sindhi',
+      'Bodo',
+      'English',
+      'Rajasthani',
+      'Haryanvi',
+      'Bihari',
+      'Angika',
+      'Tulu',
+      'Marwari',
+      'Pahari',
+      'Khandeshi',
+      'Sambalpuri'],
+    haveDosh: ['Yes', 'No', 'Not Sure'],
+    star: [
+      'others','Ashwini', 'Bharani', 'Krittika', 'Rohini', 
+      'Mrigashirsha', 'Ardra', 'Punarvasu', 'Pushya', 
+      'Ashlesha', 'Maghā', 'Pūrva Phalgunī', 'Uttara Phalgunī', 
+      'Hasta', 'Chitra', 'Swati', 'Vishakha', 
+      'Anuradha', 'Jyeshtha', 'Mula', 'Pūrva Ashadha', 
+      'Uttara Ashadha', 'Shravana', 'Dhanishta', 'Shatabhisha', 
+      'Pūrva Bhadrapada', 'Uttara Bhadrapada', 'Revati'
+    ],
+    subcaste: [
+      'others',
+      'Iyer',
+      'Iyengar',
+      'Smartha',
+      'Kashmiri Pandit',
+      'Saraswat',
+      'Maithil',
+      'Rajput',
+      'Maratha',
+      'Khatri',
+      'Sikh',
+      'Bania',
+      'Agarwal',
+      'Gupta',
+      'Khandelwal',
+      'Nishad',
+      'Teli',
+      'Kumhar',
+      'Dhobi',
+      'Barber',
+      'Dalit',
+
+      'Chamar',
+      'Mahaar',
+      'Madiga',
+      'Valmiki',
+      'Gond',
+      'Santhal',
+      'Munda',
+      'Bhil',
+      'Oraon',
+      'Yadav',
+      'Kurmi',
+      'Jat',
+      'Koeri',
+      'Teli',
+
+    ],
+    // Numeric ranges as dropdowns
+    minAge: Array.from({ length: 100 }, (_, i) => i + 1),
+    maxAge: Array.from({ length: 100 }, (_, i) => i + 1),
+    minHeight: Array.from({ length: 100 }, (_, i) => i + 100), // Heights in cm
+    maxHeight: Array.from({ length: 100 }, (_, i) => i + 100), // Heights in cm
+    annualIncome: ['< 20,000', '20,000 - 50,000', '50,000 - 100,000', '> 100,000'],
+  };
 
   useEffect(() => {
     const config = {
@@ -67,14 +168,14 @@ const Preferences = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!/^\d+$/.test(formValues.minAge)) newErrors.minAge = 'Min Age should be a number';
-    if (!/^\d+$/.test(formValues.maxAge)) newErrors.maxAge = 'Max Age should be a number';
-    if (!/^\d+$/.test(formValues.minHeight)) newErrors.minHeight = 'Min Height should be a number';
-    if (!/^\d+$/.test(formValues.maxHeight)) newErrors.maxHeight = 'Max Height should be a number';
+    if (!formValues.minAge) newErrors.minAge = 'Min Age is required';
+    if (!formValues.maxAge) newErrors.maxAge = 'Max Age is required';
+    if (!formValues.minHeight) newErrors.minHeight = 'Min Height is required';
+    if (!formValues.maxHeight) newErrors.maxHeight = 'Max Height is required';
 
     Object.keys(formValues).forEach((key) => {
       if (!formValues[key] && formValues[key] !== '') {
-        newErrors[key] = `${key} is required`;
+        newErrors[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} is required`;
       }
     });
 
@@ -143,29 +244,27 @@ const Preferences = () => {
         Preferences Form
       </Typography>
       <Grid container spacing={2}>
-        {Object.keys(formValues).map((key) => (
-          <Grid item xs={12} sm={6} md={4} key={key}>
+        {Object.keys(formValues).map((key) => {
+          let val=formValues[key]
+              return  <Grid item xs={12} sm={6} md={4} key={key}>
             <TextField
               fullWidth
               name={key}
-              label={key.charAt(0).toUpperCase() + key.slice(1)}
-              value={formValues[key]}
+              label={key === 'minHeight' ? 'Min Height (cm)' : key === 'maxHeight' ? 'Max Height (cm)' : key.charAt(0).toUpperCase() + key.slice(1)}
+              value={val}
               onChange={handleInputChange}
               error={!!errors[key]}
               helperText={errors[key]}
-              select={
-                ['maritalStatus', 'eatingHabits', 'religion'].includes(key)
-              }
+              select
             >
-              {['maritalStatus', 'eatingHabits', 'religion'].includes(key) &&
-                (key === 'maritalStatus' ? maritalStatusOptions : key === 'eatingHabits' ? eatingHabitsOptions : religionOptions).map(option => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
+              {(options[key] || []).map(option => (
+                <MenuItem key={option} value={option}>
+                  {option}
+                </MenuItem>
+              ))}
             </TextField>
           </Grid>
-        ))}
+})}
         <Grid item xs={12}>
           <Button variant="contained" color="primary" type="submit" fullWidth>
             Submit

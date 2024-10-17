@@ -13,7 +13,6 @@ export const matchesUser = createAsyncThunk(
           Authorization: `Bearer ${authInfo.token}`,
         },
       };
-      // Make request to the backend
       const { data } = await RestApi.get("/app/matches", config);
       return data;
     } catch (error) {

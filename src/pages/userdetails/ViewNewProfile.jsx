@@ -222,46 +222,7 @@ const ViewNewProfile = () => {
                     </figure>        </div>
             </section>
 
-            {/* ===== Work & Skills Section ===== */}
-            <section className="work_skills card">
-                {/* ===== Work Container ===== */}
-                <div className="work">
-                    <h1 className="heading">BIO </h1>
-                    <div className="primary">
-                        <h1>About Me</h1>
-                        <span>Primary</span>
-                        <p>{singleUser?.userDetails ? singleUser?.userDetails?.bio : "null"} </p>
-                    </div>
-
-                    {/* <div className="secondary">
-              <h1>Metropolitan <br /> Museum</h1>
-              <span>Secondary</span>
-              <p>S34 E 65th Street <br /> New York, NY 10651-78 156-187-60</p>
-            </div> */}
-                </div>
-
-                {/* ===== Skills Container ===== */}
-                hobbies
-                <div className="skills">
-                    {singleUser?.userDetails && (
-                        <>
-                            <h1 className="heading">HOBBIES</h1>
-                            <ul>
-                                {Array.isArray(singleUser.userDetails.hobbies) ? (
-                                    singleUser?.userDetails?.hobbies?.map((value, index) => (
-                                        <li key={index} style={{ "--i": index }}>{value}</li>
-                                    ))
-                                ) : (
-                                    <li>No hobbies listed.</li>
-                                )}
-                            </ul>
-                        </>
-                    )}
-                </div>
-
-
-            </section>
-
+           
             {/* ===== User Details Sections ===== */}
             <section className="userDetails card">
                 <div className="userName">

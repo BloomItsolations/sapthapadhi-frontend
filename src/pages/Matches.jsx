@@ -31,37 +31,8 @@ export default function Matches() {
           overflow: 'auto',
         }}
       >
-        <Tabs
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'start',
-            flexDirection: 'column',
-            background: '#ffffff',
-            boxShadow: '2px',
-            borderRadius: '6px 6px 0 0',
-          }}
-          value={tabvalue}
-          onChange={handleChange}
-        >
-          <Tab
-            label="Friend Request"
-            sx={{ borderRadius: '6px 6px 0 0', paddingX: 6, paddingY: 0 }}
-            {...a11yProps(0)}
-          />
-         
-          
-        </Tabs>
-        <Divider />
-        <CustomTabPanel value={tabvalue} index={0}>
           <RequestUserPage />
-        </CustomTabPanel>
-        <CustomTabPanel value={tabvalue} index={1}>
-          <RequestAcceptedUserPage />
-        </CustomTabPanel>
-        <CustomTabPanel value={tabvalue} index={2}>
-          <DeniedRequestsPage />
-        </CustomTabPanel>
+      
       </Box>
     </>
   );

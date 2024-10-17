@@ -13,6 +13,8 @@ const HomePage = () => {
   const { matchUser, recUsersList } = useSelector(state => state.user);
   const [filteredMatchUsers, setFilteredMatchUsers] = useState([]);
   const [filteredRecUsers, setFilteredRecUsers] = useState([]);
+  console.log("MatchUser", filteredMatchUsers)
+  console.log("Recommend User", filteredRecUsers)
   useEffect(() => {
     dispatch(recUsers());
     dispatch(matchesUser());
@@ -48,42 +50,21 @@ const HomePage = () => {
     }
   }, [location.search, matchUser, recUsersList]);
 
-  
+
 
   return (
-    <Grid container spacing={1} marginY={4}>
-      {filteredMatchUsers?.length > 0 ? (
-        <Grid item xs={12}>
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            Your Matches
-          </Typography>
-          <SliderContainer>
-            {filteredMatchUsers.map((user, index) => (
-              <SwiperSlide key={index}>
-                <UserCard
-                  key={index + 1}
-                  profilePhoto={user?.profilePhoto ? user?.profilePhoto : "https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg"}
-                  name={user.name}
-                  age={user.age}
-                  height={user.height}
-                  id={user.id}
-                  status={user?.ReceivedRequests[0]?.status ? true : false}
-                />
-              </SwiperSlide>
-            ))}
-          </SliderContainer>
-        </Grid>
-      ) : null}
+    <Grid container spacing={1} marginY={1}>
+    
       {filteredRecUsers?.length > 0 ? (
         <Grid item xs={12}>
-          <Typography variant="h6" sx={{  color: 'primary.main' }}>
-            Recommended Users
+           <Typography variant="p" sx={{ color: 'primary.main', fontSize: '2rem', fontFamily: 'cursive', fontWeight: 'bold', padding: '0px' }}>
+            Recommendetation Profile
           </Typography>
+
           <SliderContainer>
             {filteredRecUsers.map((user, index) => {
-              let primage=  user?.profilePhoto ?  `${process.env.REACT_APP_IMASE_BASE_URL}/${JSON.parse(user?.profilePhoto)?.path}`: 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'
-              console.log("PrImage",primage);
-               return <SwiperSlide key={index}>
+              let primage = user?.profilePhoto ? `${process.env.REACT_APP_IMASE_BASE_URL}/${JSON.parse(user?.profilePhoto)?.path}` : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'
+              return <SwiperSlide key={index}>
                 <UserCard
                   key={index + 1}
                   profilePhoto={primage}
@@ -94,7 +75,31 @@ const HomePage = () => {
                   status={user?.ReceivedRequests && user?.ReceivedRequests[0]?.status ? true : false}
                 />
               </SwiperSlide>
-})}
+            })}
+          </SliderContainer>
+        </Grid>
+      ) : null}
+        {filteredMatchUsers?.length > 0 ? (
+        <Grid item xs={12} marginTop={3}>
+          <Typography variant="p" sx={{ color: 'primary.main', fontSize: '2rem', fontFamily: 'cursive', fontWeight: 'bold', padding: '0px' }}>
+            Profile Based on Your Preference
+          </Typography>
+
+          <SliderContainer>
+            {filteredMatchUsers.map((user, index) => {
+              let primage = user?.profilePhoto ? `${process.env.REACT_APP_IMASE_BASE_URL}/${JSON.parse(user?.profilePhoto)?.path}` : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'
+              return <SwiperSlide key={index}>
+                <UserCard
+                  key={index + 1}
+                  profilePhoto={primage}
+                  name={user.name}
+                  age={user.age}
+                  height={user.height}
+                  id={user.id}
+                  status={user?.ReceivedRequests && user?.ReceivedRequests[0]?.status ? true : false}
+                />
+              </SwiperSlide>
+            })}
           </SliderContainer>
         </Grid>
       ) : null}
