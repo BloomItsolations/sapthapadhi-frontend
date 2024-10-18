@@ -37,7 +37,7 @@ const ViewNewProfile = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const { singleUser, loading } = useSelector(state => state.user);
-    console.log("Single User",singleUser);
+    console.log("Single User", singleUser);
 
     useEffect(() => {
         dispatch(singleUserDetails(id))
@@ -214,15 +214,21 @@ const ViewNewProfile = () => {
                 <div className="profile">
                     <figure>
                         <img
-                            src={singleUser?.userDetails?.profilePhoto ? `${process.env.REACT_APP_IMASE_BASE_URL}/${JSON.parse(singleUser?.userDetails?.profilePhoto)?.path}` : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'  }
-                            alt="profile"
+
+                            src={
+                                typeof singleUser?.userDetails?.profilePhoto === "string"
+                                    ? singleUser?.userDetails?.profilePhoto
+                                    : singleUser?.userDetails?.profilePhoto?.path
+                                        ? `${process.env.REACT_APP_IMASE_BASE_URL}/${singleUser.userDetails.profilePhoto.path}`
+                                        : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'
+                            } alt="profile"
                             width="250"
                             height="250"
                         />
                     </figure>        </div>
             </section>
 
-           
+
             {/* ===== User Details Sections ===== */}
             <section className="userDetails card">
                 <div className="userName">

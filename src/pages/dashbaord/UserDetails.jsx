@@ -58,7 +58,6 @@ const UserDetails = ({ userDetails, onSave }) => {
 
   console.log('userDetails', userDetails);
   if (userDetails?.profilePhoto) {
-    console.log("Profile Photo", JSON.parse(userDetails?.profilePhoto)?.path);
 
   }
   useEffect(() => {

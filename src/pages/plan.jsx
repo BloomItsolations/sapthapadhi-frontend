@@ -189,7 +189,7 @@ const Plan = () => {
                     </Box>
                     <ul>
                       {item.features
-                        ? JSON.parse(item?.features)?.map(detail => (
+                        ? item?.features?.map(detail => (
                             <Box
                               sx={{
                                 display: 'flex',

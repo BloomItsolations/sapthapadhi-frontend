@@ -47,7 +47,7 @@ export default function Dashboard() {
    
   // const profileImage =
   //   authInfo.profileImage !== null && authInfo.profileImage[0].path;
-  const profileImage = mydetails?.userDetails?.profilePhoto && JSON.parse(mydetails?.userDetails?.profilePhoto)?.path;
+  const profileImage = mydetails?.userDetails?.profilePhoto && mydetails?.userDetails?.profilePhoto?.path;
 
   return (
     <>

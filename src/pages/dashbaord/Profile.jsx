@@ -35,7 +35,8 @@ export const Profile = () => {
    },[success])
 
   const { mydetails } = useSelector(state => state.user);
-  const profileImage = mydetails?.userDetails?.profilePhoto && JSON.parse(mydetails?.userDetails?.profilePhoto)?.path;
+  const profileImage = mydetails?.userDetails?.profilePhoto && `${process.env.REACT_APP_IMASE_BASE_URL}/${mydetails?.userDetails?.profilePhoto?.path}`;
+  console.log("ProfieImage",profileImage);
   useEffect(() => {
     if (mydetails?.user) {
       setFirstName(mydetails.user.firstName);
@@ -117,7 +118,7 @@ export const Profile = () => {
                 <Avatar
                   alt="Profile Picture"
                   src={
-                    newProfilePic || (image && `${process.env.REACT_APP_IMASE_BASE_URL}/${image}`)
+                    newProfilePic || (image && `${image}`)
                   }
                   sx={{
                     width: 120,

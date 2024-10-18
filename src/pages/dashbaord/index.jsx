@@ -62,9 +62,11 @@ const HomePage = () => {
           </Typography>
 
           <SliderContainer>
-            {filteredRecUsers.map((user, index) => {
-              let primage = user?.profilePhoto ? `${process.env.REACT_APP_IMASE_BASE_URL}/${JSON.parse(user?.profilePhoto)?.path}` : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'
-              return <SwiperSlide key={index}>
+            {filteredRecUsers?.map((user, index) => {
+
+              let primage =typeof user?.profilePhoto == "string" ? user?.profilePhoto : user?.profilePhoto ? `${process.env.REACT_APP_IMASE_BASE_URL}/${user?.profilePhoto?.path}` : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'
+               console.log("Primage",primage);
+            return <SwiperSlide key={index}>
                 <UserCard
                   key={index + 1}
                   profilePhoto={primage}
@@ -87,7 +89,7 @@ const HomePage = () => {
 
           <SliderContainer>
             {filteredMatchUsers.map((user, index) => {
-              let primage = user?.profilePhoto ? `${process.env.REACT_APP_IMASE_BASE_URL}/${JSON.parse(user?.profilePhoto)?.path}` : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'
+              let primage =typeof user?.profilePhoto == "string" ? user?.profilePhoto : user?.profilePhoto ? `${process.env.REACT_APP_IMASE_BASE_URL}/${user?.profilePhoto?.path}` : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'
               return <SwiperSlide key={index}>
                 <UserCard
                   key={index + 1}

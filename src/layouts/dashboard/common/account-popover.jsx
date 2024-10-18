@@ -36,7 +36,7 @@ export default function AccountPopover() {
 
   let myPlan = JSON.parse(localStorage.getItem('myplan'));
   const { mydetails } = useSelector(state => state.user);
-  const profileImage = mydetails?.userDetails?.profilePhoto && JSON.parse(mydetails?.userDetails?.profilePhoto)?.path;
+  const profileImage = mydetails?.userDetails?.profilePhoto && mydetails?.userDetails?.profilePhoto?.path;
 
   const router = useRouter();
   const { authInfo } = useSelector(state => state.auth);
