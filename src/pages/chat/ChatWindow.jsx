@@ -41,7 +41,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
     const { singleUser, loading } = useSelector(state => state.user);
     const { authInfo } = useSelector(state => state.auth);
     const [update, setUpdate] = useState(1);
-   
+      console.log("Single User",singleUser)
     useEffect(() => {
         socket.on("messageiscomming", () => {
             setUpdate(prevUpdate => prevUpdate + 1); 
@@ -91,7 +91,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
     };
     
 
-    const handleSendMessage = async e => {
+    const handleSendMessage = async (e) => {
         e.preventDefault();
         if (newMessage.trim()) {
             socket.emit('sendMessage', { userId, message: newMessage });
@@ -139,21 +139,19 @@ const ChatWindow = ({ userId, onBackClick }) => {
     }
 
     return (
-
         <>
             <div className="conversation-top">
                 <button type="button" className="conversation-back" onClick={onBackClick}>
                     <i className="ri-arrow-left-line" />
                 </button>
                 <div className="conversation-user">
-                   
                     <img
                         className="conversation-user-image"
                         src={
                             singleUser?.userDetails?.profilePhoto
                                 ? typeof singleUser.userDetails.profilePhoto === 'string'
                                     ? singleUser.userDetails.profilePhoto
-                                    : `${process.env.REACT_APP_BaseURL}/${singleUser.userDetails.profilePhoto.path}`
+                                    : `${process.env.REACT_APP_IMASE_BASE_URL}/${singleUser?.userDetails?.profilePhoto?.path}`
                                 : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'
                         }
                         alt=""
@@ -179,7 +177,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
                                     <div className="conversation-item-side">
                                         <img
                                             className="conversation-item-image"
-                                            src={singleUser?.userDetails?.profilePhoto ? singleUser?.userDetails?.profilePhoto : "https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg"}
+                                            src={singleUser?.userDetails?.profilePhoto ? `${process.env.REACT_APP_IMASE_BASE_URL}/${mydetails?.userDetails?.profilePhoto?.path}` : "https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg"}
                                             alt=""
                                         />
                                     </div>
@@ -202,7 +200,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
                                     <div className="conversation-item-side">
                                         <img
                                             className="conversation-item-image"
-                                            src={mydetails?.userDetails?.profilePhoto ? mydetails?.userDetails?.profilePhoto[0].path : "https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg"}
+                                            src={mydetails?.userDetails?.profilePhoto ? `${process.env.REACT_APP_IMASE_BASE_URL}/${mydetails?.userDetails?.profilePhoto?.path}` : "https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg"}
                                             alt=""
                                         />
                                     </div>

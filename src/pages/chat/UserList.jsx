@@ -79,7 +79,7 @@ const UserList = ({ onUserClick }) => {
                                         user.profilePhoto
                                             ? typeof user.profilePhoto === 'string'
                                                 ? user.profilePhoto
-                                                : `${process.env.REACT_APP_BaseURL}/${user.profilePhoto.path}`
+                                                : `${process.env.REACT_APP_IMASE_BASE_URL}/${user.profilePhoto.path}`
                                             : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'
                                     }
                                     alt="User Profile"
