@@ -73,8 +73,9 @@ const Root = styled("div")(({ theme }) => ({
     position: "relative",
   },
   [`& .${classes.image}`]: {
-    width: "100%",
-    height: "auto",
+    width: "100%", 
+    height: "350px", 
+    objectFit: "contain",
     borderRadius: theme.shape.borderRadius,
   },
 }));
@@ -125,9 +126,8 @@ const Gallery = () => {
             PHOTO GALLERY
           </Typography>
           <Typography className={classes.bannerParagraph} variant="body1">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s,
+          Explore our collection of stunning moments captured through the lens. 
+    This gallery showcases memories, creativity, and stories that inspire and connect.
           </Typography>
         </div>
       </Box>
@@ -144,7 +144,8 @@ const Gallery = () => {
             <Card>
               <CardContent>
                 <img
-                  src={`https://sapthapadhi.bloomitsolutions.co.in/${image?.photos[0]?.path}`}
+                  src={`${process.env.REACT_APP_IMASE_BASE_URL}/${image?.photos[0]?.path}`}
+                  // src={`${process.env.REACT_APP_IMASE_BASE_URL}/${image?.photos[0]?.path}`}
                   alt={`Gallery ${index + 1}`}
                   className={classes.image}
                 />

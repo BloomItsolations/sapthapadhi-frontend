@@ -59,9 +59,10 @@ const WelcomePage = () => {
                             gutterBottom
                             sx={{
                                 fontFamily: 'Metal Mania',
-                                fontWeight: 400,
-                                fontSize: { xs: '32px', sm: '48px', md: '64px' },
-                                lineHeight: { xs: '20px', sm: '25px', md: '30px' }
+                                fontWeight: 500,
+                                fontSize: { xs: '32px', sm: '48px', md: '54px' },
+                                lineHeight: { xs: '20px', sm: '25px', md: '30px' },
+                                color:'red'
                             }}
                         >
                             WELCOME TO
@@ -95,7 +96,7 @@ const WelcomePage = () => {
                               bannersList &&  bannersList?.map((value) => (
                                     <Box sx={{ marginTop: '30px', }} >
                                         <img
-                                            src={`https://sapthapadhi.bloomitsolutions.co.in/${value.imageUrls[0].path}`}
+                                            src={`${process.env.REACT_APP_IMASE_BASE_URL}/${value.imageUrls[0].path}`}
                                             alt="Sample"
                                             style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
                                         />

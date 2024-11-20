@@ -114,7 +114,7 @@ const Header = () => {
                   mx: 2,
                   color: theme.palette.text.primary,
                   '&:hover': {
-                    color: theme.palette.text.hover,
+                    color: '#ff4949',
                   },
                 }}
               >
@@ -153,6 +153,11 @@ const Header = () => {
                     color: theme.palette.text.primary,
                     boxShadow: 'none',
                     borderRadius: 6,
+                    border:'1px solid #f95351',
+                    '&:hover':{
+                      backgroundColor:'#f95351',
+                      color: 'white'
+                    }
                   }}
                 >
                   Log in
@@ -164,10 +169,16 @@ const Header = () => {
                   variant="contained"
                   size="medium"
                   sx={{
-                    color: theme.palette.text.primary,
+                    color:'white',
                     boxShadow: 'none',
                     textTransform: 'uppercase',
                     borderRadius: 6,
+                    backgroundColor:'#f95351',
+                    
+                    '&:hover':{
+                      backgroundColor:'#f20a07ed'
+                    }
+
                   }}
                 >
                   Join Now

@@ -243,7 +243,7 @@ const authSlice = createSlice({
       state.error = null;
     },
     logout: (state) => {
-      sessionStorage.removeItem("authInfo"); // Deletes token from storage
+      sessionStorage.removeItem("authInfo"); 
       state.loading = false;
       state.authInfo = null;
       state.error = null;

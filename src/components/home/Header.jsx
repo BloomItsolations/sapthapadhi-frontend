@@ -194,20 +194,26 @@ const Header = () => {
         </TextField>
 
         <Button
-          fullWidth
-          color="secondary"
-          variant="contained"
-          onClick={handleSearch}
-          sx={{
-            color: (theme) => theme.palette.text.primary,
-            boxShadow: "none",
-            textTransform: "uppercase",
-            borderRadius: 1,
-            fontSize: { xs: "14px", sm: "16px" },
-          }}
-        >
-          Let's Begin
-        </Button>
+  fullWidth
+  color="secondary"
+  variant="contained"
+  onClick={handleSearch}
+  sx={{
+    color: (theme) => theme.palette.text.primary,
+    boxShadow: "none",
+    backgroundColor: '#ff4949', // Initial background color
+    textTransform: "uppercase",
+    borderRadius: 1,
+    fontSize: { xs: "14px", sm: "16px" },
+    '&:hover': {
+      backgroundColor: '#d63d3d', // Darker shade for the hover effect
+      boxShadow: "none", // Optional: if you want to remove the box-shadow on hover
+    },
+  }}
+>
+  Let's Begin
+</Button>
+
       </Box>
     </Box>
   );

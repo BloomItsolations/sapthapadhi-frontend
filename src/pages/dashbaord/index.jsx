@@ -5,16 +5,18 @@ import { Grid, Typography } from '@mui/material';
 import SliderContainer from '../../components/Slider';
 import UserCard from './UserCard';
 import { SwiperSlide } from 'swiper/react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate=useNavigate();
   const { matchUser, recUsersList } = useSelector(state => state.user);
   const [filteredMatchUsers, setFilteredMatchUsers] = useState([]);
   const [filteredRecUsers, setFilteredRecUsers] = useState([]);
-  console.log("MatchUser", filteredMatchUsers)
-  console.log("Recommend User", filteredRecUsers)
+  const { planList } = useSelector(state => state.plan);
+   let myCurrentPlan=JSON.parse(localStorage.getItem('myplan'));
+   
   useEffect(() => {
     dispatch(recUsers());
     dispatch(matchesUser());
@@ -81,7 +83,60 @@ const HomePage = () => {
           </SliderContainer>
         </Grid>
       ) : null}
-        {filteredMatchUsers?.length > 0 ? (
+
+      {
+        ( myCurrentPlan?.name=="Silver Plan" || !myCurrentPlan) ?<div
+        style={{
+          backgroundColor: "#ffe4e1",
+          border: "1px solid #ff6961",
+          borderRadius: "10px",
+          marginTop:'20px',
+          padding: "20px",
+          width:'100%',
+          textAlign: "center",
+          margin: "20px 0",
+        }}
+      >
+        <Typography
+          variant="h6"
+          sx={{
+            color: "#ff4500",
+            fontWeight: "bold",
+            fontFamily: "Arial, sans-serif",
+            marginBottom: "10px",
+          }}
+        >
+          Limited Features!
+        </Typography>
+        <Typography
+          variant="body1"
+          sx={{
+            color: "#333",
+            fontSize: "1rem",
+            marginBottom: "15px",
+          }}
+        >
+          Upgrade your plan to access premium features and get the best matches
+          tailored to your preferences.
+        </Typography>
+        <button
+          style={{
+            backgroundColor: "#ff4500",
+            color: "#fff",
+            padding: "10px 20px",
+            borderRadius: "5px",
+            border: "none",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+               navigate('/pricing') 
+          }}
+        >
+          Upgrade Your Plan
+        </button>
+      </div> : (
+           <>
+               {filteredMatchUsers?.length > 0 ? (
         <Grid item xs={12} marginTop={3}>
           <Typography variant="p" sx={{ color: 'primary.main', fontSize: '2rem', fontFamily: 'cursive', fontWeight: 'bold', padding: '0px' }}>
             Profile Based on Your Preference
@@ -105,6 +160,10 @@ const HomePage = () => {
           </SliderContainer>
         </Grid>
       ) : null}
+           </>
+        )
+      }
+      
     </Grid>
   );
 };

@@ -63,7 +63,7 @@ const Contact = () => {
           'Authorization': `Bearer ${authInfo?.token}`
         }
       });
-      if (response.data) {
+      if (response?.data) {
         Swal.fire({
           icon: 'success',
           title: 'Success!',
@@ -103,8 +103,7 @@ const Contact = () => {
                     Address
                   </Typography>
                   <Typography marginLeft={"15px"} variant="body2">
-                    123 Main St, City, Country
-                  </Typography>
+                  No 43, 2nd cross, DURGA NAGAR, KERE KODI HOSAKEREHALLI BSK 3RD STAGE BANGALORE 560085                  </Typography>
                 </Box>
               </Box>
               <Box sx={{ display: "flex", marginTop: "20px" }}>
@@ -116,7 +115,7 @@ const Contact = () => {
                     Phone
                   </Typography>
                   <Typography marginLeft={"15px"} variant="body2">
-                    +91 1234567890
+                    +91 9900241088
                   </Typography>
                 </Box>
               </Box>
@@ -129,7 +128,7 @@ const Contact = () => {
                     Email
                   </Typography>
                   <Typography marginLeft={"15px"} variant="body2">
-                    info@example.com
+                    sapthapadhimatrimony.com@gmail.com
                   </Typography>
                 </Box>
               </Box>

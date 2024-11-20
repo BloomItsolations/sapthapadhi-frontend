@@ -16,9 +16,7 @@ const RecentCoupleCard = ({ image, title }) => {
                     <Typography variant="h5" component="div" gutterBottom >
                         {title}
                     </Typography>
-                    <Link href="#" variant="body2" className='border-[3px] border-[#79442D] rounded-bl-[10px] rounded-tr-[10px] px-[10px] py-[5px] text-white ' style={{ color: "white" }}>
-                        MORE DETAILS
-                    </Link>
+                   
                 </CardContent>
             </CardActionArea>
         </Card>)

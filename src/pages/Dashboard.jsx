@@ -152,7 +152,6 @@ export default function Dashboard() {
               </Box>
             </Box>
         
-            {/* Navigation Menu */}
             <Box
               sx={{
                 flexGrow: 1,
@@ -256,5 +255,4 @@ const NavItem = ({ item, active}) => (
     </Typography>
   </Box>
 );
-
 

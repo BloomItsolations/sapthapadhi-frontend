@@ -35,7 +35,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   // Access the auth state from the Redux store
   const { loading, error, success } = useSelector(state => state.auth);
-  let redirectPath = location.state?.from?.pathname || '/app/dashboard';
+  let redirectPath = location.state?.from?.pathname || '/pricing';
   const formik = useFormik({
     initialValues: {
       phone: '',

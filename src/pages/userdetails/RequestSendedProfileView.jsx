@@ -11,8 +11,7 @@ import { clearError, denayRequest, sendRequest, singleUserDetails } from '../../
 const RequestSendedProfileView = () => {
 
     const { success, error } = useSelector(state => state.user);
-    const [activeTab, setActiveTab] = useState('about'); // State for active tab
-
+    const [activeTab, setActiveTab] = useState('about');
 
     useEffect(() => {
         if (success) {
@@ -234,12 +233,12 @@ const RequestSendedProfileView = () => {
             <section className="work_skills card">
                 {/* ===== Work Container ===== */}
                 <div className="work">
-                    <h1 className="heading">BIO </h1>
-                    <div className="primary">
+                    {/* <h1 className="heading">BIO </h1> */}
+                    {/* <div className="primary">
                         <h1>About Me</h1>
                         <span>Primary</span>
                         <p>{singleUser?.userDetails ? singleUser?.userDetails?.bio : "null"} </p>
-                    </div>
+                    </div> */}
 
                     {/* <div className="secondary">
               <h1>Metropolitan <br /> Museum</h1>
@@ -249,8 +248,8 @@ const RequestSendedProfileView = () => {
                 </div>
 
                 {/* ===== Skills Container ===== */}
-                hobbies
-                <div className="skills">
+                {/* hobbies */}
+                {/* <div className="skills">
                     {singleUser?.userDetails && (
                         <>
                             <h1 className="heading">HOBBIES</h1>
@@ -265,7 +264,7 @@ const RequestSendedProfileView = () => {
                             </ul>
                         </>
                     )}
-                </div>
+                </div> */}
 
 
             </section>

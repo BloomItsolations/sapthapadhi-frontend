@@ -11,8 +11,7 @@ import { clearError, denayRequest, sendRequest, singleUserDetails } from '../../
 const NewRequestUserDetails = () => {
 
   const { success, error } = useSelector(state => state.user);
-  const [activeTab, setActiveTab] = useState('about'); // State for active tab
-
+  const [activeTab, setActiveTab] = useState('about');
 
   useEffect(() => {
     if (success) {
@@ -234,12 +233,12 @@ const NewRequestUserDetails = () => {
       <section className="work_skills card">
         {/* ===== Work Container ===== */}
         <div className="work">
-          <h1 className="heading">BIO </h1>
-          <div className="primary">
+          {/* <h1 className="heading">BIO </h1> */}
+          {/* <div className="primary">
             <h1>About Me</h1>
             <span>Primary</span>
             <p>{singleUser?.userDetails ? singleUser?.userDetails?.bio : "null"} </p>
-          </div>
+          </div> */}
 
           {/* <div className="secondary">
               <h1>Metropolitan <br /> Museum</h1>
@@ -249,23 +248,8 @@ const NewRequestUserDetails = () => {
         </div>
 
         {/* ===== Skills Container ===== */}
-        hobbies
-        <div className="skills">
-          {singleUser?.userDetails && (
-            <>
-              <h1 className="heading">HOBBIES</h1>
-              <ul>
-                {Array.isArray(singleUser.userDetails.hobbies) ? (
-                  singleUser?.userDetails?.hobbies?.map((value, index) => (
-                    <li key={index} style={{ "--i": index }}>{value}</li>
-                  ))
-                ) : (
-                  <li>No hobbies listed.</li>
-                )}
-              </ul>
-            </>
-          )}
-        </div>
+        {/* hobbies */}
+        
 
 
       </section>
@@ -299,10 +283,10 @@ const NewRequestUserDetails = () => {
 
         <div className="btns">
           <ul>
-            <li className="flex items-center space-x-2 sm:space-x-3 p-2 sm:p-3 bg-red-600 hover:bg-red-700 text-white rounded-md shadow-md transition-colors duration-300">
+            {/* <li className="flex items-center space-x-2 sm:space-x-3 p-2 sm:p-3 bg-red-600 hover:bg-red-700 text-white rounded-md shadow-md transition-colors duration-300">
               <i className="ri-close-circle-fill text-lg sm:text-xl"></i>
               <button style={{ color: 'white' }} onClick={denayUser} className="text-white font-medium sm:font-semibold text-sm sm:text-base">Deny Interest</button>
-            </li>
+            </li> */}
 
             <li className="flex items-center space-x-2 sm:space-x-3 p-2 sm:p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md shadow-md transition-colors duration-300 mt-2 sm:mt-3">
               <i className="ri-send-plane-fill text-lg sm:text-xl"></i>

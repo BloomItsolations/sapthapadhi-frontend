@@ -184,38 +184,85 @@ const ReviewSection = () => {
           </Box>
 
           {
-            authInfo && <div className='w-[96%] mx-auto'>
-              <TextField
-                id="review-text"
-                label="Write your review"
-                variant="outlined"
-                fullWidth
-                value={reviewText}
-                onChange={(e) => setReviewText(e.target.value)}
-                multiline
-                rows={2}
-                sx={{ marginBottom: '10px',backgroundColor:'white',border:'black 2px',borderRadius:'10px' }}
-              />
-              {/* Star rating input */}
-              <div className={classes.ratingBox}>
-                <Typography variant="subtitle1" sx={{ marginBottom: '10px',color:'black' }}>Rating:</Typography>
-                <Rating
-                  name="star-rating"
-                  value={starRating}
-                  onChange={(event, newValue) => {
-                    setStarRating(newValue);
-                  }}
-                />
-              </div>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleReviewSubmit}
-                sx={{ marginTop: '10px' }}
+            authInfo && 
+            <div style={{ width: '96%', margin: 'auto', marginTop: '20px' }}>
+            <TextField
+              id="review-text"
+              label="Write your review"
+              variant="outlined"
+              fullWidth
+              value={reviewText}
+              onChange={(e) => setReviewText(e.target.value)}
+              multiline
+              rows={3}
+              sx={{
+                marginBottom: '15px',
+                backgroundColor: 'white',
+                border: '1px solid #ccc',
+                borderRadius: '8px',
+                '&:hover': {
+                  borderColor: '#3f51b5',
+                },
+                '&.Mui-focused': {
+                  borderColor: '#3f51b5',
+                },
+                fontSize: {
+                  xs: '14px', // For small devices
+                  sm: '16px', // For larger devices
+                  md: '18px', // For medium devices
+                },
+              }}
+            />
+            <div className={classes.ratingBox}>
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  marginBottom: '10px',
+                  color: 'black',
+                  fontWeight: 'bold',
+                  fontSize: {
+                    xs: '24px', // Smaller font size for mobile
+                    sm: '30px', // For larger devices
+                    md: '40px', // Larger font size for bigger screens
+                  },
+                }}
               >
-                Submit Review
-              </Button>
+                Rating:
+              </Typography>
+              <Rating
+                name="star-rating"
+                value={starRating}
+                onChange={(event, newValue) => setStarRating(newValue)}
+                sx={{
+                  fontSize: {
+                    xs: '2rem', // Smaller stars for mobile
+                    sm: '2.5rem', // Standard size for tablets and larger devices
+                    md: '3rem', // Larger stars for desktop
+                  },
+                }}
+              />
             </div>
+            <Button
+              variant="contained"
+              onClick={handleReviewSubmit}
+              sx={{
+                width: '100%',
+                padding: '12px',
+                borderRadius: '8px',
+                fontSize: {
+                  xs: '14px', // Smaller font for mobile
+                  sm: '16px', // Standard font size for larger screens
+                },
+                backgroundColor: '#ff4b42',
+                '&:hover': {
+                  backgroundColor: '#ba0a0a',
+                },
+              }}
+            >
+              Submit Review
+            </Button>
+          </div>
+          
           }
 
         </motion.div>

@@ -26,7 +26,7 @@ export const Profile = () => {
          if(success){
           Swal.fire({
             icon: 'success',
-            title: 'Registration Successful',
+            title: 'Profile Updated Successful',
             text: success,
           });
           dispatch(clearError());

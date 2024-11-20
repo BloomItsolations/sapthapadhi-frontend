@@ -1,11 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import RecentCoupleCard from './RecentCoupleCard';
 import { Box, Typography } from '@mui/material';
 import Slider from 'react-slick';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import RestApi from '../../api/RestApi';
 
 const RecentCouple = () => {
+  const [couple, setCouple] = useState([]);
+
+  useEffect(() => {
+    fetchCouple();
+  }, []);
+
+  async function fetchCouple() {
+    try {
+      const response = await RestApi.get('/admin/couples')
+      
+      if(response.status==200){
+        setCouple(response?.data?.couples); 
+      }
+    } catch (error) {
+      console.error('Error fetching couple data:', error);
+    }
+  }
+  console.log("Couple couple couple",couple);
   const settings = {
     dots: true,
     infinite: true,
@@ -42,27 +61,25 @@ const RecentCouple = () => {
   return (
     <Box sx={{ padding: '20px', backgroundColor: '#f5f5f5' }}>
       <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-       
         <Typography
-            sx={{
-              borderRadius: '0px 10px 0 10px',
-              display: 'flex',
-              justifyContent: 'center',
-              marginInline: 'auto',
-              border: '1px solid black',
-              width: { xs: 'auto', sm: '300px', md: '526px' },
-              fontSize: { xs: '25px', md: '40px' },
-              fontFamily: 'Cabin',
-              color: '#e5026b',
-              textAlign: 'center',
-              boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-            }}
-            variant="h4"
-            component="div"
-          >
-                  RECENT COUPLES
-          </Typography>
-     
+          sx={{
+            borderRadius: '0px 10px 0 10px',
+            display: 'flex',
+            justifyContent: 'center',
+            marginInline: 'auto',
+            border: '1px solid black',
+            width: { xs: 'auto', sm: '300px', md: '526px' },
+            fontSize: { xs: '25px', md: '40px' },
+            fontFamily: 'Cabin',
+            color: '#e5026b',
+            textAlign: 'center',
+            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+          }}
+          variant="h4"
+          component="div"
+        >
+          RECENT COUPLES
+        </Typography>
       </Box>
       <Box
         ref={ref}
@@ -85,9 +102,13 @@ const RecentCouple = () => {
           variants={variants}
         >
           <Slider {...settings}>
-            <RecentCoupleCard image="images/recentcouple.jpg" title="Nitya & Naveen" />
-            <RecentCoupleCard image="images/recentcoupletwo.jpg" title="Nitya & Naveen" />
-            <RecentCoupleCard image="images/recentcouple.jpg" title="Nitya & Naveen" />
+            {couple?.map((item, index) => (
+              <RecentCoupleCard
+                key={index}
+                image={`${process.env.REACT_APP_IMASE_BASE_URL}/${item.image[0].path}`} 
+                title={`${item.brideName} & ${item.groomName}`} 
+              />
+            ))}
           </Slider>
         </motion.div>
       </Box>

@@ -46,7 +46,7 @@ const Plan = () => {
   const { planList } = useSelector(state => state.plan);
   const { authInfo } = useSelector(state => state.auth);
   //razorpay
-   
+     console.log("PlanList",planList)
    console.log("PlanList",planList);
 
   const displayRazorpay = async (e, item) => {
@@ -181,14 +181,14 @@ const Plan = () => {
                       }}
                     >
                       <Typography variant="h2" color="text.primary">
-                        &#x20b9;{item.amount}
+                        &#x20b9;{item?.amount}
                       </Typography>
                       <Typography variant="body1" color="text.secondary">
-                        /&nbsp;{item.planValidity}
+                        /&nbsp;{item?.planValidity}
                       </Typography>
                     </Box>
                     <ul>
-                      {item.features
+                      {item?.features
                         ? item?.features?.map(detail => (
                             <Box
                               sx={{
@@ -239,10 +239,14 @@ const Plan = () => {
                       fullWidth
                       onClick={e => displayRazorpay(e, item)}
                       sx={{
-                        color: theme.palette.text.info,
+                        color: 'white',
                         boxShadow: 'none',
                         textTransform: 'uppercase',
                         borderRadius: 6,
+                        backgroundColor:'#2563eb',
+                        '&:hover':{
+                          backgroundColor:'#1852d1'
+                        }
                       }}
                     >
                       GET Started
