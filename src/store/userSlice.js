@@ -25,6 +25,31 @@ export const matchesUser = createAsyncThunk(
   }
 );
 
+
+export const getAllUsers = createAsyncThunk(
+  "user/matchUser",
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const { authInfo } = getState().auth;
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authInfo.token}`,
+        },
+      };
+      const { data } = await RestApi.get("/app/matches", config);
+      return data;
+    } catch (error) {
+      // Return custom error message from the API if any
+      if (error.response && error.response.data.error) {
+        // return rejectWithValue(error.response.data.error);
+      }
+      // return rejectWithValue(error.message);
+    }
+  }
+);
+
+
 export const getAllCouple = createAsyncThunk(
   "all/couple",
   async (_, { getState, rejectWithValue }) => {
@@ -362,6 +387,29 @@ export const acceptedUser = createAsyncThunk(
 );
 
 
+export const getAllUseres = createAsyncThunk(
+  "get/Users",
+  async (id, { getState, rejectWithValue }) => {
+    console.log("gettt all user is comming..")
+    try {
+      const { authInfo } = getState()?.auth;
+
+      const response = await RestApi.get(
+        `/app/getAllUserProfile?id=${authInfo?.userId}`,
+      );
+      const { data } = response;
+      return data;
+
+    } catch (error) {
+      console.log("Error", error)
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data.message);
+      }
+      return rejectWithValue(error.message);
+    }
+  }
+)
+
 
 // Auth slice with initial state
 const userSlice = createSlice({
@@ -376,7 +424,7 @@ const userSlice = createSlice({
     accepteReqUserList: null,
     //this is for downline users
     uplinePayouts: null,
-    downline: null,
+    allUsers: null,
     friendList: null,
     incomeHistory: null,
     payouts: null,
@@ -406,6 +454,24 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = payload;
       })
+
+      //get All Users details,
+
+      .addCase(getAllUseres.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.success = false;
+      })
+      .addCase(getAllUseres.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.allUsers = payload;
+      })
+      .addCase(getAllUseres.rejected, (state, { payload }) => {
+        state.loading = false;
+       
+      })
+      
+      
       //get All couple
       .addCase(getAllCouple.pending, (state) => {
         state.loading = true;
@@ -421,7 +487,6 @@ const userSlice = createSlice({
         state.error = payload;
       })
 
-      //My All Friend List
       .addCase(myfriendlist.pending, (state) => {
         state.loading = true;
         state.error = null;

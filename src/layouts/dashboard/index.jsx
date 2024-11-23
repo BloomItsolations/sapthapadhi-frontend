@@ -15,10 +15,8 @@ export default function DashboardLayout() {
   const [openNav, setOpenNav] = useState(false);
   const navigate = useNavigate();
   const { mydetails } = useSelector(state => state.user);
-   console.log("Muydetails",mydetails?.userDetails)
   useEffect(() => {
      if(mydetails){
-     console.log("isProfileComplete(mydetails?.userDetails)",isProfileComplete(mydetails?.userDetails));
      
       if (!isProfileComplete(mydetails?.userDetails)) {
         Swal.fire({

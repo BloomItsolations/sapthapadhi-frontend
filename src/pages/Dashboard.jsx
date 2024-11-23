@@ -65,7 +65,7 @@ export default function Dashboard() {
             sx={{
               display: 'flex',
               flex: 1,
-              height: '76vh',
+              height: '80vh',
               width: '100%',
               flexDirection: 'column',
               alignItems: 'center',
@@ -137,12 +137,12 @@ export default function Dashboard() {
                       justifyContent: 'center',
                     }}
                   >
-                    <Typography variant="body2" color="primary">
+                    <Typography variant="body2" color="primary" sx={{fontSize:'12px'}}>
                       My Plan:
                     </Typography>
                     <Typography
                       variant="body2"
-                      sx={{ fontWeight: 'medium' }}
+                      sx={{ fontWeight: 'medium',fontSize:'12px' }}
                       color="text.secondary"
                     >
                       {myPlan?.name}

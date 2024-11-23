@@ -3,7 +3,17 @@ import axios from 'axios';
 import { io } from 'socket.io-client';
 import RestApi from '../api/RestApi';
 
-const socket = io(process.env.REACT_APP_BaseURL);
+const socket = io(process.env.REACT_APP_BaseURL, {
+  path: '/backend/socket.io', 
+  transports: ['websocket'], 
+  withCredentials: true, 
+  reconnection: true,
+  reconnectionAttempts: Infinity,
+  reconnectionDelay: 1000,
+  reconnectionDelayMax: 5000,
+  randomizationFactor: 0.5,
+});
+
 
 export const fetchMessages = createAsyncThunk(
   'chat/fetchMessages',

@@ -11,16 +11,20 @@ import './style.css';
 const SliderContainer = ({ children }) => {
   return (
     <Swiper
-      slidesPerView={1}
+      slidesPerView={2}
       spaceBetween={10}
       navigation={true}
       breakpoints={{
+        300: {
+          slidesPerView: 1.5,
+          spaceBetween: 10,
+        },
         440: {
           slidesPerView: 2,
           spaceBetween: 10,
         },
         768: {
-          slidesPerView: 2,
+          slidesPerView: 3.5,
           spaceBetween: 10,
         },
         1024: {

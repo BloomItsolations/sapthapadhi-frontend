@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { clearError, sendRequest } from '../../store/userSlice';
 import Swal from 'sweetalert2';
@@ -7,8 +8,10 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
 
 const UserCard = ({ id, profilePhoto, name, age, height, status }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { success, error } = useSelector(state => state.user);
   const [newStatus, setNewStatus] = useState(status);
+  const { authInfo } = useSelector(state => state.auth);
 
   useEffect(() => {
     if (success) {
@@ -30,6 +33,16 @@ const UserCard = ({ id, profilePhoto, name, age, height, status }) => {
   }, [success, error, dispatch]);
 
   const handleSendRequest = () => {
+    if (!authInfo) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Please Login First",
+      });
+      navigate('/login');
+      return;
+    }
+
     dispatch(sendRequest(id));
     setNewStatus(true);
   };
@@ -37,7 +50,19 @@ const UserCard = ({ id, profilePhoto, name, age, height, status }) => {
   return (
     <div className="flex items-center justify-center bg-gray-200">
       <div className="relative p-6 bg-gray-200 rounded-lg shadow-lg flex flex-col items-center">
-        <Link to={!newStatus ? `/app/userdetails/${id}` : `/app/requested-profile-view/${id}`} style={{ textDecoration: 'none' }}>
+        <Link
+          onClick={(e) => {
+            if (!authInfo) {
+              e.preventDefault();
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please Login First',
+              });
+              navigate('/login');
+            }
+          }}
+          to={!newStatus ? `/app/userdetails/${id}` : `/app/requested-profile-view/${id}`} style={{ textDecoration: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
           <div className="w-36 h-36 rounded-full overflow-hidden flex items-center justify-center bg-gray-300 shadow-inner">
             <img
               src={profilePhoto}
@@ -46,8 +71,26 @@ const UserCard = ({ id, profilePhoto, name, age, height, status }) => {
             />
           </div>
           <div className="mt-4 text-center">
-            <h2 className="text-xl font-semibold text-gray-800">{name}</h2>
-            <p className="text-gray-600">Age: {age} Yrs, Height: {height}</p>
+            <h2
+              className="text-xl font-semibold text-gray-800 truncate"
+              style={{
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              {name}
+            </h2>
+            <p
+              className="text-gray-600 truncate"
+              style={{
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              Age: {age} Yrs, Height: {height}
+            </p>
           </div>
         </Link>
         {/* <div className="flex mt-4 space-x-4">
@@ -56,7 +99,19 @@ const UserCard = ({ id, profilePhoto, name, age, height, status }) => {
           <a href="#" className="text-pink-600 hover:text-pink-800"><FaInstagram /></a>
         </div> */}
         <div className="flex w-full mt-4">
-          <Link className="w-1/2 bg-white flex justify-center items-center text-gray-800 py-1 text-[12px] rounded-lg shadow-md hover:bg-gray-100 text-center" to={!newStatus ? `/app/userdetails/${id}` : `/app/requested-profile-view/${id}`} style={{ textDecoration: 'none' }}>
+          <Link
+            onClick={(e) => {
+              if (!authInfo) {
+                e.preventDefault();
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Please Login First',
+                });
+                navigate('/login');
+              }
+            }}
+            className="w-1/2 bg-white flex justify-center items-center text-gray-800 py-1 text-[12px] rounded-lg shadow-md hover:bg-gray-100 text-center" to={!newStatus ? `/app/userdetails/${id}` : `/app/requested-profile-view/${id}`} style={{ textDecoration: 'none' }}>
             View Profile
           </Link>
           <button

@@ -86,8 +86,7 @@ export default function AccountPopover() {
             sx={{
               width: 36,
               height: 36,
-              border: theme => `solid 2px ${theme.palette.background.default}`,
-              
+              border: theme => `solid 2px ${theme.palette.background.default}`,    
             }}
           ></Avatar>
         )}

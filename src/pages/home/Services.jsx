@@ -26,7 +26,7 @@ const services = [
     description:
       "Transform your event with our stunning decoration services, creating unforgettable atmospheres for every occasion.",
     imageUrl: '/images/decoration.png',
-    slug: 'decoration', // Added slug for URL
+    slug: 'decoration', 
   },
   {
     id: 4,
@@ -42,7 +42,7 @@ const services = [
     description:
       "Elevate your event with our enchanting music and orchestra services, creating a memorable soundscape.",
     imageUrl: '/images/musicandorchestra.png',
-    slug: 'music-or-orchestra', // Added slug for URL
+    slug: 'music-or-orchestra', 
   }
 ];
 
@@ -111,13 +111,19 @@ const Root = styled('div')(({ theme }) => ({
     zIndex: 3,
     padding: theme.spacing(0),
   },
-  [`& .${classes.title}`]: {
+  [`& .${classes.title}`]:{
     fontSize: '1.5rem',
     fontWeight: 'bold',
     marginBottom: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '3rem',
+    },
   },
   [`& .${classes.description}`]: {
     fontSize: '1rem',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '2rem', 
+    },
   },
 }));
 
@@ -168,16 +174,14 @@ const Services = () => {
                     </Typography>
                     <Typography
                       className={classes.description}
-                      variant="body2"
+                      
                       color="inherit"
                     >
                       {service.description}
                     </Typography>
                   </div>
                 </div>
-                <CardContent className={classes.content}>
-
-                </CardContent>
+                <CardContent className={classes.content} />
               </Card>
             </Link>
           </Grid>

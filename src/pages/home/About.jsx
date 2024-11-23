@@ -86,6 +86,7 @@ const About = () => {
             display: 'flex',
             justifyContent: 'center',
             color: '#000',
+            textAlign: 'center',
             fontSize: {
               xs: '18px',
               sm: '23px',
@@ -96,8 +97,8 @@ const About = () => {
             marginTop: '5px',
           }}
         >
-Your trusted partner for seamless and secure matrimonial connections.
-</Typography>
+          Your trusted partner for seamless and secure matrimonial connections.
+        </Typography>
         <Grid
           container
           className={classes.section}
@@ -129,6 +130,7 @@ Your trusted partner for seamless and secure matrimonial connections.
               sx={{
                 color: 'red',
                 fontSize: { xs: '24px', sm: '24px', lg: '32px', xl: '42px' },
+                textAlign:'center'
               }}
             >
               WELCOME TO SAPTHAPADHI
@@ -138,7 +140,8 @@ Your trusted partner for seamless and secure matrimonial connections.
               sx={{
                 color: '#000',
                 marginTop: '20px',
-                fontSize: { xs: '12px', md: '20px' },
+                fontSize: { xs: '22px', md: '20px' },
+                textAlign:'center'
               }}
             >
               Best wedding matrimony It is a long established fact that a reader
@@ -185,129 +188,129 @@ Your trusted partner for seamless and secure matrimonial connections.
         </Typography>
       </div>
       <div className="flex flex-wrap gap-3 justify-around px-6 mt-7 md:mt-16 lg:mt-16 pb-16">
-      <div className="w-[368px] shadow-2xl p-4 rounded-[10px]">
-  <img
-    src="https://media.istockphoto.com/id/1399565382/photo/young-happy-mixed-race-businessman-standing-with-his-arms-crossed-working-alone-in-an-office.jpg?s=612x612&w=0&k=20&c=buXwOYjA_tjt2O3-kcSKqkTp2lxKWJJ_Ttx2PhYe3VM="
-    className="w-[368px] h-[400px] rounded-[5px]"
-    alt="Our Profession Images"
-  />
-  <div className="border-[1px] border-black mx-auto mt-2 text-black rounded-[15px] text-[24px] w-[227px] h-[39px] flex justify-center items-center">
-    Jack Daniel
-  </div>
-  <p className="text-[18px] text-gray-600 text-center mt-2 font-medium">CEO & Founder</p>
-  <p className="text-[16px] text-black px-1 mx-auto mt-4 text-center">
-    Jack has 10+ years of experience in the tech industry and is passionate about bringing people together through innovation.
-  </p>
-</div>
+        <div className="w-[368px] shadow-2xl p-4 rounded-[10px]">
+          <img
+            src="https://media.istockphoto.com/id/1399565382/photo/young-happy-mixed-race-businessman-standing-with-his-arms-crossed-working-alone-in-an-office.jpg?s=612x612&w=0&k=20&c=buXwOYjA_tjt2O3-kcSKqkTp2lxKWJJ_Ttx2PhYe3VM="
+            className="w-[368px] h-[400px] rounded-[5px]"
+            alt="Our Profession Images"
+          />
+          <div className="border-[1px] border-black mx-auto mt-2 text-black rounded-[15px] text-[24px] w-[227px] h-[39px] flex justify-center items-center">
+            Jack Daniel
+          </div>
+          <p className="text-[18px] text-gray-600 text-center mt-2 font-medium">CEO & Founder</p>
+          <p className="text-[16px] text-black px-1 mx-auto mt-4 text-center">
+            Jack has 10+ years of experience in the tech industry and is passionate about bringing people together through innovation.
+          </p>
+        </div>
 
-<div className="w-[368px] shadow-2xl p-4 rounded-[10px]">
-  <img
-    src="https://thumbs.dreamstime.com/b/portrait-male-african-american-professional-possibly-business-executive-corporate-ceo-finance-attorney-lawyer-sales-stylish-155546880.jpg"
-    className="w-[368px] h-[400px] rounded-[5px]"
-    alt="Our Profession Images"
-  />
-  <div className="border-[1px] border-black mx-auto mt-2 text-black rounded-[15px] text-[24px] w-[227px] h-[39px] flex justify-center items-center">
-    Michael Lee
-  </div>
-  <p className="text-[18px] text-gray-600 text-center mt-2 font-medium">Chief Technology Officer</p>
-  <p className="text-[16px] text-black px-1 mx-auto mt-4 text-center">
-    Michael oversees the development and innovation of our platform, ensuring a seamless user experience.
-  </p>
-</div>
+        <div className="w-[368px] shadow-2xl p-4 rounded-[10px]">
+          <img
+            src="https://thumbs.dreamstime.com/b/portrait-male-african-american-professional-possibly-business-executive-corporate-ceo-finance-attorney-lawyer-sales-stylish-155546880.jpg"
+            className="w-[368px] h-[400px] rounded-[5px]"
+            alt="Our Profession Images"
+          />
+          <div className="border-[1px] border-black mx-auto mt-2 text-black rounded-[15px] text-[24px] w-[227px] h-[39px] flex justify-center items-center">
+            Michael Lee
+          </div>
+          <p className="text-[18px] text-gray-600 text-center mt-2 font-medium">Chief Technology Officer</p>
+          <p className="text-[16px] text-black px-1 mx-auto mt-4 text-center">
+            Michael oversees the development and innovation of our platform, ensuring a seamless user experience.
+          </p>
+        </div>
 
-<div className="w-[368px] shadow-2xl p-4 rounded-[10px]">
-  <img
-    src="https://www.shutterstock.com/shutterstock/photos/2122700972/display_1500/stock-photo-image-of-young-asian-woman-company-worker-in-glasses-smiling-and-holding-digital-tablet-standing-2122700972.jpg"
-    className="w-[368px] h-[400px] rounded-[5px]"
-    alt="Our Profession Images"
-  />
-  <div className="border-[1px] border-black mx-auto mt-2 text-black rounded-[15px] text-[24px] w-[227px] h-[39px] flex justify-center items-center">
-    Sophia Wang
-  </div>
-  <p className="text-[18px] text-gray-600 text-center mt-2 font-medium">Head of Marketing</p>
-  <p className="text-[16px] text-black px-1 mx-auto mt-4 text-center">
-    Sophia drives our marketing strategies with creativity and ensures our platform reaches users effectively.
-  </p>
-</div>
+        <div className="w-[368px] shadow-2xl p-4 rounded-[10px]">
+          <img
+            src="https://www.shutterstock.com/shutterstock/photos/2122700972/display_1500/stock-photo-image-of-young-asian-woman-company-worker-in-glasses-smiling-and-holding-digital-tablet-standing-2122700972.jpg"
+            className="w-[368px] h-[400px] rounded-[5px]"
+            alt="Our Profession Images"
+          />
+          <div className="border-[1px] border-black mx-auto mt-2 text-black rounded-[15px] text-[24px] w-[227px] h-[39px] flex justify-center items-center">
+            Sophia Wang
+          </div>
+          <p className="text-[18px] text-gray-600 text-center mt-2 font-medium">Head of Marketing</p>
+          <p className="text-[16px] text-black px-1 mx-auto mt-4 text-center">
+            Sophia drives our marketing strategies with creativity and ensures our platform reaches users effectively.
+          </p>
+        </div>
 
-      
+
       </div>
 
-      <Box sx={{ marginTop: '50px', textAlign: 'center', padding: '20px' }}>
-  <Typography
-    variant="h4"
-    sx={{
-      fontSize: {
-        xs: '20px',
-        sm: '24px',
-        md: '28px',
-        lg: '32px',
-      },
-      fontWeight: 500,
-      marginBottom: '15px',
-      color: 'red',
-    }}
-  >
-    Our Vision
-  </Typography>
-  <Typography
-    variant="body1"
-    sx={{
-      fontSize: {
-        xs: '14px',
-        sm: '16px',
-        md: '18px',
-        lg: '20px',
-      },
-      lineHeight: '1.8',
-      color: '#000',
-      maxWidth: '800px',
-      margin: '0 auto',
-    }}
-  >
-    To be the most trusted and preferred matrimonial platform, bridging 
-    traditions and technology to create meaningful and lasting connections.
-  </Typography>
-</Box>
+      <Box sx={{ marginTop: '20px', textAlign: 'center', padding: '20px' }}>
+        <Typography
+          variant="h4"
+          sx={{
+            fontSize: {
+              xs: '22px',
+              sm: '24px',
+              md: '28px',
+              lg: '32px',
+            },
+            fontWeight: 500,
+            marginBottom: '15px',
+            color: 'red',
+          }}
+        >
+          Our Vision
+        </Typography>
+        <Typography
+          variant="body1"
+          sx={{
+            fontSize: {
+              xs: '20px',
+              sm: '20px',
+              md: '22px',
+              lg: '20px',
+            },
+            lineHeight: '1.8',
+            color: '#000',
+            maxWidth: '800px',
+            margin: '0 auto',
+          }}
+        >
+          To be the most trusted and preferred matrimonial platform, bridging
+          traditions and technology to create meaningful and lasting connections.
+        </Typography>
+      </Box>
 
-{/* Our Mission Section */}
-<Box sx={{ marginTop: '30px', textAlign: 'center', padding: '20px' }}>
-  <Typography
-    variant="h4"
-    sx={{
-      fontSize: {
-        xs: '20px',
-        sm: '24px',
-        md: '28px',
-        lg: '32px',
-      },
-      fontWeight: 500,
-      marginBottom: '15px',
-      color: 'red',
-    }}
-  >
-    Our Mission
-  </Typography>
-  <Typography
-    variant="body1"
-    sx={{
-      fontSize: {
-        xs: '14px',
-        sm: '16px',
-        md: '18px',
-        lg: '20px',
-      },
-      lineHeight: '1.8',
-      color: '#000',
-      maxWidth: '800px',
-      margin: '0 auto',
-    }}
-  >
-    To provide a safe, reliable, and user-friendly platform that upholds 
-    the values of trust, respect, and transparency, helping individuals and 
-    families find their ideal life partners with ease and confidence.
-  </Typography>
-</Box>
+      {/* Our Mission Section */}
+      <Box sx={{ marginTop: '30px', textAlign: 'center', padding: '20px' }}>
+        <Typography
+          variant="h4"
+          sx={{
+            fontSize: {
+              xs: '20px',
+              sm: '24px',
+              md: '28px',
+              lg: '32px',
+            },
+            fontWeight: 500,
+            marginBottom: '15px',
+            color: 'red',
+          }}
+        >
+          Our Mission
+        </Typography>
+        <Typography
+          variant="body1"
+          sx={{
+            fontSize: {
+              xs: '20px',
+              sm: '20px',
+              md: '20px',
+              lg: '20px',
+            },
+            lineHeight: '1.8',
+            color: '#000',
+            maxWidth: '800px',
+            margin: '0 auto',
+          }}
+        >
+          To provide a safe, reliable, and user-friendly platform that upholds
+          the values of trust, respect, and transparency, helping individuals and
+          families find their ideal life partners with ease and confidence.
+        </Typography>
+      </Box>
 
     </>
   );

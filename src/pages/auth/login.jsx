@@ -35,7 +35,11 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   // Access the auth state from the Redux store
   const { loading, error, success } = useSelector(state => state.auth);
-  let redirectPath = location.state?.from?.pathname || '/pricing';
+    let myplan=JSON.parse(localStorage.getItem('myplan'));
+   console.log("MyPlan",myplan)
+  let redirectPath = location.state?.from?.pathname || (myplan?.amount ? '/app/dashboard' :  '/pricing');
+     console.log("redirectPath",redirectPath);
+
   const formik = useFormik({
     initialValues: {
       phone: '',
@@ -84,12 +88,11 @@ export default function LoginPage() {
         sx={{
           minHeight: '100vh',
           margin: 0,
-          backgroundColor: theme.palette.background.paper,
         }}
       >
         <Grid item xs={0} sm={6} md={7}>
           <Box
-            sx={{
+              sx={{
               ...bgGradient({
                 color: alpha(theme.palette.background.default, 0.1),
                 imgUrl: '/assets/background/image1.png',
@@ -114,15 +117,15 @@ export default function LoginPage() {
           >
             <Box
               sx={{
-                p: 4,
+                p: 3,
                 width: 1,
                 maxWidth: 400,
                 textAlign: 'center',
               }}
             >
-              <Logo />
+              {/* <Logo /> */}
               <Typography
-                variant="h4"
+                variant="h3"
                 paddingY={1}
                 textAlign={'center'}
                 sx={{ color: theme => theme.palette.primary.main }}
@@ -216,6 +219,11 @@ export default function LoginPage() {
                 <Button
                   sx={{
                     color: theme.palette.common.white,
+                    fontSize: {
+                      xs: '2.8rem', // Small devices
+                      sm: '2.8rem',   // Medium devices
+                      md: '1.5rem', // Large devices
+                    },
                     backgroundColor: theme.palette.primary.main,
                     '&:hover': {
                       backgroundColor: theme.palette.primary.main,

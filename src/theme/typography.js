@@ -5,7 +5,9 @@ export function remToPx(value) {
 }
 
 export function pxToRem(value) {
-  return `${value / 16}rem`;
+  const base = window.innerWidth < 600 ? 8 : 14; 
+
+  return `${value / base}rem`;
 }
 
 export function responsiveFontSizes({ sm, md, lg }) {
@@ -38,6 +40,7 @@ export const typography = {
     fontWeight: 800,
     lineHeight: 80 / 64,
     fontSize: pxToRem(40),
+    
     ...responsiveFontSizes({ sm: 52, md: 58, lg: 64 }),
   },
   h2: {
@@ -49,8 +52,8 @@ export const typography = {
   h3: {
     fontWeight: 700,
     lineHeight: 1.5,
-    fontSize: pxToRem(24),
-    ...responsiveFontSizes({ sm: 26, md: 30, lg: 32 }),
+    fontSize: pxToRem(28),
+    ...responsiveFontSizes({ sm: 28, md: 30, lg: 32 }),
   },
   h4: {
     fontWeight: 700,

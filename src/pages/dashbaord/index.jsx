@@ -52,12 +52,9 @@ const HomePage = () => {
     }
   }, [location.search, matchUser, recUsersList]);
 
-
-
   return (
     <Grid container spacing={1} marginY={1}>
-    
-      {filteredRecUsers?.length > 0 ? (
+          {filteredRecUsers?.length > 0 ? (
         <Grid item xs={12}>
            <Typography variant="p" sx={{ color: 'primary.main', fontSize: '2rem', fontFamily: 'cursive', fontWeight: 'bold', padding: '0px' }}>
             Recommendetation Profile
@@ -67,7 +64,6 @@ const HomePage = () => {
             {filteredRecUsers?.map((user, index) => {
 
               let primage =typeof user?.profilePhoto == "string" ? user?.profilePhoto : user?.profilePhoto ? `${process.env.REACT_APP_IMASE_BASE_URL}/${user?.profilePhoto?.path}` : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'
-               console.log("Primage",primage);
             return <SwiperSlide key={index}>
                 <UserCard
                   key={index + 1}

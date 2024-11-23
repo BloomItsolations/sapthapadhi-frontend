@@ -32,12 +32,11 @@ const CustomScrollbarBox = styled(Box)(({ theme }) => ({
 const UserList = ({ onUserClick }) => {
     const { friendList, loading } = useSelector((state) => state.user);
     const dispatch = useDispatch();
-    console.log("FriendList",friendList)
     useEffect(() => {
         dispatch(myfriendlist());
     }, [dispatch]);
 
-    if (loading || !friendList) {
+    if(loading || !friendList) {
         return (
             <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
                 <CircularProgress />
@@ -87,9 +86,9 @@ const UserList = ({ onUserClick }) => {
                             </ListItemAvatar>
                             <ListItemText
                                 primary={<Typography variant="body1">{user.firstName}</Typography>}
-                                secondary={<Typography variant="body2" color="textSecondary">check new message...</Typography>}
+                                secondary={<Typography variant="body2" sx={{fontSize:'10px'}} color="textSecondary">check new message...</Typography>}
                             />
-                            <Typography variant="caption" color="textSecondary">12:30</Typography>
+                            {/* <Typography variant="caption" color="textSecondary">12:30</Typography> */}
                         </ListItem>
                     ))}
                    

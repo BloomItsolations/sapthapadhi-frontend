@@ -89,24 +89,21 @@ const WelcomePage = () => {
                             There are many variations of passages of Lorem Ipsum available, but the majority have alteration in some form, by injected humor, or randomized words which don't look even slightly believable.
                         </Typography>
                     </motion.div>
-                    <motion.div ref={imageRef} initial="hidden" animate={imageInView ? 'visible' : 'hidden'} variants={imageVariants}>
-
+                    <motion.div ref={imageRef} initial="hidden" animate={imageInView ? 'visible' : 'hidden'} variants={imageVariants}> 
                         <Slider {...settings}>
                             {
-                              bannersList &&  bannersList?.map((value) => (
-                                    <Box sx={{ marginTop: '30px', }} >
+                              bannersList &&  bannersList?.map((value,index) => (
+                                    <Box key={index} sx={{ marginTop: '30px', }} >
                                         <img
                                             src={`${process.env.REACT_APP_IMASE_BASE_URL}/${value.imageUrls[0].path}`}
                                             alt="Sample"
                                             style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
                                         />
                                     </Box>
-
                                 ))
                             }
                         </Slider>
                     </motion.div>
-
                 </Box>
             </Container>
         </div>

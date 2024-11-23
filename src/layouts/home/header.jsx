@@ -300,8 +300,8 @@ const Header = () => {
             color="secondary"
           >
             <MenuIcon
-              fontSize="medium"
-              sx={{ color: theme.palette.text.primary }}
+               
+               sx={{ color: theme.palette.text.primary, fontSize: '4rem'}}
             />
           </IconButton>
           <Menu

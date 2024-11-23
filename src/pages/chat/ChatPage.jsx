@@ -11,7 +11,6 @@ const ChatPage = () => {
     const navigate=useNavigate();
     const handleUserClick = (user) => {
         setSelectedUser(user);
-        console.log("testing debug", user);
     }
 
     const handleBackClick = () => {
@@ -24,7 +23,7 @@ const ChatPage = () => {
             <div className='mainboxlocker'>
                 <div className="plan-warning-box">
                  <div className="locker-icon">
-                     {/* Add your locker icon here */}
+                    
                      🔒
                  </div>
                  <p>You cannot chat. Please Purchase Gold Plan.</p>

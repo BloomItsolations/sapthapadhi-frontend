@@ -52,7 +52,7 @@ const Root = styled("div")(({ theme }) => ({
     fontWeight: "bold",
     fontFamily: "serif",
     [theme.breakpoints.down("sm")]: {
-      fontSize: "1.5rem",
+      fontSize: "30px",
     },
   },
   [`& .${classes.bannerParagraph}`]: {
@@ -62,7 +62,7 @@ const Root = styled("div")(({ theme }) => ({
     width: "60%",
     marginInline: "auto",
     [theme.breakpoints.down("sm")]: {
-      fontSize: "0.75rem",
+      fontSize: "13px",
       marginBottom: theme.spacing(0),
     },
   },

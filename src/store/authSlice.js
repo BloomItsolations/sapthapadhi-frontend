@@ -56,11 +56,20 @@ export const userLogin = createAsyncThunk(
           "Content-Type": "application/json",
         },
       };
-      // Make request to the backend
+       
       const { data } = await RestApi.post("/auth/userLogin", formData, config);
-
-      // Store user's token in local storage
       sessionStorage.setItem("authInfo", JSON.stringify(data?.userDetails));
+
+      // const configwithtoken = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization:`Bearer ${data?.userDetails.token}`
+      //   },
+      // };
+
+      // const response= await RestApi.get("/app/userPlan", configwithtoken);
+      // localStorage.setItem("myplan", JSON.stringify(response?.data));
+
       return data?.userDetails;
     } catch (error) {
      console.log("Error",error);
@@ -108,7 +117,7 @@ export const updateUserDetails = createAsyncThunk(
           Authorization: `Bearer ${authInfo.token}`,
         },
       };
-      // Make request to the backend
+      
       const  response  = await RestApi.post(
         "app/updateUserProfile",
         formData,
@@ -216,7 +225,7 @@ export const sponserDetails = createAsyncThunk(
       console.log(data);
       return data;
     } catch (error) {
-      // Return custom error message from the API if any
+     
       if (error.response && error.response.data.error) {
         return rejectWithValue(error.response.data.error);
       }

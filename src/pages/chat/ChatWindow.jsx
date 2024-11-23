@@ -8,12 +8,18 @@ import { Box, CircularProgress } from '@mui/material';
 import SelectUserPrompt from './SelectUserPrompt';
 
 
-const socket = io(process.env.REACT_APP_BaseURL, {
 
-    transports: ['websocket']
-  });
+const socket = io('https://sapthapadhimatrimony.in', {
+    path: '/backend/socket.io', 
+    transports: ['websocket'],
+    withCredentials: true,
+    reconnection: true,
+    reconnectionAttempts: Infinity,
+    reconnectionDelay: 1000,
+    reconnectionDelayMax: 5000,
+    randomizationFactor: 0.5,
+});
 
-  
 const ChatWindow = ({ userId, onBackClick }) => {
  
     const mergeMessages = (myMessages, allMessages, myUserId, userId) => {
@@ -41,7 +47,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
     const { singleUser, loading } = useSelector(state => state.user);
     const { authInfo } = useSelector(state => state.auth);
     const [update, setUpdate] = useState(1);
-      console.log("Single User",singleUser)
+      
     useEffect(() => {
         socket.on("messageiscomming", () => {
             setUpdate(prevUpdate => prevUpdate + 1); 
@@ -122,13 +128,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
         setMergeMessage(mergeMessage)
     }, [messages, myMessage])
 
-    // if (loading || !singleUser) {
-    //     return (
-    //         <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
-    //             <CircularProgress />
-    //         </Box>
-    //     );
-    // }
+   
     useEffect(() => {
         scrollToBottom();
     }, [mergeMessage]);
@@ -177,7 +177,7 @@ const ChatWindow = ({ userId, onBackClick }) => {
                                     <div className="conversation-item-side">
                                         <img
                                             className="conversation-item-image"
-                                            src={singleUser?.userDetails?.profilePhoto ? `${process.env.REACT_APP_IMASE_BASE_URL}/${mydetails?.userDetails?.profilePhoto?.path}` : "https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg"}
+                                            src={singleUser?.userDetails?.profilePhoto ? `${process.env.REACT_APP_IMASE_BASE_URL}/${singleUser?.userDetails?.profilePhoto?.path}` : "https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg"}
                                             alt=""
                                         />
                                     </div>

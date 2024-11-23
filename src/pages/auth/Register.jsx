@@ -108,7 +108,7 @@ export default function RegisterPage() {
           justifyContent: 'center',
           alignItems: 'center',
           minHeight: '100vh',
-          paddingY: 16,
+          paddingY: 1,
         }}
       >
         <Stack
@@ -378,10 +378,15 @@ export default function RegisterPage() {
                 </Grid>
               </Grid>
 
-              <Typography>I agree to the terms and conditions</Typography>
               <Button
                 sx={{
                   color: theme.palette.common.white,
+                  marginTop:'10px',
+                  fontSize: {
+                    xs: '2.8rem', 
+                    sm: '2.8rem', 
+                    md: '1.5rem',
+                  },
                   backgroundColor: theme.palette.primary.main,
                   '&:hover': {
                     backgroundColor: theme.palette.primary.main,

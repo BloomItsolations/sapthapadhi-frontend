@@ -56,166 +56,167 @@ const Header = () => {
 
   return (
     <Box
-      sx={{
-        position: "relative",
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        color: "white",
-        textAlign: "center",
-        padding: "20px",
-        overflow: "hidden",
-        "::before": {
-          content: '""',
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          backgroundImage: 'url("images/homepageimage.jpg")',
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          filter: "blur(0.5px)",
-          zIndex: -1,
-        },
-        "::after": {
-          content: '""',
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          backgroundColor: "rgba(0, 0, 0, 0.2)",
-          zIndex: -1,
-        },
-      }}
-    >
-       <Box>
-        <Typography
-          variant="h3"
-          sx={{
-            fontSize: { xs: '24px', sm: '40px', md: '64px' },
-            fontFamily:'Noto Serif',
-            mb: 2,
-            fontWeight: '600'
-          }}
-        >
-          Find your<br />
-          <span style={{ color: 'red',fontSize:'inherit' }}>Right Match</span> here
-        </Typography>
-        <Typography
-          variant="h6"
-          sx={{
-            fontSize: { xs: '16px', sm: '30px', md: '48px' },
-            fontFamily:'Cabin',
-            mb: 4,
-          }}
-        >
-          “One love, one heart, one destiny.”
-        </Typography>
-        
-
-      </Box>
-      <Box
-        sx={{
-          backgroundColor: "#fff",
-          opacity: 0.9,
-          padding: "20px",
-          borderRadius: "8px",
-          display: "flex",
-          flexDirection: { xs: "column", sm: "row" },
-          gap: 2,
-          mb: 2,
-          width: "100%",
-          maxWidth: "1100px",
-          marginTop: "30px",
-        }}
-      >
-        
-        <TextField
-          fullWidth
-          label="Age"
-          name="age"
-          select
-          value={age}
-          onChange={handleChange}
-          variant="outlined"
-        >
-          <MenuItem value="18-25">18-25</MenuItem>
-          <MenuItem value="26-35">26-35</MenuItem>
-          <MenuItem value="36-45">36-45</MenuItem>
-          <MenuItem value="46-60">46-60</MenuItem>
-        </TextField>
-        <TextField
-          fullWidth
-          label="Religion"
-          name="religion"
-          select
-          value={religion}
-          onChange={handleChange}
-          variant="outlined"
-        >
-          <MenuItem value="">Select Your Religion</MenuItem>
-          {[
-            "Hinduism",
-            "Sikhism",
-            "Christianity",
-            "Jainism",
-            "Islam",
-            "Judaism",
-            "Buddhism",
-            "Shinto",
-            "Confucianism",
-            "Zoroastrianism",
-            "Others",
-          ].map((item) => (
-            <MenuItem key={item} value={item}>
-              {item}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          fullWidth
-          label="Location"
-          name="location"
-          select
-          value={location}
-          onChange={handleChange}
-          variant="outlined"
-        >
-          <MenuItem value="">Select Your Country</MenuItem>
-          {country_list?.map((item) => (
-            <MenuItem key={item} value={item}>
-              {item}
-            </MenuItem>
-          ))}
-        </TextField>
-
-        <Button
-  fullWidth
-  color="secondary"
-  variant="contained"
-  onClick={handleSearch}
   sx={{
-    color: (theme) => theme.palette.text.primary,
-    boxShadow: "none",
-    backgroundColor: '#ff4949', // Initial background color
-    textTransform: "uppercase",
-    borderRadius: 1,
-    fontSize: { xs: "14px", sm: "16px" },
-    '&:hover': {
-      backgroundColor: '#d63d3d', // Darker shade for the hover effect
-      boxShadow: "none", // Optional: if you want to remove the box-shadow on hover
+    position: "relative",
+    height: "100vh",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "white",
+    textAlign: "center",
+    padding: "20px",
+    overflow: "hidden",
+    "::before": {
+      content: '""',
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      backgroundImage: 'url("images/homepageimage.jpg")',
+      backgroundSize: { xs: "contain", sm: "cover" }, // Adjust for mobile and larger screens
+      backgroundPosition: { xs: "top center", sm: "center" }, // Adjust position for better fit
+    
+      filter: "blur(0.5px)",
+      zIndex: -1,
+    },
+    "::after": {
+      content: '""',
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      backgroundColor: "rgba(0, 0, 0, 0.2)",
+      zIndex: -1,
     },
   }}
 >
-  Let's Begin
-</Button>
+  <Box>
+    <Typography
+      variant="h3"
+      sx={{
+        fontSize: { xs: "32px", sm: "38px", md: "48px", lg: "64px" },
+        fontFamily: "Noto Serif",
+        mb: 2,
+        fontWeight: "600",
+      }}
+    >
+      Find your<br />
+      <span style={{ color: "red", fontSize: "inherit" }}>Right Match</span> here
+    </Typography>
+    <Typography
+      variant="h6"
+      sx={{
+        fontSize: { xs: "24px", sm: "26px", md: "32px", lg: "40px" },
+        fontFamily: "Cabin",
+        mb: 4,
+      }}
+    >
+      “One love, one heart, one destiny.”
+    </Typography>
+  </Box>
 
-      </Box>
-    </Box>
+  <Box
+    sx={{
+      backgroundColor: "#fff",
+      opacity: 0.9,
+      padding: "20px",
+      borderRadius: "8px",
+      display: "flex",
+      flexDirection: { xs: "column", sm: "row" },
+      gap: 2,
+      mb: 2,
+      width: "100%",
+      maxWidth: "1100px",
+      marginTop: "30px",
+    }}
+  >
+    <TextField
+      fullWidth
+      label="Age"
+      name="age"
+      select
+      value={age}
+      onChange={handleChange}
+      variant="outlined"
+    >
+      <MenuItem value="18-25">18-25</MenuItem>
+      <MenuItem value="26-35">26-35</MenuItem>
+      <MenuItem value="36-45">36-45</MenuItem>
+      <MenuItem value="46-60">46-60</MenuItem>
+    </TextField>
+
+    <TextField
+      fullWidth
+      label="Religion"
+      name="religion"
+      select
+      value={religion}
+      onChange={handleChange}
+      variant="outlined"
+    >
+      <MenuItem value="">Select Your Religion</MenuItem>
+      {[
+        "Hinduism",
+        "Sikhism",
+        "Christianity",
+        "Jainism",
+        "Islam",
+        "Judaism",
+        "Buddhism",
+        "Shinto",
+        "Confucianism",
+        "Zoroastrianism",
+        "Others",
+      ].map((item) => (
+        <MenuItem key={item} value={item}>
+          {item}
+        </MenuItem>
+      ))}
+    </TextField>
+
+    <TextField
+      fullWidth
+      label="Location"
+      name="location"
+      select
+      value={location}
+      onChange={handleChange}
+      variant="outlined"
+    >
+      <MenuItem value="">Select Your Country</MenuItem>
+      {country_list?.map((item) => (
+        <MenuItem key={item} value={item}>
+          {item}
+        </MenuItem>
+      ))}
+    </TextField>
+
+    <Button
+      fullWidth
+      color="secondary"
+      variant="contained"
+      onClick={handleSearch}
+      sx={{
+        color: 'white',
+        boxShadow: "none",
+        backgroundColor: "#ff4949",
+        textTransform: "uppercase",
+        borderRadius: 1,
+        fontSize: { xs: "18px", sm: "20px", md: "22px", lg: "22px" },
+        "&:hover": {
+          backgroundColor: "#d63d3d",
+          boxShadow: "none",
+        },
+      }}
+    >
+      Let's Begin
+    </Button>
+  </Box>
+</Box>
+
   );
 };
 

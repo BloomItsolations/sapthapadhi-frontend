@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { FaInstagram } from 'react-icons/fa';
-import { AiOutlineYoutube } from 'react-icons/ai';
+import { FaInstagram, FaGooglePlay } from 'react-icons/fa';
+import { AiOutlineYoutube, AiFillAndroid } from 'react-icons/ai';
 import { CiFacebook } from 'react-icons/ci';
 import {
   Box,
@@ -11,11 +11,8 @@ import {
   Link,
   Divider,
   IconButton,
-  Button,
 } from '@mui/material';
 import Logo from '../../components/logo';
-import { FaGooglePlay } from 'react-icons/fa';
-import { AiFillAndroid } from 'react-icons/ai';
 
 const Footer = () => {
   const cYear = new Date().getFullYear();
@@ -43,20 +40,38 @@ const Footer = () => {
   return (
     <Box sx={{ backgroundColor: '#000', color: '#fff', py: 5, px: 4 }}>
       <Container maxWidth="xl">
-        <Grid container spacing={2} justifyContent="">
+        <Grid container spacing={4} justifyContent="space-between">
+          {/* Logo and About Section */}
           <Grid item xs={12} sm={6} md={3}>
-            <Logo />
-            <Typography variant="body2">
-              Best wedding matrimony It is a long established fact that a reader
-              will be distracted by the readable content of a page when looking
-              at its layout.
-            </Typography>
+            <Box>
+              <Logo />
+              <Typography
+                variant="body2"
+                sx={{ mt: 2, lineHeight: 1.6, fontSize: '14px' }}
+              >
+                Best wedding matrimony. It is a long established fact that a
+                reader will be distracted by the readable content of a page when
+                looking at its layout.
+              </Typography>
+            </Box>
           </Grid>
+
+          {/* Navigation Links */}
           <Grid item xs={12} sm={6} md={3}>
             {footerNavs.map((item, idx) => (
               <Box key={idx}>
-                <Typography variant="h5">{item.label}</Typography>
-                <ul style={{ listStyle: 'none', padding: 0 }}>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    mb: 2,
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                    fontSize: '16px',
+                  }}
+                >
+                  {item.label}
+                </Typography>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                   {item.items.map((el, idx) => (
                     <li key={idx}>
                       <Link
@@ -64,12 +79,13 @@ const Footer = () => {
                         to={el.to}
                         sx={{
                           color: '#fff',
-                          fontSize: 15,
+                          fontSize: '14px',
                           textDecoration: 'none',
                           '&:hover': {
                             textDecoration: 'underline',
-                            color: '#fff',
                           },
+                          display: 'block',
+                          mb: 1,
                         }}
                       >
                         {el.name}
@@ -81,120 +97,85 @@ const Footer = () => {
             ))}
           </Grid>
 
+          {/* Contact Section */}
           <Grid item xs={12} sm={6} md={3}>
-            <Box
+            <Typography
+              variant="h6"
               sx={{
-                display: 'flex',
-                justifyItems: 'start',
-                alignItems: 'start',
-                flexDirection: 'column',
-                gap: 1,
+                mb: 2,
+                fontWeight: 'bold',
+                textTransform: 'uppercase',
+                fontSize: '16px',
               }}
             >
-              <Typography variant="h5">Contact Us</Typography>
-
+              Contact Us
+            </Typography>
+            <Box>
               <Typography
                 component="a"
                 href="mailto:support@sapthapadhi.in"
-                sx={{ cursor: 'pointer' }}
+                sx={{
+                  fontSize: '14px',
+                  color: '#fff',
+                  textDecoration: 'none',
+                  '&:hover': { textDecoration: 'underline' },
+                  display: 'block',
+                  mb: 1,
+                }}
               >
                 support@sapthapadhi.in
               </Typography>
               <Typography
                 component="a"
                 href="https://api.whatsapp.com/send/?phone=917892222108&text&type=phone_number&app_absent=0"
-                sx={{ cursor: 'pointer' }}
+                sx={{
+                  fontSize: '14px',
+                  color: '#fff',
+                  textDecoration: 'none',
+                  '&:hover': { textDecoration: 'underline' },
+                }}
               >
                 +91 7892222108
               </Typography>
             </Box>
-            <Box sx={{ cursor: 'pointer' }}>
+            <Box sx={{ mt: 2 }}>
               <IconButton
                 href="https://www.instagram.com"
-                sx={{ color: 'black', mr: 1 }}
+                sx={{ color: '#fff', mr: 1 }}
               >
                 <FaInstagram size={20} />
               </IconButton>
               <IconButton
                 href="https://www.facebook.com"
-                sx={{ color: 'black', mr: 1 }}
+                sx={{ color: '#fff', mr: 1 }}
               >
                 <CiFacebook size={22} />
               </IconButton>
               <IconButton
                 href="https://www.youtube.com"
-                sx={{ color: 'black' }}
+                sx={{ color: '#fff' }}
               >
                 <AiOutlineYoutube size={23} />
               </IconButton>
-            </Box>
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={3}>
-            <Box
-              sx={{
-                maxWidth: 345,
-                paddingX: 4,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'start',
-                justifyContent: 'Start',
-                gap: 1,
-              }}
-            >
-              <Box sx={{ display: 'flex', alignItems: 'center', my: 2 }}>
-                <AiFillAndroid size="40" style={{ marginRight: '10px' }} />
-                <Typography gutterBottom variant="h5" component="div">
-                  Get Our App
-                </Typography>
-              </Box>
-              <Button
-                size="large"
-                fullWidth
-                sx={{
-                  backgroundColor: '#fff',
-                  '&:hover, &:focus': {
-                    backgroundColor: '#fff',
-                  },
-                }}
-                startIcon={<FaGooglePlay />}
-                href="https://play.google.com/store/apps/details?id=com.sapthapadhi.sapthapadhi"
-              >
-                Play Store
-              </Button>
-              <Button
-                size="large"
-                startIcon={<AiFillAndroid />}
-                fullWidth
-                sx={{
-                  backgroundColor: '#fff',
-                  '&:hover, &:focus': {
-                    backgroundColor: '#fff',
-                  },
-                }}
-                href="/assets/apk/sapthapadhi.apk"
-                download
-              >
-                APK Download
-              </Button>
             </Box>
           </Grid>
         </Grid>
 
         <Divider sx={{ my: 4, borderColor: '#fff' }} />
 
+        {/* Footer Bottom */}
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'center',
+            justifyContent: 'space-between',
             alignItems: 'center',
-            flexDirection: { xs: 'column', md: 'row' },
-            gap: 1,
+            flexWrap: 'wrap',
           }}
         >
-          <Typography>
-            &copy; {cYear} sapthapadhi. All rights reserved.
+          <Typography sx={{ fontSize: '14px' }}>
+            &copy; {cYear} Sapthapadhi. All rights reserved.
           </Typography>
+        
         </Box>
       </Container>
     </Box>

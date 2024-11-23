@@ -44,7 +44,7 @@ export default function Header({ onOpenNav }) {
     <>
       {!lgUp && (
         <IconButton onClick={onOpenNav} sx={{ mr: 1 }}>
-          <Iconify icon="eva:menu-2-fill" color="primary.main" />
+          <Iconify icon="eva:menu-2-fill" color="primary.main" sx={{fontSize:'3rem'}}  />
         </IconButton>
       )}
       <Box>

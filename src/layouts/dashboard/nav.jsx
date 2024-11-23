@@ -23,7 +23,6 @@ const Nav = ({ openNav, onCloseNav }) => {
     if (openNav) {
       onCloseNav();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   const renderAccount = (
@@ -85,7 +84,7 @@ const Nav = ({ openNav, onCloseNav }) => {
           justifyContent: 'center',
           alignItems: 'center',
           height: 56,
-          py: 2,
+          py: 6,
           px: 2,
         }}
       >

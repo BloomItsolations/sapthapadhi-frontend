@@ -18,7 +18,14 @@ html {
   -webkit-text-decoration: none;
   text-decoration: none;
 }
-
+html {
+  font-size: 16px; /* Adjust as needed */
+}
+@media (max-width: 600px) {
+  html {
+    font-size: 18px; /* Slightly larger font size for small screens */
+  }
+}
 a,
 span,
 p,
