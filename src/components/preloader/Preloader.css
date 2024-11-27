@@ -1,0 +1,82 @@
+#preloader {
+    position: fixed;
+    inset: 0px;
+    background-color: rgb(255, 255, 255);
+    z-index: 99999;
+}
+
+.plod {
+    width: 137px;
+    height: 122px;
+    padding: 0px;
+    margin: 8% auto 0px;
+    position: relative;
+}
+
+.plod span {
+    position: absolute;
+    transition: all 0.4s ease-in-out 0s;
+}
+
+.plod span img {}
+
+.plod .lod1 img {
+    width: 80px;
+}
+
+.plod .lod2 img {
+    width: 40px;
+}
+
+.plod .lod3 img {
+    width: 24px;
+}
+
+.plod .lod1 {
+    left: 0px;
+    top: 26px;
+    animation: 1s ease-in-out 0s 1 normal both running loadltor;
+}
+
+.plod .lod2 {
+    right: 0px;
+    animation: 1s ease-in-out 0s 1 normal both running loadtol;
+    top: 0px;
+}
+
+.plod .lod3 {
+    position: absolute;
+    top: 0px;
+    left: 75px;
+    animation: 0.4s ease-in-out 0.5s 1 normal both running loadheart;
+}
+
+@keyframes loadltor {
+    0% {
+        left: -50px;
+    }
+
+    100% {
+        left: 0px;
+    }
+}
+
+@keyframes loadtol {
+    0% {
+        right: -50px;
+    }
+
+    100% {
+        right: 0px;
+    }
+}
+
+@keyframes loadheart {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
