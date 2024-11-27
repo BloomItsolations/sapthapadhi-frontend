@@ -84,29 +84,30 @@ export default function Dashboard() {
                 m: 2,
                 py: 2,
                 px: 2.5,
-                width: '90%',
+                width: '100%',
                 display: 'flex',
                 flexDirection: 'column',
                 backgroundColor:'#e5e7eb',
                 alignItems: 'center',
                 borderRadius: 2,
                 boxShadow: 1,
+              
                 textAlign: 'center',
               }}
             >
               <Avatar
                 alt={authInfo.name}
                 sx={{
-                  width: 64,
-                  height: 64,
+                  width: 180,
+                  height: 100,
+                  borderRadius:0,
+                  variant:"square",
+                  objectFit:'cover',
                   mb: 2,
                   border: (theme) =>
                     `solid 3px ${theme.palette.background.default}`,
                   transition: '0.3s',
-                  '&:hover': {
-                    transform: 'scale(1.1)',
-                    boxShadow: 3,
-                  },
+                  
                 }}
                 src={
                 `${process.env.REACT_APP_IMASE_BASE_URL}/${profileImage}`

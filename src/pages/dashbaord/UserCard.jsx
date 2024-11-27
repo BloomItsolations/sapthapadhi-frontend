@@ -49,7 +49,7 @@ const UserCard = ({ id, profilePhoto, name, age, height, status }) => {
 
   return (
     <div className="flex items-center justify-center bg-gray-200">
-      <div className="relative p-6 bg-gray-200 rounded-lg shadow-lg flex flex-col items-center">
+      <div className="relative py-3 px-2 rounded-lg gap-3 bg-gray-200  rounded-lg shadow-lg flex justify-between items-center">
         <Link
           onClick={(e) => {
             if (!authInfo) {
@@ -63,13 +63,19 @@ const UserCard = ({ id, profilePhoto, name, age, height, status }) => {
             }
           }}
           to={!newStatus ? `/app/userdetails/${id}` : `/app/requested-profile-view/${id}`} style={{ textDecoration: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-          <div className="w-36 h-36 rounded-full overflow-hidden flex items-center justify-center bg-gray-300 shadow-inner">
+          <div className="w-36  h-36  overflow-hidden flex items-center justify-center bg-gray-300 shadow-inner">
             <img
               src={profilePhoto}
               alt={name}
-              className="w-full h-full object-cover rounded-full"
+              className="w-full h-full object-cover"
             />
           </div>
+
+        </Link>
+
+
+
+        <div className=''>
           <div className="mt-4 text-center">
             <h2
               className="text-xl font-semibold text-gray-800 truncate"
@@ -92,35 +98,30 @@ const UserCard = ({ id, profilePhoto, name, age, height, status }) => {
               Age: {age} Yrs, Height: {height}
             </p>
           </div>
-        </Link>
-        {/* <div className="flex mt-4 space-x-4">
-          <a href="#" className="text-blue-600 hover:text-blue-800"><FaFacebookF /></a>
-          <a href="#" className="text-blue-400 hover:text-blue-600"><FaTwitter /></a>
-          <a href="#" className="text-pink-600 hover:text-pink-800"><FaInstagram /></a>
-        </div> */}
-        <div className="flex w-full mt-4">
-          <Link
-            onClick={(e) => {
-              if (!authInfo) {
-                e.preventDefault();
-                Swal.fire({
-                  icon: 'error',
-                  title: 'Oops...',
-                  text: 'Please Login First',
-                });
-                navigate('/login');
-              }
-            }}
-            className="w-1/2 bg-white flex justify-center items-center text-gray-800 py-1 text-[12px] rounded-lg shadow-md hover:bg-gray-100 text-center" to={!newStatus ? `/app/userdetails/${id}` : `/app/requested-profile-view/${id}`} style={{ textDecoration: 'none' }}>
-            View Profile
-          </Link>
-          <button
-            className="w-1/2 ml-2 bg-blue-600 text-white text-[10px] py-1 rounded-lg shadow-md hover:bg-blue-700"
-            onClick={handleSendRequest}
-            disabled={newStatus}
-          >
-            {newStatus ? 'Requested' : 'Send Request'}
-          </button>
+          <div className="flex w-full mt-4">
+            <Link
+              onClick={(e) => {
+                if (!authInfo) {
+                  e.preventDefault();
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please Login First',
+                  });
+                  navigate('/login');
+                }
+              }}
+              className="w-1/2 bg-white flex justify-center items-center text-gray-800 py-1 text-[12px] rounded-lg shadow-md hover:bg-gray-100 text-center" to={!newStatus ? `/app/userdetails/${id}` : `/app/requested-profile-view/${id}`} style={{ textDecoration: 'none' }}>
+              View Profile
+            </Link>
+            <button
+              className="w-1/2 ml-2 bg-blue-600 text-white text-[10px] py-1 rounded-lg shadow-md hover:bg-blue-700"
+              onClick={handleSendRequest}
+              disabled={newStatus}
+            >
+              {newStatus ? 'Requested' : 'Send Request'}
+            </button>
+          </div>
         </div>
       </div>
     </div>

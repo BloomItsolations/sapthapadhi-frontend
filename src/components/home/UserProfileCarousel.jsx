@@ -21,7 +21,7 @@ const UserProfileCarousel = ({ profiles }) => {
     speed: 500,
     slidesToScroll: 1,
     autoplay: true,
-    slidesToShow: 5, // Number of slides visible at once
+    slidesToShow: 3, // Number of slides visible at once
     responsive: [
       {
         breakpoint: 1024,
