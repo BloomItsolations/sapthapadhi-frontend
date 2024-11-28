@@ -32,13 +32,13 @@ const UserProfileCarousel = ({ profiles }) => {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2, // Adjust for small screens
+          slidesToShow: 1, // Adjust for small screens
         },
       },
       {
         breakpoint: 400,
         settings: {
-          slidesToShow: 1.5, // For very small screens
+          slidesToShow: 1, // For very small screens
         },
       },
     ],

@@ -8,6 +8,7 @@ import { useResponsive } from '../hooks/use-responsive';
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
+import ImageIcon from '@mui/icons-material/Image';
 
 
 import { usePathname } from '../routes/hooks';
@@ -35,6 +36,11 @@ export default function Dashboard() {
       title: 'Preferences',
       path: 'preferences',
       icon: <SettingsIcon />, // Add Settings icon
+    },
+    {
+      title: 'Gallery',
+      path: 'gallery',
+      icon: <ImageIcon />, // Add Settings icon
     },
   ];
   
@@ -74,6 +80,12 @@ export default function Dashboard() {
               borderRadius: 2,
               boxShadow: 3,
               position: 'sticky',
+               overflowY:'hidden',
+              overflowX: 'hidden', 
+              '&:hover': {
+                overflowY: 'auto', 
+              },
+              transition: 'overflow-y 0.3s ease',
               top: '78px',
               padding: 2,
             }}
@@ -103,7 +115,7 @@ export default function Dashboard() {
                   borderRadius:0,
                   variant:"square",
                   objectFit:'cover',
-                  mb: 2,
+                  mb: 1,
                   border: (theme) =>
                     `solid 3px ${theme.palette.background.default}`,
                   transition: '0.3s',
@@ -130,7 +142,7 @@ export default function Dashboard() {
                 {myPlan && (
                   <Box
                     sx={{
-                      mt: 2,
+                      // mt: 2,
                       display: 'flex',
                       alignItems: 'center',
                       gap: 1,

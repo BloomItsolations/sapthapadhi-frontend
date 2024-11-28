@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { matchesUser, recUsers } from '../../store/userSlice';
-import { Grid, Typography } from '@mui/material';
+import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import SliderContainer from '../../components/Slider';
 import UserCard from './UserCard';
 import { SwiperSlide } from 'swiper/react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import dayjs from 'dayjs';
+
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -16,11 +18,17 @@ const HomePage = () => {
   const [filteredRecUsers, setFilteredRecUsers] = useState([]);
   const { planList } = useSelector(state => state.plan);
    let myCurrentPlan=JSON.parse(localStorage.getItem('myplan'));
-   
+   console.log("MYCurrentPlan Name",myCurrentPlan);
   useEffect(() => {
     dispatch(recUsers());
     dispatch(matchesUser());
   }, [dispatch]);
+
+  const calculateExpiryDate = (createdAt, validity) => {
+    const validityMonths = parseInt(validity.split(' ')[0], 10); // Extract the number of months
+    return dayjs(createdAt).add(validityMonths, 'month').format('DD-MM-YYYY');
+  };
+
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -159,6 +167,56 @@ const HomePage = () => {
            </>
         )
       }
+      
+      {myCurrentPlan && (
+        <Box
+          sx={{
+            backgroundColor: '#f0f4f8',
+            padding: '20px',
+            borderRadius: '10px',
+            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+            marginBottom: '20px',
+            width: '100%',
+            marginTop:'40px'
+          }}
+        >
+          <Typography
+            variant="h6"
+            sx={{
+              fontWeight: 'bold',
+              fontSize: '1.2rem',
+              color: 'primary.main',
+              textAlign: 'center',
+              marginBottom: '10px',
+            }}
+          >
+            Current Plan: {myCurrentPlan?.name}
+          </Typography>
+          <Card>
+            <CardContent>
+              <Typography variant="body1" sx={{ fontSize: '1rem', marginBottom: '8px' }}>
+                <strong>Purchase Date:</strong> {dayjs(myCurrentPlan?.createdAt).format('DD-MM-YYYY')}
+              </Typography>
+              <Typography variant="body1" sx={{ fontSize: '1rem', marginBottom: '8px' }}>
+                <strong>Expiry Date:</strong> {calculateExpiryDate(myCurrentPlan.createdAt, myCurrentPlan.planValidity)}   
+
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'secondary.main',
+                  fontStyle: 'italic',
+                  marginTop: '10px',
+                }}
+              >
+                Thank you for subscribing to our service!
+              </Typography>
+            </CardContent>
+          </Card>
+        </Box>
+      )}
+
+
       
     </Grid>
   );

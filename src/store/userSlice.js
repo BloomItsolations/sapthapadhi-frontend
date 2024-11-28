@@ -14,6 +14,7 @@ export const matchesUser = createAsyncThunk(
         },
       };
       const { data } = await RestApi.get("/app/matches", config);
+      
       return data;
     } catch (error) {
       // Return custom error message from the API if any
@@ -80,7 +81,6 @@ export const myfriendlist = createAsyncThunk(
         },
       };
       const response = await RestApi.get("/app/getChatMessages", config);
-      console.log("Responsec",response)
       const { data }=response;
       return data;
     } catch (error) {

@@ -177,7 +177,7 @@ const ReviewSection = () => {
             >
               <Slider {...settings}>
                 {reviews.map((review, index) => (
-                  <ReviewCard review={review} />
+                  <ReviewCard key={index} review={review} />
                 ))}
               </Slider>
             </motion.div>

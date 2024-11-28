@@ -43,12 +43,14 @@ const Root = styled(Card)(({ theme }) => ({
 }));
 
 const ReviewCard = ({ review }) => {
+    console.log("reviewerProfilePic",review);
+
   return (
     <Root className={classes.card}>
       <CardContent>
         <Box className={classes.profile}>
           <Avatar
-            src={review.reviewerProfilePic ? review.reviewerProfilePic : "https://via.placeholder.com/150"}
+            src={review?.reviewerProfilePic ? `${process.env.REACT_APP_IMASE_BASE_URL}/${review.reviewerProfilePic?.path}` : "https://via.placeholder.com/150"}
             className={classes.avatar}
             sx={{ width: "78px", height: "78px" }}
           />

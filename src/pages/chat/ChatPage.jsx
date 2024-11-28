@@ -12,11 +12,9 @@ const ChatPage = () => {
     const handleUserClick = (user) => {
         setSelectedUser(user);
     }
-
     const handleBackClick = () => {
         setSelectedUser(null);
     }
-
     return (
 <>
         {myCurrentPlan?.name !== "Gold Plan" ? (
@@ -50,9 +48,7 @@ const ChatPage = () => {
             </div>
          ) :
         <section className="chat-section">
-            <div className="chat-container">
-                {/* Conditional Box Display for Non-Gold Plans */}
-               
+            <div className="chat-container">   
                 <div className="chat-content">
                     <div className={`content-sidebar flex flex-col ${selectedUser ? "hidden md:block" : ""}`}>
                         <UserList onUserClick={handleUserClick} />

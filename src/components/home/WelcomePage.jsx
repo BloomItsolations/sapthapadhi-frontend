@@ -12,7 +12,7 @@ const WelcomePage = () => {
 
     const dispatch = useDispatch();
     const { bannersList } = useSelector(state => state.banner);
-    console.log("BannerList", bannersList);
+   
     useEffect(() => {
         dispatch(listBanners());
     }, [])

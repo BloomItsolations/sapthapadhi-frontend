@@ -49,283 +49,383 @@ const NewRequestUserDetails = () => {
   };
 
 
-  const renderTabContent = () => {
-    switch (activeTab) {
-      case 'about':
-        return (
-          <>
-            <div className="contact_Info">
-              <ul>
-                <li className="flex  gap-2 items-center">
-                  <h1 className="font-semibold text-[15px] md:text-[20px]">Phone:</h1>
-                  <span className="font-medium">{singleUser?.user?.phone}</span>
-                </li>
-
-                <li className="flex  gap-2 items-center">
-                  <h1 className="font-semibold  text-[15px] md:text-[20px]">Address:</h1>
-                  <span className="font-medium">{singleUser?.userDetails ? `${singleUser?.userDetails?.familyLocation} ${singleUser?.userDetails?.country}` : "null"}
-                  </span>
-                </li>
-
-                <li className="flex  gap-2 items-center">
-                  <h1 className="font-semibold text-[12px] md:text-[20px]">E-mail:</h1>
-                  <span className="font-medium">{singleUser?.user?.email}</span>
-                </li>
-
-
-              </ul>
-            </div>
-
-            <div className="basic_info">
-              <h1 className="heading mt-2">Basic Information</h1>
-              <ul>
-                <li className="flex  gap-x-2 items-center">
-                  <h1 className="font-semibold  text-[20px]">Place of Birth:</h1>
-                  <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.placeOfBirth : "null"}</span>
-                </li>
-
-                <li className="flex  gap-2 items-center">
-                  <h1 className="font-semibold  text-[20px]">Gender:</h1>
-                  <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.gender : "null"}</span>
-                </li>
-              </ul>
-            </div>
-          </>
-        );
-      case 'contact':
-        return (
-          <div className="contact_Info">
-
-            <ul className="space-y-2">
-              <li className="flex  gap-2 items-center">
-                <h2 className="font-semibold  text-[20px] ">Occupation</h2>
-                <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.occupation : "null"}</span>
-              </li>
-              <li className="flex  gap-2 items-center">
-                <h2 className="font-semibold  text-[20px] ">Height</h2>
-                <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.height : "null"}</span>
-              </li>
-              <li className="flex  gap-2 items-center">
-                <h2 className="font-semibold  text-[20px] ">Weight</h2>
-                <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.weight : "null"}</span>
-              </li>
-              <li className="flex  gap-2 items-center">
-                <h2 className="font-semibold  text-[20px] ">Age</h2>
-                <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.age : "null"} Yrs</span>
-              </li>
-              <li className="flex  gap-2 items-center">
-                <h2 className="font-semibold  text-[20px] ">Gender</h2>
-                <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.gender : "null"}</span>
-              </li>
-              <li className="flex  gap-2 items-center">
-                <h2 className="font-semibold  text-[20px] ">Religion</h2>
-                <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.religion : "null"}</span>
-              </li>
-              <li className="flex  gap-2 items-center">
-                <h2 className="font-semibold  text-[20px] ">Highest Education</h2>
-                <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.highestEducation : "null"}</span>
-              </li>
-              <li className="flex  gap-2 items-center">
-                <h2 className="font-semibold  text-[20px] ">Caste</h2>
-                <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.caste : "null"}</span>
-              </li>
-              <li className="flex  gap-2 items-center">
-                <h2 className="font-semibold  text-[20px] ">Annual Income</h2>
-                <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.annualIncome : "null"}</span>
-              </li>
-              <li className="flex  gap-2 items-center">
-                <h2 className="font-semibold  text-[20px] ">Marital Status</h2>
-                <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.maritalStatus : "null"}</span>
-              </li>
-            </ul>
-
-          </div>
-        );
-      case 'other':
-        return (
-          <>
-            <div className="contact_Info">
-
-              <ul className="space-y-2">
-                <li className="flex  gap-2 items-center">
-                  <h2 className=" font-semibold  text-[20px] ">Body Type: </h2>
-                  <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.bodyType : "null"}</span>
-                </li>
-                <li className="flex  gap-2 items-center">
-                  <h2 className="font-semibold  text-[20px] ">Eating Habits</h2>
-                  <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.eatingHabits : "null"}</span>
-                </li>
-                <li className="flex  gap-2 items-center">
-                  <h2 className="font-semibold  text-[20px] ">Star</h2>
-                  <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.star : "null"}</span>
-                </li>
-                <li className="flex  gap-2 items-center">
-                  <h2 className="font-semibold  text-[20px] ">Family Status</h2>
-                  <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.familyStatus : "null"}</span>
-                </li>
-                <li className="flex  gap-2 items-center">
-                  <h2 className="font-semibold  text-[20px] ">Physical Status</h2>
-                  <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.physicalStatus : "null"}</span>
-                </li>
-                <li className="flex  gap-2 items-center">
-                  <h2 className="font-semibold  text-[20px] ">Drinking Habits</h2>
-                  <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.drinkingHabits : "null"}</span>
-                </li>
-                <li className="flex  gap-2 items-center">
-                  <h2 className="font-semibold  text-[20px] ">Zodiac Sign</h2>
-                  <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.zodiacSign : "null"}</span>
-                </li>
-                <li className="flex  gap-2 items-center">
-                  <h2 className="font-semibold  text-[20px] ">Mother Tongue</h2>
-                  <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.motherTongue : "null"}</span>
-                </li>
-                <li className="flex  gap-2 items-center">
-                  <h2 className="font-semibold  text-[20px] ">Smoking Habits</h2>
-                  <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.smokingHabits : "null"}</span>
-                </li>
-                <li className="flex  gap-2 items-center">
-                  <h2 className="font-semibold  text-[20px] ">Gothra</h2>
-                  <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.gothra : "null"}</span>
-                </li>
-                <li className="flex  gap-2 items-center">
-                  <h2 className="font-semibold  text-[20px] ">Have Dosh</h2>
-                  <span className="font-medium">{singleUser?.userDetails ? singleUser?.userDetails?.haveDosh : "no"}</span>
-                </li>
-              </ul>
-
-            </div>
-          </>
-        );
-      default:
-        return null;
-    }
-  };
-
+  
 
   if (loading) {
     return <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
       <CircularProgress />
     </Box>
   }
+
   return (
-    <div className="container" style={{ width: '100%' }}>
+     <>
+     <>
+     <section className="flex flex-col md:flex-row w-full py-4 px-4 md:px-0 space-y-6 md:space-y-0">
+
+         <div className="md:w-1/2 flex flex-col h-[50vh] md:h-[82vh] items-center md:items-start md:px-2">
+             <img
+
+                 src={
+                     typeof singleUser?.userDetails?.profilePhoto === "string"
+                         ? singleUser?.userDetails?.profilePhoto
+                         : singleUser?.userDetails?.profilePhoto?.path
+                             ? `${process.env.REACT_APP_IMASE_BASE_URL}/${singleUser.userDetails.profilePhoto.path}`
+                             : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'
+                 }
+
+                 alt="Profile"
+                 className="rounded-lg w-full h-[90%] object-contain shadow-md"
+             />
+             <div className="flex w-full  flex-wrap justify-center md:justify-start">
+                 <button onClick={handleSendRequest} className="bg-blue-500 text-white w-full rounded-lg mt-3 py-3 md:py-4 text-[24px] md:text-base hover:bg-blue-600">
+                 Accept Request
+                 </button>
+                 {/* <button className="bg-green-500 text-white w-1/2 py-3 md:py-4 text-[24px] md:text-base hover:bg-green-600">
+                     Chat Now
+                 </button> */}
+             </div>
+         </div>
 
 
-      <section className="userProfile card">
-        <div className="profile">
-          <figure>
-            <img
-              src={
-                singleUser?.userDetails?.profilePhoto
-                  ? typeof singleUser.userDetails.profilePhoto === 'string'
-                    ? singleUser.userDetails.profilePhoto
-                    : `${process.env.REACT_APP_BaseURL}/${singleUser.userDetails.profilePhoto.path}`
-                  : 'https://murrayglass.com/wp-content/uploads/2020/10/avatar-2048x2048.jpeg'
-              }
-              alt="profile"
-              width="250"
-              height="250"
-            />
-          </figure>        </div>
-      </section>
+         <div className="md:w-2/3 h-auto md:h-[82vh] overflow-y-auto md:overflow-y-scroll space-y-6 text-gray-800 md:px-2">
+             {/* Basic Info */}
+             <div className="ml-7 mt-7">
+                 <h1 className="text-2xl md:text-3xl font-bold text-blue-700">{singleUser?.user?.firstName} {singleUser?.user?.lastName}</h1>
+                 <p className="text-1xl md:text-2xl font-bold text-blue-700">{singleUser?.userDetails ? singleUser?.userDetails?.familyLocation : "null"} ,  {singleUser?.userDetails ? singleUser?.userDetails?.country : "null"}</p>
+             </div>
+             <div className="space-y-4">
+                 <ul className="space-y-2">
+                     <li
 
-      {/* ===== Work & Skills Section ===== */}
-      <section className="work_skills card">
-        {/* ===== Work Container ===== */}
-        <div className="work">
-          {/* <h1 className="heading">BIO </h1> */}
-          {/* <div className="primary">
-            <h1>About Me</h1>
-            <span>Primary</span>
-            <p>{singleUser?.userDetails ? singleUser?.userDetails?.bio : "null"} </p>
-          </div> */}
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Work:</b> {singleUser?.userDetails ? singleUser?.userDetails?.occupation : "null"}
+                         </p>
+                     </li>
 
-          {/* <div className="secondary">
-              <h1>Metropolitan <br /> Museum</h1>
-              <span>Secondary</span>
-              <p>S34 E 65th Street <br /> New York, NY 10651-78 156-187-60</p>
-            </div> */}
-        </div>
+                     <li
 
-        {/* ===== Skills Container ===== */}
-        {/* hobbies */}
-        
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Location:</b> {singleUser?.userDetails ? `${singleUser?.userDetails?.familyLocation} ${singleUser?.userDetails?.country}` : "null"}
+                         </p>
+                     </li>
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Phone:</b> {singleUser?.user?.phone}
+                         </p>
+                     </li>
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>E-mail:</b> {singleUser?.user?.email}
+                         </p>
+                     </li>
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Place of birth:</b> {singleUser?.userDetails ? singleUser?.userDetails?.placeOfBirth : "null"}
+                         </p>
+                     </li>
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Gender:</b> {singleUser?.userDetails ? singleUser?.userDetails?.gender : ""}
+                         </p>
+                     </li>
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Religion:</b>{singleUser?.userDetails ? singleUser?.userDetails?.religion : "null"}
+                         </p>
+                     </li>
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Education:</b>{singleUser?.userDetails ? singleUser?.userDetails?.highestEducation : "null"}
+                         </p>
+                     </li>
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Caste:</b>{singleUser?.userDetails ? singleUser?.userDetails?.caste : "null"}
+                         </p>
+                     </li>
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Anual Income:</b>{singleUser?.userDetails ? singleUser?.userDetails?.annualIncome : "null"}
+                         </p>
+                     </li>
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Marital Status:</b>{singleUser?.userDetails ? singleUser?.userDetails?.maritalStatus : "null"}
+                         </p>
+                     </li>
+
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Body Type:</b>{singleUser?.userDetails ? singleUser?.userDetails?.bodyType : "null"}
+                         </p>
+                     </li>
+
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Body Type:</b>{singleUser?.userDetails ? singleUser?.userDetails?.bodyType : "null"}
+                         </p>
+                     </li>
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Eating Habbit:</b>{singleUser?.userDetails ? singleUser?.userDetails?.eatingHabits : "null"}
+                         </p>
+                     </li>
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Star:</b>{singleUser?.userDetails ? singleUser?.userDetails?.star : "null"}
+                         </p>
+                     </li>
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Family Status:</b>{singleUser?.userDetails ? singleUser?.userDetails?.familyStatus : "null"}
+                         </p>
+                     </li>
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Physical Status:</b>{singleUser?.userDetails ? singleUser?.userDetails?.physicalStatus : "null"}
+                         </p>
+                     </li>
+
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Drinkin Habbits:</b>{singleUser?.userDetails ? singleUser?.userDetails?.drinkingHabits : "null"}
+                         </p>
+                     </li>
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Zodiac Sign:</b>{singleUser?.userDetails ? singleUser?.userDetails?.zodiacSign : "null"}
+                         </p>
+                     </li>
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Mother Tongue:</b>{singleUser?.userDetails ? singleUser?.userDetails?.motherTongue : "null"}
+                         </p>
+                     </li>
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Smoking Habbit:</b>{singleUser?.userDetails ? singleUser?.userDetails?.smokingHabits : "null"}
+                         </p>
+                     </li>
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Gothra:</b>{singleUser?.userDetails ? singleUser?.userDetails?.gothra : "null"}
+                         </p>
+                     </li>
+                     <li
+
+                         className="p-4 shadow-lg rounded-lg bg-white flex items-center gap-4 text-sm md:text-base"
+                     >
+                         <img
+                             src="https://rn53themes.net/themes/matrimo/images/icon/pro-city.png"
+                             alt={`Icon`}
+                             className="w-10 h-10 object-cover rounded-full"
+                         />
+                         <p className="text-gray-700">
+                             <b>Have Dosh:</b>{singleUser?.userDetails ? singleUser?.userDetails?.haveDosh : "no"}
+                         </p>
+                     </li>
 
 
-      </section>
+                 </ul>
+             </div>
 
-      {/* ===== User Details Sections ===== */}
-      <section className="userDetails card">
-        <div className="userName">
-          <h1 className="name">{singleUser?.user?.firstName} {singleUser?.user?.lastName}</h1>
-          <div className="map">
-            <i className="ri-map-pin-fill ri"></i>
-            <span> {singleUser?.userDetails ? singleUser?.userDetails?.familyLocation : "null"} ,  {singleUser?.userDetails ? singleUser?.userDetails?.country : "null"} </span>
-            </div>
-          <div className='flex gap-1 items-baseline'>
-            <h2 className='text-black font-sans font-bold'>Work : </h2>
-            <p>{singleUser?.userDetails ? singleUser?.userDetails?.occupation : "null"} </p>
-            </div>
+             
+         </div>
+     </section>
 
-        </div>
+     {
+                singleUser?.userDetails?.gallery && <div className="md:px-2">
+                    <h3 className="text-lg md:text-xl font-semibold text-blue-600 ml-3">Photo Gallery</h3>
+                    <div className="flex flex-wrap gap-4 justify-center p-2">
+                        {singleUser?.userDetails?.gallery?.map((img, index) => (
+                            <img
+                                key={index}
+                                src={`${process.env.REACT_APP_IMASE_BASE_URL}/${img}`}
+                                alt={`Gallery ${index}`}
+                                className="w-[45%] sm:w-[30%] md:w-[23%] h-auto object-cover rounded-lg shadow-md"
+                            />
+                        ))}
+                    </div>
+                </div>
 
-        <div className="rank">
-          <h1 className="heading">Rankings</h1>
-          <span>8.6</span>
-          <div className="rating">
-            <i className="ri-star-fill rate"></i>
-            <i className="ri-star-fill rate"></i>
-            <i className="ri-star-fill rate"></i>
-            <i className="ri-star-fill rate"></i>
-            <i className="ri-star-fill rate underrate"></i>
-          </div>
-        </div>
-
-        <div className="btns">
-          <ul>
-            {/* <li className="flex items-center space-x-2 sm:space-x-3 p-2 sm:p-3 bg-red-600 hover:bg-red-700 text-white rounded-md shadow-md transition-colors duration-300">
-              <i className="ri-close-circle-fill text-lg sm:text-xl"></i>
-              <button style={{ color: 'white' }} onClick={denayUser} className="text-white font-medium sm:font-semibold text-sm sm:text-base">Deny Interest</button>
-            </li> */}
-
-            <li className="flex items-center space-x-2 sm:space-x-3 p-2 sm:p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md shadow-md transition-colors duration-300 mt-2 sm:mt-3">
-              <i className="ri-send-plane-fill text-lg sm:text-xl"></i>
-              <button style={{ color: 'white' }} onClick={handleSendRequest} className="text-white font-medium sm:font-semibold text-sm sm:text-base">Accept Interest</button>
-            </li>
-
-          </ul>
-        </div>
-      </section>
-
-      {/* ===== Timeline & About Sections ===== */}
-      <section className="timeline_about card">
-        <div className="tabs">
-          <ul>
-            <li className={activeTab === 'about' ? 'active' : ''} onClick={() => setActiveTab('about')}>
-              <i className="ri-user-3-fill ri"></i>
-              <span className='text-[10px] md:text-[15px] lg:text-[20px] '>Contact Info</span>
-            </li>
-            <li className={activeTab === 'contact' ? 'active' : ''} onClick={() => setActiveTab('contact')}>
-              <i className="ri-eye-fill ri"></i>
-              <span className='text-[10px] md:text-[15px] lg:text-[20px] '>About Us</span>
-            </li>
-            <li className={activeTab === 'other' ? 'active' : ''} onClick={() => setActiveTab('other')}>
-              <i className="ri-user-3-fill ri"></i>
-              <span className='text-[10px] md:text-[15px] lg:text-[20px] '>Other Details</span>
-            </li>
-
-          </ul>
-        </div>
-
-
-        {
-          renderTabContent()
-
-        }
-
-      </section>
-    </div>
-  );
+            }
+ </>
+ </>
+);
 };
 
 export default NewRequestUserDetails;

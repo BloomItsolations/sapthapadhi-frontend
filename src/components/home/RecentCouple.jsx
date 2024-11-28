@@ -24,7 +24,7 @@ const RecentCouple = () => {
       console.error('Error fetching couple data:', error);
     }
   }
-  console.log("Couple couple couple",couple);
+  
   const settings = {
     dots: true,
     infinite: true,

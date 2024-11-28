@@ -9,8 +9,8 @@ import GenuineProfiles from "../../components/home/GenuineProfiles";
 import WorkProcess from "../../components/home/WorkProcess";
 import RecentCouple from "../../components/home/RecentCouple";
 import ReviewSection from "../../components/home/ReviewSection";
+import HomepageGallery from "./HomepageGallery";
 // import WeddingArangeMent from "../../components/home/WeddingArangeMent";
-import Gallery from "../../components/home/Gallery";
 
 const Home = () => {
   return (
@@ -26,7 +26,7 @@ const Home = () => {
       <RecentCouple />
       <ReviewSection />
       {/* <WeddingArangeMent /> */}
-      <Gallery />
+     <HomepageGallery/>
     </>
   );
 };

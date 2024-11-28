@@ -45,11 +45,17 @@ const UserList = ({ onUserClick }) => {
     }
 
     return (
-        <Box sx={{ width: '100%' }}>
+        <Box  sx={{
+            width: '100%',
+            background: {
+              xs: 'white', 
+              sm: 'transparent'
+            }
+        }}>
             <Typography variant="h6" component="div" sx={{ p: 2 }}>
                 Chats
             </Typography>
-            <Box sx={{ px: 2, pb: 2 }}>
+            {/* <Box sx={{ px: 2, pb: 2 }}>
                 <TextField
                     fullWidth
                     variant="outlined"
@@ -58,13 +64,15 @@ const UserList = ({ onUserClick }) => {
                         style: { borderRadius: 30 },
                     }}
                 />
-            </Box>
+            </Box> */}
             <Divider />
             <CustomScrollbarBox>
-                <Typography variant="subtitle2" component="div" sx={{ px: 2, py: 1 }}>
+                {/* <Typography variant="subtitle2" component="div" sx={{ px: 2, py: 1 }}>
                     Recently
-                </Typography>
-                <List>
+                </Typography> */}
+                <List 
+                
+                >
                     {friendList?.map((user) => (
                         <ListItem
                             button
@@ -86,7 +94,7 @@ const UserList = ({ onUserClick }) => {
                             </ListItemAvatar>
                             <ListItemText
                                 primary={<Typography variant="body1">{user.firstName}</Typography>}
-                                secondary={<Typography variant="body2" sx={{fontSize:'10px'}} color="textSecondary">check new message...</Typography>}
+                               
                             />
                             {/* <Typography variant="caption" color="textSecondary">12:30</Typography> */}
                         </ListItem>

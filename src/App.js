@@ -23,6 +23,8 @@ import AcceptedUserDetail from './pages/userdetails/AcceptedUserDetail';
 import RequestSendedProfileView from './pages/userdetails/RequestSendedProfileView';
 import UserValidateRoute from './routes/UserValidateRoute';
 import CollectUserData from './pages/CollectUserData';
+import UserProfilePage from './components/UserProfilePage';
+import GalleryImage from './components/home/Gallery';
 
 const RegisterPage = lazy(() => import('./pages/auth/Register'));
 const LoginPage = lazy(() => import('./pages/auth/login'));
@@ -52,6 +54,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomeLayout />}>
           <Route index element={<Home />} />
+        <Route path="/userprofile" element={<UserProfilePage/>}/>
           <Route path="about" element={<About />} />
           <Route path="pricing" element={<Plan />} />
           <Route path="contact" element={<Contact />} />
@@ -93,6 +96,7 @@ export default function App() {
                 <Route index element={<HomePage />} />
                 <Route path="preferences" element={<Preferences />} />
                 <Route path="settings" element={<Setting />} />
+                <Route path="gallery" element={<GalleryImage />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="profile-setup" element={<CollectUserData />} />
               </Route>
